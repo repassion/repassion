@@ -31,13 +31,8 @@ const RESOURCES = {
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "favicon.png": "2704101cb06ce66e2000356a312be25c",
 "manifest.json": "103c7be9912491fa7ce968426cc3b47b",
-"index.html": "2b75098d6eab9ee8aa26a5507051d94e",
-"/": "2b75098d6eab9ee8aa26a5507051d94e",
-"canvaskit/canvaskit.js": "97937cb4c2c2073c968525a3e08c86a3",
-"canvaskit/profiling/canvaskit.js": "c21852696bc1cc82e8894d851c01921a",
-"canvaskit/profiling/canvaskit.wasm": "371bc4e204443b0d5e774d64a046eb99",
-"canvaskit/canvaskit.wasm": "3de12d898ec208a5f31362cc00f09b9e",
-"flutter.js": "a85fcf6324d3c4d3ae3be1ae4931e9c5",
+"index.html": "bcba0b7432513081b68f5481624bb7b4",
+"/": "bcba0b7432513081b68f5481624bb7b4",
 "version.json": "eeb6ef0f0b438b43b22c9e46763a903a"
 };
 
