@@ -1,12 +1,15 @@
 import '/auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/no_entries_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/flutter_flow/permissions_util.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,6 +34,13 @@ class _ChatWidgetState extends State<ChatWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ChatModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (!(await getPermissionStatus(notificationsPermission))) {
+        await requestPermission(notificationsPermission);
+      }
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -99,24 +109,10 @@ class _ChatWidgetState extends State<ChatWidget> {
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       5.0, 0.0, 0.0, 0.0),
-                                  child: Icon(
-                                    Icons.sort_sharp,
-                                    color: Colors.black,
-                                    size: 35.0,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 5.0, 0.0),
                                   child: InkWell(
                                     onTap: () async {
                                       context.pushNamed(
-                                        'Home',
+                                        'PassionSearch',
                                         extra: <String, dynamic>{
                                           kTransitionInfoKey: TransitionInfo(
                                             hasTransition: true,
@@ -127,12 +123,167 @@ class _ChatWidgetState extends State<ChatWidget> {
                                       );
                                     },
                                     child: Icon(
-                                      Icons.chat_bubble_outline_sharp,
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryColor,
+                                      Icons.library_books_outlined,
+                                      color: Colors.black,
                                       size: 35.0,
                                     ),
                                   ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                StreamBuilder<List<ChatRecord>>(
+                                  stream: queryChatRecord(
+                                    queryBuilder: (chatRecord) =>
+                                        chatRecord.where('sender',
+                                            isEqualTo: currentUserReference),
+                                  ),
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 25.0,
+                                          height: 25.0,
+                                          child: SpinKitRipple(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryBackground,
+                                            size: 25.0,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                    List<ChatRecord> containerChatRecordList =
+                                        snapshot.data!;
+                                    return Container(
+                                      decoration: BoxDecoration(),
+                                      child: FutureBuilder<int>(
+                                        future: queryRequestRecordCount(
+                                          queryBuilder: (requestRecord) =>
+                                              requestRecord
+                                                  .where(
+                                                      'uid2',
+                                                      isEqualTo:
+                                                          currentUserReference)
+                                                  .where('status',
+                                                      isEqualTo: 'pending'),
+                                        ),
+                                        builder: (context, snapshot) {
+                                          // Customize what your widget looks like when it's loading.
+                                          if (!snapshot.hasData) {
+                                            return Center(
+                                              child: SizedBox(
+                                                width: 25.0,
+                                                height: 25.0,
+                                                child: SpinKitRipple(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryBackground,
+                                                  size: 25.0,
+                                                ),
+                                              ),
+                                            );
+                                          }
+                                          int requestsCount = snapshot.data!;
+                                          return Container(
+                                            decoration: BoxDecoration(),
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(5.0, 5.0, 5.0, 5.0),
+                                              child: badges.Badge(
+                                                badgeContent: Text(
+                                                  functions
+                                                      .notificationSum(
+                                                          containerChatRecordList
+                                                              .map((e) => e
+                                                                  .notifications)
+                                                              .withoutNulls
+                                                              .toList(),
+                                                          requestsCount)
+                                                      .toString(),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1Family,
+                                                        color: Colors.white,
+                                                        fontSize: 12.0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyText1Family),
+                                                      ),
+                                                ),
+                                                showBadge: functions
+                                                        .notificationSum(
+                                                            containerChatRecordList
+                                                                .map((e) => e
+                                                                    .notifications)
+                                                                .withoutNulls
+                                                                .toList(),
+                                                            requestsCount)
+                                                        .toString() !=
+                                                    'null',
+                                                shape: badges.BadgeShape.circle,
+                                                badgeColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryColor,
+                                                elevation: 1.0,
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        5.0, 5.0, 5.0, 5.0),
+                                                position: badges.BadgePosition
+                                                    .topEnd(),
+                                                animationType: badges
+                                                    .BadgeAnimationType.scale,
+                                                toAnimate: true,
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 5.0, 0.0),
+                                                  child: InkWell(
+                                                    onTap: () async {
+                                                      context.pushNamed(
+                                                        'Home',
+                                                        extra: <String,
+                                                            dynamic>{
+                                                          kTransitionInfoKey:
+                                                              TransitionInfo(
+                                                            hasTransition: true,
+                                                            transitionType:
+                                                                PageTransitionType
+                                                                    .fade,
+                                                          ),
+                                                        },
+                                                      );
+                                                    },
+                                                    child: Icon(
+                                                      Icons
+                                                          .chat_bubble_outline_sharp,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryColor,
+                                                      size: 35.0,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  },
                                 ),
                                 InkWell(
                                   onTap: () async {
@@ -266,10 +417,10 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                                   width: 25.0,
                                                                   height: 25.0,
                                                                   child:
-                                                                      SpinKitFadingFour(
+                                                                      SpinKitRipple(
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .primaryColor,
+                                                                        .primaryBackground,
                                                                     size: 25.0,
                                                                   ),
                                                                 ),
@@ -278,6 +429,13 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                             List<RequestRecord>
                                                                 columnRequestRecordList =
                                                                 snapshot.data!;
+                                                            if (columnRequestRecordList
+                                                                .isEmpty) {
+                                                              return NoEntriesWidget(
+                                                                text:
+                                                                    'Keine Anfragen.',
+                                                              );
+                                                            }
                                                             return SingleChildScrollView(
                                                               child: Column(
                                                                 mainAxisSize:
@@ -313,8 +471,8 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                                                 SizedBox(
                                                                               width: 25.0,
                                                                               height: 25.0,
-                                                                              child: SpinKitFadingFour(
-                                                                                color: FlutterFlowTheme.of(context).primaryColor,
+                                                                              child: SpinKitRipple(
+                                                                                color: FlutterFlowTheme.of(context).primaryBackground,
                                                                                 size: 25.0,
                                                                               ),
                                                                             ),
@@ -429,6 +587,18 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                                                                   status: 'blocked',
                                                                                                 );
                                                                                                 await columnRequestRecord.reference.update(requestUpdateData);
+
+                                                                                                final userUpdateData1 = {
+                                                                                                  'requests': FieldValue.arrayUnion([
+                                                                                                    containerUserRecord.uid
+                                                                                                  ]),
+                                                                                                };
+                                                                                                await currentUserReference!.update(userUpdateData1);
+
+                                                                                                final userUpdateData2 = {
+                                                                                                  'requests': FieldValue.arrayUnion([currentUserUid]),
+                                                                                                };
+                                                                                                await containerUserRecord.reference.update(userUpdateData2);
                                                                                               },
                                                                                               child: Icon(
                                                                                                 Icons.close_sharp,
@@ -502,7 +672,9 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                                     isEqualTo:
                                                                         currentUserReference)
                                                                 .orderBy(
-                                                                    'order_date'),
+                                                                    'order_date',
+                                                                    descending:
+                                                                        true),
                                                           ),
                                                           builder: (context,
                                                               snapshot) {
@@ -514,10 +686,10 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                                   width: 25.0,
                                                                   height: 25.0,
                                                                   child:
-                                                                      SpinKitFadingFour(
+                                                                      SpinKitRipple(
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .primaryColor,
+                                                                        .primaryBackground,
                                                                     size: 25.0,
                                                                   ),
                                                                 ),
@@ -526,6 +698,13 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                             List<ChatRecord>
                                                                 columnChatRecordList =
                                                                 snapshot.data!;
+                                                            if (columnChatRecordList
+                                                                .isEmpty) {
+                                                              return NoEntriesWidget(
+                                                                text:
+                                                                    'Keine Chats.',
+                                                              );
+                                                            }
                                                             return SingleChildScrollView(
                                                               child: Column(
                                                                 mainAxisSize:
@@ -561,8 +740,8 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                                                 SizedBox(
                                                                               width: 25.0,
                                                                               height: 25.0,
-                                                                              child: SpinKitFadingFour(
-                                                                                color: FlutterFlowTheme.of(context).primaryColor,
+                                                                              child: SpinKitRipple(
+                                                                                color: FlutterFlowTheme.of(context).primaryBackground,
                                                                                 size: 25.0,
                                                                               ),
                                                                             ),
@@ -714,8 +893,8 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                                                                   child: SizedBox(
                                                                                                     width: 25.0,
                                                                                                     height: 25.0,
-                                                                                                    child: SpinKitFadingFour(
-                                                                                                      color: FlutterFlowTheme.of(context).primaryColor,
+                                                                                                    child: SpinKitRipple(
+                                                                                                      color: FlutterFlowTheme.of(context).primaryBackground,
                                                                                                       size: 25.0,
                                                                                                     ),
                                                                                                   ),
@@ -728,7 +907,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                                                                   padding: EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 5.0),
                                                                                                   child: badges.Badge(
                                                                                                     badgeContent: Text(
-                                                                                                      functions.notificationSum(containerChatRecordList.map((e) => e.notifications).withoutNulls.toList()).toString(),
+                                                                                                      functions.notificationSum(containerChatRecordList.map((e) => e.notifications).withoutNulls.toList(), null).toString(),
                                                                                                       style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                                             fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
                                                                                                             color: Colors.white,
@@ -737,7 +916,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                                                                             useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
                                                                                                           ),
                                                                                                     ),
-                                                                                                    showBadge: functions.notificationSum(containerChatRecordList.map((e) => e.notifications).withoutNulls.toList()).toString() != 'null',
+                                                                                                    showBadge: functions.notificationSum(containerChatRecordList.map((e) => e.notifications).withoutNulls.toList(), null).toString() != 'null',
                                                                                                     shape: badges.BadgeShape.circle,
                                                                                                     badgeColor: FlutterFlowTheme.of(context).primaryColor,
                                                                                                     elevation: 1.0,

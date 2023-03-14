@@ -3,13 +3,16 @@ import 'package:from_css_color/from_css_color.dart';
 
 import 'user_record.dart';
 import 'tag_record.dart';
-import 'tagging_record.dart';
 import 'request_record.dart';
 import 'chat_record.dart';
 import 'message_record.dart';
+import 'titles_record.dart';
+import 'passion_record.dart';
+import 'category_record.dart';
 
 import 'index.dart';
 
+export '../algolia/algolia_manager.dart';
 export 'index.dart';
 
 part 'serializers.g.dart';
@@ -19,10 +22,12 @@ const kDocumentReferenceField = 'Document__Reference__Field';
 @SerializersFor(const [
   UserRecord,
   TagRecord,
-  TaggingRecord,
   RequestRecord,
   ChatRecord,
   MessageRecord,
+  TitlesRecord,
+  PassionRecord,
+  CategoryRecord,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())

@@ -217,6 +217,9 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
                                               fontFamily:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyText1Family,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
                                               fontSize: 15.0,
                                               fontWeight: FontWeight.w500,
                                               useGoogleFonts:
@@ -238,40 +241,6 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
                                     MainAxisAlignment.spaceEvenly,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  InkWell(
-                                    onTap: () async {
-                                      GoRouter.of(context).prepareAuthEvent();
-                                      final user =
-                                          await signInWithGoogle(context);
-                                      if (user == null) {
-                                        return;
-                                      }
-
-                                      context.goNamedAuth('Home', mounted);
-                                    },
-                                    child: Container(
-                                      width: 50.0,
-                                      height: 50.0,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            blurRadius: 5.0,
-                                            color: Color(0x3314181B),
-                                            offset: Offset(0.0, 2.0),
-                                          )
-                                        ],
-                                        shape: BoxShape.circle,
-                                      ),
-                                      alignment: AlignmentDirectional(0.0, 0.0),
-                                      child: FaIcon(
-                                        FontAwesomeIcons.google,
-                                        color: Colors.white,
-                                        size: 25.0,
-                                      ),
-                                    ),
-                                  ),
                                   InkWell(
                                     onTap: () async {
                                       GoRouter.of(context).prepareAuthEvent();
@@ -301,6 +270,40 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
                                       alignment: AlignmentDirectional(0.0, 0.0),
                                       child: FaIcon(
                                         FontAwesomeIcons.apple,
+                                        color: Colors.white,
+                                        size: 25.0,
+                                      ),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: () async {
+                                      GoRouter.of(context).prepareAuthEvent();
+                                      final user =
+                                          await signInWithGoogle(context);
+                                      if (user == null) {
+                                        return;
+                                      }
+
+                                      context.goNamedAuth('Home', mounted);
+                                    },
+                                    child: Container(
+                                      width: 50.0,
+                                      height: 50.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            blurRadius: 5.0,
+                                            color: Color(0x3314181B),
+                                            offset: Offset(0.0, 2.0),
+                                          )
+                                        ],
+                                        shape: BoxShape.circle,
+                                      ),
+                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      child: FaIcon(
+                                        FontAwesomeIcons.google,
                                         color: Colors.white,
                                         size: 25.0,
                                       ),

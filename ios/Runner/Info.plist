@@ -13,7 +13,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>repassionNeugemacht</string>
+	<string>repassion</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 
@@ -37,10 +37,10 @@
         <key>CFBundleTypeRole</key>
         <string>Editor</string>
         <key>CFBundleURLName</key>
-        <string>repassionneugemacht.com</string>
+        <string>repassion.com</string>
         <key>CFBundleURLSchemes</key>
         <array>
-        <string>repassionneugemacht</string>
+        <string>repassion</string>
         </array>
         </dict>
     </array>
@@ -54,10 +54,18 @@
 	<true/>
 
 	<key>NSCameraUsageDescription</key>
-    <string>In order to take a picture or video, this app requires permission to access the camera.</string>
+    <string>Wir brauchen deine Berechtigung, damit du Fotos machen kannst.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-    <string>In order to upload media, this app requires permission to access the photo library.</string>
-
+    <string>Wir brauchen deine Berechtigung, damit du Fotos hochladen kannst.</string>
+	<key>PermissionGroupNotification</key>
+    <string>Wir brauchen deine Berechtigung fuer das Senden von Benachrichtigungen.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+    <string>Wir brauchen deine Berechtigung fuer das Bestimmen deiner Position.</string>
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>fetch</string>
+        <string>remote-notification</string>
+    </array>
 
 
 	<key>UILaunchStoryboardName</key>

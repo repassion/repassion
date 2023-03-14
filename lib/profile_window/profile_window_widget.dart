@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_place_picker.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/instant_timer.dart';
 import '/flutter_flow/place.dart';
 import '/flutter_flow/upload_media.dart';
 import 'dart:io';
@@ -13,6 +14,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -38,6 +40,34 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ProfileWindowModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (valueOrDefault(currentUserDocument?.locationAddress, '') != null &&
+          valueOrDefault(currentUserDocument?.locationAddress, '') != '') {
+        await _model.googleMapsController.future.then(
+          (c) => c.animateCamera(
+            CameraUpdate.newLatLng(
+                currentUserDocument!.locationLatlng!.toGoogleMaps()),
+          ),
+        );
+      }
+      _model.instantTimer = InstantTimer.periodic(
+        duration: Duration(milliseconds: 1000),
+        callback: (timer) async {
+          if (_model.standortValue.address != null &&
+              _model.standortValue.address != '') {
+            await _model.googleMapsController.future.then(
+              (c) => c.animateCamera(
+                CameraUpdate.newLatLng(
+                    _model.standortValue.latLng.toGoogleMaps()),
+              ),
+            );
+          }
+        },
+        startImmediately: true,
+      );
+    });
 
     _model.vornameController ??= TextEditingController(
         text: valueOrDefault(currentUserDocument?.firstName, ''));
@@ -904,47 +934,63 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                   height: 250.0,
                                   child: Stack(
                                     children: [
-                                      if ((currentUserDocument!
-                                                  .locationLatlng !=
-                                              null) ||
-                                          (_model.standortValue != null))
-                                        AuthUserStreamWidget(
-                                          builder: (context) => ClipRRect(
+                                      ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(25.0),
+                                        child: Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              1.0,
+                                          height: 250.0,
+                                          decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(25.0),
-                                            child: Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  1.0,
-                                              height: 250.0,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
-                                                borderRadius:
-                                                    BorderRadius.circular(25.0),
-                                              ),
-                                              child: FlutterFlowGoogleMap(
+                                          ),
+                                          child: AuthUserStreamWidget(
+                                            builder: (context) =>
+                                                Builder(builder: (context) {
+                                              final _googleMapMarker = () {
+                                                if (_model.standortValue
+                                                            .address !=
+                                                        null &&
+                                                    _model.standortValue
+                                                            .address !=
+                                                        '') {
+                                                  return _model
+                                                      .standortValue.latLng;
+                                                } else if (valueOrDefault(
+                                                            currentUserDocument
+                                                                ?.locationAddress,
+                                                            '') !=
+                                                        null &&
+                                                    valueOrDefault(
+                                                            currentUserDocument
+                                                                ?.locationAddress,
+                                                            '') !=
+                                                        '') {
+                                                  return currentUserDocument!
+                                                      .locationLatlng;
+                                                } else {
+                                                  return null;
+                                                }
+                                              }();
+                                              return FlutterFlowGoogleMap(
                                                 controller:
                                                     _model.googleMapsController,
                                                 onCameraIdle: (latLng) => _model
                                                     .googleMapsCenter = latLng,
-                                                initialLocation: _model
-                                                    .googleMapsCenter ??= () {
-                                                  if (_model.standortValue !=
-                                                      null) {
-                                                    return _model
-                                                        .standortValue.latLng;
-                                                  } else if (currentUserDocument!
-                                                          .locationLatlng !=
-                                                      null) {
-                                                    return currentUserDocument!
-                                                        .locationLatlng!;
-                                                  } else {
-                                                    return null!;
-                                                  }
-                                                }(),
+                                                initialLocation:
+                                                    _model.googleMapsCenter ??=
+                                                        LatLng(0.0, 0.0),
+                                                markers: [
+                                                  if (_googleMapMarker != null)
+                                                    FlutterFlowMarker(
+                                                      _googleMapMarker
+                                                          .serialize(),
+                                                      _googleMapMarker,
+                                                    ),
+                                                ],
                                                 markerColor:
                                                     GoogleMarkerColor.green,
                                                 mapType: MapType.normal,
@@ -958,10 +1004,11 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                                 showMapToolbar: false,
                                                 showTraffic: false,
                                                 centerMapOnMarkerTap: true,
-                                              ),
-                                            ),
+                                              );
+                                            }),
                                           ),
                                         ),
+                                      ),
                                       Align(
                                         alignment:
                                             AlignmentDirectional(0.0, -1.0),

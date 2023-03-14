@@ -8,6 +8,8 @@ import '../flutter_flow_theme.dart';
 import '../../backend/backend.dart';
 
 import '../../auth/firebase_user_provider.dart';
+import '../../backend/push_notifications/push_notifications_handler.dart'
+    show PushNotificationsHandler;
 
 import '../../index.dart';
 import '../../main.dart';
@@ -21,8 +23,8 @@ export 'serialization_util.dart';
 const kTransitionInfoKey = '__transition_info__';
 
 class AppStateNotifier extends ChangeNotifier {
-  RepassionNeugemachtFirebaseUser? initialUser;
-  RepassionNeugemachtFirebaseUser? user;
+  RepassionFirebaseUser? initialUser;
+  RepassionFirebaseUser? user;
   bool showSplashImage = true;
   String? _redirectLocation;
 
@@ -47,7 +49,7 @@ class AppStateNotifier extends ChangeNotifier {
   /// to perform subsequent actions (such as navigation) afterwards.
   void updateNotifyOnAuthChange(bool notify) => notifyOnAuthChange = notify;
 
-  void update(RepassionNeugemachtFirebaseUser newUser) {
+  void update(RepassionFirebaseUser newUser) {
     initialUser ??= newUser;
     user = newUser;
     // Refresh the app on auth change unless explicitly marked otherwise.
@@ -104,6 +106,45 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => HomeWidget(),
             ),
             FFRoute(
+              name: 'PassionSearch',
+              path: 'passionSearch',
+              builder: (context, params) => PassionSearchWidget(),
+            ),
+            FFRoute(
+              name: 'PassionFavorite',
+              path: 'passionFavorite',
+              builder: (context, params) => PassionFavoriteWidget(),
+            ),
+            FFRoute(
+              name: 'PassionOwn',
+              path: 'passionOwn',
+              builder: (context, params) => PassionOwnWidget(),
+            ),
+            FFRoute(
+              name: 'PassionEdit',
+              path: 'passionEdit',
+              builder: (context, params) => PassionEditWidget(
+                passion: params.getParam(
+                    'passion', ParamType.DocumentReference, false, ['passion']),
+              ),
+            ),
+            FFRoute(
+              name: 'CategoryWindow',
+              path: 'categoryWindow',
+              builder: (context, params) => CategoryWindowWidget(
+                category: params.getParam('category',
+                    ParamType.DocumentReference, false, ['category']),
+              ),
+            ),
+            FFRoute(
+              name: 'PassionWindow',
+              path: 'passionWindow',
+              builder: (context, params) => PassionWindowWidget(
+                passion: params.getParam(
+                    'passion', ParamType.DocumentReference, false, ['passion']),
+              ),
+            ),
+            FFRoute(
               name: 'Chat',
               path: 'chat',
               builder: (context, params) => ChatWidget(),
@@ -137,6 +178,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => ProfileWindowWidget(),
             ),
             FFRoute(
+              name: 'TagWindow',
+              path: 'tagWindow',
+              builder: (context, params) => TagWindowWidget(
+                searchText: params.getParam('searchText', ParamType.String),
+              ),
+            ),
+            FFRoute(
+              name: 'AboutWindow',
+              path: 'aboutWindow',
+              builder: (context, params) => AboutWindowWidget(),
+            ),
+            FFRoute(
               name: 'AccountWindow',
               path: 'accountWindow',
               builder: (context, params) => AccountWindowWidget(),
@@ -155,10 +208,22 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'ProfileSetup3',
               path: 'profileSetup3',
               builder: (context, params) => ProfileSetup3Widget(),
+            ),
+            FFRoute(
+              name: 'ProfileSetup4',
+              path: 'profileSetup4',
+              builder: (context, params) => ProfileSetup4Widget(
+                searchText: params.getParam('searchText', ParamType.String),
+              ),
+            ),
+            FFRoute(
+              name: 'ProfileSetup5',
+              path: 'profileSetup5',
+              builder: (context, params) => ProfileSetup5Widget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
-        ).toRoute(appStateNotifier),
-      ],
+        ),
+      ].map((r) => r.toRoute(appStateNotifier)).toList(),
       urlPathStrategy: UrlPathStrategy.path,
     );
 
@@ -204,6 +269,16 @@ extension NavigationExtensions on BuildContext {
               queryParams: queryParams,
               extra: extra,
             );
+
+  void safePop() {
+    // If there is only one route on the stack, navigate to the initial
+    // page instead of popping.
+    if (GoRouter.of(this).routerDelegate.matches.length <= 1) {
+      go('/');
+    } else {
+      pop();
+    }
+  }
 }
 
 extension GoRouterExtensions on GoRouter {
@@ -338,7 +413,7 @@ class FFRoute {
                     ),
                   ),
                 )
-              : page;
+              : PushNotificationsHandler(child: page);
 
           final transitionInfo = state.transitionInfo;
           return transitionInfo.hasTransition

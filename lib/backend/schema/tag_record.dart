@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:from_css_color/from_css_color.dart';
+
 import 'index.dart';
 import 'serializers.dart';
 import 'package:built_value/built_value.dart';
@@ -30,6 +32,28 @@ abstract class TagRecord implements Built<TagRecord, TagRecordBuilder> {
   static Future<TagRecord> getDocumentOnce(DocumentReference ref) => ref
       .get()
       .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+
+  static TagRecord fromAlgolia(AlgoliaObjectSnapshot snapshot) => TagRecord(
+        (c) => c
+          ..text = snapshot.data['text']
+          ..colour = safeGet(() => fromCssColor(snapshot.data['colour']))
+          ..ffRef = TagRecord.collection.doc(snapshot.objectID),
+      );
+
+  static Future<List<TagRecord>> search(
+          {String? term,
+          FutureOr<LatLng>? location,
+          int? maxResults,
+          double? searchRadiusMeters}) =>
+      FFAlgoliaManager.instance
+          .algoliaQuery(
+            index: 'tag',
+            term: term,
+            maxResults: maxResults,
+            location: location,
+            searchRadiusMeters: searchRadiusMeters,
+          )
+          .then((r) => r.map(fromAlgolia).toList());
 
   TagRecord._();
   factory TagRecord([void Function(TagRecordBuilder) updates]) = _$TagRecord;

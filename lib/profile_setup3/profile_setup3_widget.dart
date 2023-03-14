@@ -412,8 +412,8 @@ class _ProfileSetup3WidgetState extends State<ProfileSetup3Widget> {
                           );
                           await currentUserReference!.update(userUpdateData);
 
-                          context.goNamed(
-                            'Home',
+                          context.pushNamed(
+                            'ProfileSetup4',
                             extra: <String, dynamic>{
                               kTransitionInfoKey: TransitionInfo(
                                 hasTransition: true,

@@ -126,6 +126,49 @@ class _$UserRecordSerializer implements StructuredSerializer<UserRecord> {
                   DocumentReference, const [const FullType.nullable(Object)])
             ])));
     }
+    value = object.mainTags;
+    if (value != null) {
+      result
+        ..add('main_tags')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(BuiltList, const [
+              const FullType(
+                  DocumentReference, const [const FullType.nullable(Object)])
+            ])));
+    }
+    value = object.requests;
+    if (value != null) {
+      result
+        ..add('requests')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
+    value = object.about;
+    if (value != null) {
+      result
+        ..add('about')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.passion;
+    if (value != null) {
+      result
+        ..add('passion')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                DocumentReference, const [const FullType.nullable(Object)])));
+    }
+    value = object.likes;
+    if (value != null) {
+      result
+        ..add('likes')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(BuiltList, const [
+              const FullType(
+                  DocumentReference, const [const FullType.nullable(Object)])
+            ])));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -211,6 +254,36 @@ class _$UserRecordSerializer implements StructuredSerializer<UserRecord> {
                     DocumentReference, const [const FullType.nullable(Object)])
               ]))! as BuiltList<Object?>);
           break;
+        case 'main_tags':
+          result.mainTags.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BuiltList, const [
+                const FullType(
+                    DocumentReference, const [const FullType.nullable(Object)])
+              ]))! as BuiltList<Object?>);
+          break;
+        case 'requests':
+          result.requests.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'about':
+          result.about = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'passion':
+          result.passion = serializers.deserialize(value,
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
+          break;
+        case 'likes':
+          result.likes.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BuiltList, const [
+                const FullType(
+                    DocumentReference, const [const FullType.nullable(Object)])
+              ]))! as BuiltList<Object?>);
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -256,6 +329,16 @@ class _$UserRecord extends UserRecord {
   @override
   final BuiltList<DocumentReference<Object?>>? tags;
   @override
+  final BuiltList<DocumentReference<Object?>>? mainTags;
+  @override
+  final BuiltList<String>? requests;
+  @override
+  final String? about;
+  @override
+  final DocumentReference<Object?>? passion;
+  @override
+  final BuiltList<DocumentReference<Object?>>? likes;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$UserRecord([void Function(UserRecordBuilder)? updates]) =>
@@ -277,6 +360,11 @@ class _$UserRecord extends UserRecord {
       this.locationAddress,
       this.locationLatlng,
       this.tags,
+      this.mainTags,
+      this.requests,
+      this.about,
+      this.passion,
+      this.likes,
       this.ffRef})
       : super._();
 
@@ -306,6 +394,11 @@ class _$UserRecord extends UserRecord {
         locationAddress == other.locationAddress &&
         locationLatlng == other.locationLatlng &&
         tags == other.tags &&
+        mainTags == other.mainTags &&
+        requests == other.requests &&
+        about == other.about &&
+        passion == other.passion &&
+        likes == other.likes &&
         ffRef == other.ffRef;
   }
 
@@ -327,24 +420,27 @@ class _$UserRecord extends UserRecord {
                                                         $jc(
                                                             $jc(
                                                                 $jc(
-                                                                    0,
-                                                                    email
-                                                                        .hashCode),
-                                                                displayName
-                                                                    .hashCode),
-                                                            photoUrl.hashCode),
-                                                        uid.hashCode),
-                                                    createdTime.hashCode),
-                                                phoneNumber.hashCode),
-                                            firstName.hashCode),
-                                        lastName.hashCode),
-                                    age.hashCode),
-                                birthdate.hashCode),
-                            info.hashCode),
-                        verified.hashCode),
-                    locationAddress.hashCode),
-                locationLatlng.hashCode),
-            tags.hashCode),
+                                                                    $jc(
+                                                                        $jc(
+                                                                            $jc($jc($jc(0, email.hashCode), displayName.hashCode),
+                                                                                photoUrl.hashCode),
+                                                                            uid.hashCode),
+                                                                        createdTime.hashCode),
+                                                                    phoneNumber.hashCode),
+                                                                firstName.hashCode),
+                                                            lastName.hashCode),
+                                                        age.hashCode),
+                                                    birthdate.hashCode),
+                                                info.hashCode),
+                                            verified.hashCode),
+                                        locationAddress.hashCode),
+                                    locationLatlng.hashCode),
+                                tags.hashCode),
+                            mainTags.hashCode),
+                        requests.hashCode),
+                    about.hashCode),
+                passion.hashCode),
+            likes.hashCode),
         ffRef.hashCode));
   }
 
@@ -366,6 +462,11 @@ class _$UserRecord extends UserRecord {
           ..add('locationAddress', locationAddress)
           ..add('locationLatlng', locationLatlng)
           ..add('tags', tags)
+          ..add('mainTags', mainTags)
+          ..add('requests', requests)
+          ..add('about', about)
+          ..add('passion', passion)
+          ..add('likes', likes)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -438,6 +539,31 @@ class UserRecordBuilder implements Builder<UserRecord, UserRecordBuilder> {
   set tags(ListBuilder<DocumentReference<Object?>>? tags) =>
       _$this._tags = tags;
 
+  ListBuilder<DocumentReference<Object?>>? _mainTags;
+  ListBuilder<DocumentReference<Object?>> get mainTags =>
+      _$this._mainTags ??= new ListBuilder<DocumentReference<Object?>>();
+  set mainTags(ListBuilder<DocumentReference<Object?>>? mainTags) =>
+      _$this._mainTags = mainTags;
+
+  ListBuilder<String>? _requests;
+  ListBuilder<String> get requests =>
+      _$this._requests ??= new ListBuilder<String>();
+  set requests(ListBuilder<String>? requests) => _$this._requests = requests;
+
+  String? _about;
+  String? get about => _$this._about;
+  set about(String? about) => _$this._about = about;
+
+  DocumentReference<Object?>? _passion;
+  DocumentReference<Object?>? get passion => _$this._passion;
+  set passion(DocumentReference<Object?>? passion) => _$this._passion = passion;
+
+  ListBuilder<DocumentReference<Object?>>? _likes;
+  ListBuilder<DocumentReference<Object?>> get likes =>
+      _$this._likes ??= new ListBuilder<DocumentReference<Object?>>();
+  set likes(ListBuilder<DocumentReference<Object?>>? likes) =>
+      _$this._likes = likes;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -464,6 +590,11 @@ class UserRecordBuilder implements Builder<UserRecord, UserRecordBuilder> {
       _locationAddress = $v.locationAddress;
       _locationLatlng = $v.locationLatlng;
       _tags = $v.tags?.toBuilder();
+      _mainTags = $v.mainTags?.toBuilder();
+      _requests = $v.requests?.toBuilder();
+      _about = $v.about;
+      _passion = $v.passion;
+      _likes = $v.likes?.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -504,12 +635,24 @@ class UserRecordBuilder implements Builder<UserRecord, UserRecordBuilder> {
               locationAddress: locationAddress,
               locationLatlng: locationLatlng,
               tags: _tags?.build(),
+              mainTags: _mainTags?.build(),
+              requests: _requests?.build(),
+              about: about,
+              passion: passion,
+              likes: _likes?.build(),
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'tags';
         _tags?.build();
+        _$failedField = 'mainTags';
+        _mainTags?.build();
+        _$failedField = 'requests';
+        _requests?.build();
+
+        _$failedField = 'likes';
+        _likes?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'UserRecord', _$failedField, e.toString());

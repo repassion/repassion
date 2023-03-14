@@ -1,3 +1,4 @@
+$FirebaseAnalyticsWithoutAdIdSupport = true
 # Uncomment this line to define a global platform for your project
 platform :ios, '13.0'
 
@@ -28,6 +29,7 @@ require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelpe
 flutter_ios_podfile_setup
 
 target 'Runner' do
+  pod 'GoogleUtilities'
   use_frameworks!
   use_modular_headers!
 
@@ -39,7 +41,27 @@ post_install do |installer|
     flutter_additional_ios_build_settings(target)
     target.build_configurations.each do |config|
       config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'
-      
+      config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= [
+        '$(inherited)',
+
+        # dart: PermissionGroup.camera
+        'PERMISSION_CAMERA=1',
+
+        # dart: PermissionGroup.photos
+        'PERMISSION_PHOTOS=1',
+
+        # dart: PermissionGroup.notification
+        'PERMISSION_NOTIFICATIONS=1',
+
+         # dart: [PermissionGroup.location, PermissionGroup.locationAlways, PermissionGroup.locationWhenInUse]
+        'PERMISSION_LOCATION=1',
+      ]
     end
   end
+end
+
+target 'ImageNotification' do
+  use_frameworks!
+  pod 'Firebase/Messaging'
+  pod 'GoogleUtilities'
 end

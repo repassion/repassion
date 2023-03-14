@@ -10,7 +10,7 @@
         },
         {
           "fieldPath": "order_date",
-          "order": "ASCENDING"
+          "order": "DESCENDING"
         }
       ]
     },
@@ -25,6 +25,32 @@
         {
           "fieldPath": "datetime",
           "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "passion",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "author",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "edited",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": [
+    {
+      "collectionGroup": "fcm_tokens",
+      "fieldPath": "fcm_token",
+      "indexes": [
+        {
+          "order": "ASCENDING",
+          "queryScope": "COLLECTION_GROUP"
         }
       ]
     }

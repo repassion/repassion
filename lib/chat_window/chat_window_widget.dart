@@ -1,5 +1,7 @@
 import '/auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/push_notifications/push_notifications_util.dart';
+import '/components/no_entries_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -8,6 +10,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -38,6 +41,16 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
     super.initState();
     _model = createModel(context, () => ChatWindowModel());
 
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await Future.delayed(const Duration(milliseconds: 500));
+      await _model.columnController?.animateTo(
+        _model.columnController!.position.maxScrollExtent,
+        duration: Duration(milliseconds: 500),
+        curve: Curves.ease,
+      );
+    });
+
     _model.messageController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -67,8 +80,8 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                   child: SizedBox(
                     width: 25.0,
                     height: 25.0,
-                    child: SpinKitFadingFour(
-                      color: FlutterFlowTheme.of(context).primaryColor,
+                    child: SpinKitRipple(
+                      color: FlutterFlowTheme.of(context).primaryBackground,
                       size: 25.0,
                     ),
                   ),
@@ -88,8 +101,9 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                         child: SizedBox(
                           width: 25.0,
                           height: 25.0,
-                          child: SpinKitFadingFour(
-                            color: FlutterFlowTheme.of(context).primaryColor,
+                          child: SpinKitRipple(
+                            color:
+                                FlutterFlowTheme.of(context).primaryBackground,
                             size: 25.0,
                           ),
                         ),
@@ -106,9 +120,9 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                             stream: queryChatRecord(
                               queryBuilder: (chatRecord) => chatRecord
                                   .where('sender',
-                                      isEqualTo: mainUserUserRecord.reference)
+                                      isEqualTo: mainChatChatRecord.receiver)
                                   .where('receiver',
-                                      isEqualTo: currentUserReference),
+                                      isEqualTo: mainChatChatRecord.sender),
                               singleRecord: true,
                             ),
                             builder: (context, snapshot) {
@@ -118,9 +132,9 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                   child: SizedBox(
                                     width: 25.0,
                                     height: 25.0,
-                                    child: SpinKitFadingFour(
+                                    child: SpinKitRipple(
                                       color: FlutterFlowTheme.of(context)
-                                          .primaryColor,
+                                          .primaryBackground,
                                       size: 25.0,
                                     ),
                                   ),
@@ -146,13 +160,14 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                 ),
                                 alignment: AlignmentDirectional(0.0, 1.0),
                                 child: SingleChildScrollView(
+                                  controller: _model.columnController,
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            25.0, 25.0, 25.0, 25.0),
+                                            25.0, 125.0, 25.0, 25.0),
                                         child:
                                             StreamBuilder<List<MessageRecord>>(
                                           stream: queryMessageRecord(
@@ -173,10 +188,10 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                 child: SizedBox(
                                                   width: 25.0,
                                                   height: 25.0,
-                                                  child: SpinKitFadingFour(
+                                                  child: SpinKitRipple(
                                                     color: FlutterFlowTheme.of(
                                                             context)
-                                                        .primaryColor,
+                                                        .primaryBackground,
                                                     size: 25.0,
                                                   ),
                                                 ),
@@ -185,10 +200,17 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                             List<MessageRecord>
                                                 columnMessageRecordList =
                                                 snapshot.data!;
+                                            if (columnMessageRecordList
+                                                .isEmpty) {
+                                              return NoEntriesWidget(
+                                                text:
+                                                    'Keine Nachrichten geladen.',
+                                              );
+                                            }
                                             return Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                  MainAxisAlignment.end,
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.center,
                                               children: List.generate(
@@ -218,7 +240,13 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                                       0.0,
                                                                       0.0,
                                                                       10.0),
-                                                          child: Container(
+                                                          child:
+                                                              AnimatedContainer(
+                                                            duration: Duration(
+                                                                milliseconds:
+                                                                    250),
+                                                            curve:
+                                                                Curves.easeIn,
                                                             constraints:
                                                                 BoxConstraints(
                                                               maxWidth: MediaQuery.of(
@@ -382,7 +410,13 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                                       0.0,
                                                                       0.0,
                                                                       10.0),
-                                                          child: Container(
+                                                          child:
+                                                              AnimatedContainer(
+                                                            duration: Duration(
+                                                                milliseconds:
+                                                                    250),
+                                                            curve:
+                                                                Curves.easeIn,
                                                             constraints:
                                                                 BoxConstraints(
                                                               maxWidth: MediaQuery.of(
@@ -581,10 +615,10 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                 child: SizedBox(
                                                   width: 25.0,
                                                   height: 25.0,
-                                                  child: SpinKitFadingFour(
+                                                  child: SpinKitRipple(
                                                     color: FlutterFlowTheme.of(
                                                             context)
-                                                        .primaryColor,
+                                                        .primaryBackground,
                                                     size: 25.0,
                                                   ),
                                                 ),
@@ -595,72 +629,119 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                 snapshot.data!;
                                             return Container(
                                               decoration: BoxDecoration(),
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        5.0, 5.0, 5.0, 5.0),
-                                                child: badges.Badge(
-                                                  badgeContent: Text(
-                                                    functions
-                                                        .notificationSum(
-                                                            notificationsChatRecordList
-                                                                .map((e) => e
-                                                                    .notifications)
-                                                                .withoutNulls
-                                                                .toList())
-                                                        .toString(),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyText1Family,
-                                                          color: Colors.white,
-                                                          fontSize: 12.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyText1Family),
-                                                        ),
-                                                  ),
-                                                  showBadge: functions
-                                                          .notificationSum(
-                                                              notificationsChatRecordList
-                                                                  .map((e) => e
-                                                                      .notifications)
-                                                                  .withoutNulls
-                                                                  .toList())
-                                                          .toString() !=
-                                                      'null',
-                                                  shape:
-                                                      badges.BadgeShape.circle,
-                                                  badgeColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primaryColor,
-                                                  elevation: 1.0,
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          5.0, 5.0, 5.0, 5.0),
-                                                  position: badges.BadgePosition
-                                                      .topEnd(),
-                                                  animationType: badges
-                                                      .BadgeAnimationType.scale,
-                                                  toAnimate: true,
-                                                  child: Icon(
-                                                    Icons.chevron_left_sharp,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryColor,
-                                                    size: 50.0,
-                                                  ),
+                                              child: FutureBuilder<int>(
+                                                future: queryRequestRecordCount(
+                                                  queryBuilder: (requestRecord) =>
+                                                      requestRecord
+                                                          .where('uid2',
+                                                              isEqualTo:
+                                                                  currentUserReference)
+                                                          .where('status',
+                                                              isEqualTo:
+                                                                  'pending'),
                                                 ),
+                                                builder: (context, snapshot) {
+                                                  // Customize what your widget looks like when it's loading.
+                                                  if (!snapshot.hasData) {
+                                                    return Center(
+                                                      child: SizedBox(
+                                                        width: 25.0,
+                                                        height: 25.0,
+                                                        child: SpinKitRipple(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryBackground,
+                                                          size: 25.0,
+                                                        ),
+                                                      ),
+                                                    );
+                                                  }
+                                                  int requestsCount =
+                                                      snapshot.data!;
+                                                  return Container(
+                                                    decoration: BoxDecoration(),
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  5.0,
+                                                                  5.0,
+                                                                  5.0,
+                                                                  5.0),
+                                                      child: badges.Badge(
+                                                        badgeContent: Text(
+                                                          functions
+                                                              .notificationSum(
+                                                                  notificationsChatRecordList
+                                                                      .map((e) =>
+                                                                          e.notifications)
+                                                                      .withoutNulls
+                                                                      .toList(),
+                                                                  requestsCount)
+                                                              .toString(),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyText1
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyText1Family,
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 12.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodyText1Family),
+                                                              ),
+                                                        ),
+                                                        showBadge: functions
+                                                                .notificationSum(
+                                                                    notificationsChatRecordList
+                                                                        .map((e) =>
+                                                                            e.notifications)
+                                                                        .withoutNulls
+                                                                        .toList(),
+                                                                    requestsCount)
+                                                                .toString() !=
+                                                            'null',
+                                                        shape: badges
+                                                            .BadgeShape.circle,
+                                                        badgeColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryColor,
+                                                        elevation: 1.0,
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    5.0,
+                                                                    5.0,
+                                                                    5.0,
+                                                                    5.0),
+                                                        position:
+                                                            badges.BadgePosition
+                                                                .topEnd(),
+                                                        animationType: badges
+                                                            .BadgeAnimationType
+                                                            .scale,
+                                                        toAnimate: true,
+                                                        child: Icon(
+                                                          Icons
+                                                              .chevron_left_sharp,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryColor,
+                                                          size: 50.0,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
                                               ),
                                             );
                                           },
@@ -821,163 +902,367 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                               ),
                             ),
                           ),
-                          Align(
-                            alignment: AlignmentDirectional(0.0, 1.0),
-                            child: StreamBuilder<List<ChatRecord>>(
-                              stream: queryChatRecord(
-                                queryBuilder: (chatRecord) => chatRecord
-                                    .where('sender',
-                                        isEqualTo: mainUserUserRecord.reference)
-                                    .where('receiver',
-                                        isEqualTo: currentUserReference),
-                                singleRecord: true,
-                              ),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 25.0,
-                                      height: 25.0,
-                                      child: SpinKitFadingFour(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryColor,
-                                        size: 25.0,
-                                      ),
-                                    ),
-                                  );
-                                }
-                                List<ChatRecord> userChatChatRecordList =
-                                    snapshot.data!;
-                                // Return an empty Container when the item does not exist.
-                                if (snapshot.data!.isEmpty) {
-                                  return Container();
-                                }
-                                final userChatChatRecord =
-                                    userChatChatRecordList.isNotEmpty
-                                        ? userChatChatRecordList.first
-                                        : null;
-                                return Container(
-                                  width: double.infinity,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.13,
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      colors: [
-                                        Color(0x00EDF2F4),
-                                        FlutterFlowTheme.of(context)
-                                            .primaryBackground
-                                      ],
-                                      stops: [0.0, 0.5],
-                                      begin: AlignmentDirectional(0.0, -1.0),
-                                      end: AlignmentDirectional(0, 1.0),
-                                    ),
+                          Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Align(
+                                alignment: AlignmentDirectional(0.0, 1.0),
+                                child: StreamBuilder<List<ChatRecord>>(
+                                  stream: queryChatRecord(
+                                    queryBuilder: (chatRecord) => chatRecord
+                                        .where('sender',
+                                            isEqualTo:
+                                                mainUserUserRecord.reference)
+                                        .where('receiver',
+                                            isEqualTo: currentUserReference),
+                                    singleRecord: true,
                                   ),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        25.0, 25.0, 25.0, 25.0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        InkWell(
-                                          onTap: () async {
-                                            HapticFeedback.mediumImpact();
-                                            var confirmDialogResponse =
-                                                await showDialog<bool>(
-                                                      context: context,
-                                                      builder:
-                                                          (alertDialogContext) {
-                                                        return AlertDialog(
-                                                          title: Text(
-                                                              'Blockieren'),
-                                                          content: Text(
-                                                              'Möchtest du diese Person wirklich blockieren?'),
-                                                          actions: [
-                                                            TextButton(
-                                                              onPressed: () =>
-                                                                  Navigator.pop(
-                                                                      alertDialogContext,
-                                                                      false),
-                                                              child: Text(
-                                                                  'Abbrechen'),
-                                                            ),
-                                                            TextButton(
-                                                              onPressed: () =>
-                                                                  Navigator.pop(
-                                                                      alertDialogContext,
-                                                                      true),
-                                                              child: Text(
-                                                                  'Blockieren'),
-                                                            ),
-                                                          ],
-                                                        );
-                                                      },
-                                                    ) ??
-                                                    false;
-                                            if (confirmDialogResponse) {
-                                              context.pop();
-                                              return;
-                                            } else {
-                                              return;
-                                            }
-                                          },
-                                          onLongPress: () async {
-                                            HapticFeedback.mediumImpact();
-                                            await showDialog(
-                                              context: context,
-                                              builder: (alertDialogContext) {
-                                                return AlertDialog(
-                                                  title: Text('Blockieren'),
-                                                  content: Text(
-                                                      'Du wirst diese Person nie wieder zu Gesicht bekommen.'),
-                                                  actions: [
-                                                    TextButton(
-                                                      onPressed: () =>
-                                                          Navigator.pop(
-                                                              alertDialogContext),
-                                                      child:
-                                                          Text('Alles Klar!'),
-                                                    ),
-                                                  ],
-                                                );
-                                              },
-                                            );
-                                          },
-                                          child: Icon(
-                                            Icons.close_sharp,
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 25.0,
+                                          height: 25.0,
+                                          child: SpinKitRipple(
                                             color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                            size: 50.0,
+                                                .primaryBackground,
+                                            size: 25.0,
                                           ),
                                         ),
-                                        Expanded(
-                                          child: Form(
-                                            key: _model.formKey,
-                                            autovalidateMode:
-                                                AutovalidateMode.disabled,
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Expanded(
-                                                  child: Container(
-                                                    width: 200.0,
-                                                    decoration: BoxDecoration(),
-                                                    child: TextFormField(
-                                                      controller: _model
-                                                          .messageController,
-                                                      onChanged: (_) =>
-                                                          EasyDebounce.debounce(
-                                                        '_model.messageController',
-                                                        Duration(
-                                                            milliseconds: 2000),
-                                                        () => setState(() {}),
+                                      );
+                                    }
+                                    List<ChatRecord> userChatChatRecordList =
+                                        snapshot.data!;
+                                    // Return an empty Container when the item does not exist.
+                                    if (snapshot.data!.isEmpty) {
+                                      return Container();
+                                    }
+                                    final userChatChatRecord =
+                                        userChatChatRecordList.isNotEmpty
+                                            ? userChatChatRecordList.first
+                                            : null;
+                                    return Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          1.0,
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Color(0x00EDF2F4),
+                                            FlutterFlowTheme.of(context)
+                                                .primaryBackground
+                                          ],
+                                          stops: [0.0, 0.5],
+                                          begin:
+                                              AlignmentDirectional(0.0, -1.0),
+                                          end: AlignmentDirectional(0, 1.0),
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            25.0, 25.0, 25.0, 25.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            Expanded(
+                                              child: Form(
+                                                key: _model.formKey,
+                                                autovalidateMode:
+                                                    AutovalidateMode.disabled,
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.end,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    10.0,
+                                                                    0.0),
+                                                        child: Container(
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width *
+                                                              1.0,
+                                                          decoration:
+                                                              BoxDecoration(),
+                                                          child: TextFormField(
+                                                            controller: _model
+                                                                .messageController,
+                                                            onChanged: (_) =>
+                                                                EasyDebounce
+                                                                    .debounce(
+                                                              '_model.messageController',
+                                                              Duration(
+                                                                  milliseconds:
+                                                                      2000),
+                                                              () => setState(
+                                                                  () {}),
+                                                            ),
+                                                            onFieldSubmitted:
+                                                                (_) async {
+                                                              HapticFeedback
+                                                                  .mediumImpact();
+
+                                                              final messageCreateData =
+                                                                  {
+                                                                ...createMessageRecordData(
+                                                                  chat: widget
+                                                                      .chat,
+                                                                  sender:
+                                                                      currentUserReference,
+                                                                  message: _model
+                                                                      .messageController
+                                                                      .text,
+                                                                ),
+                                                                'datetime':
+                                                                    FieldValue
+                                                                        .serverTimestamp(),
+                                                              };
+                                                              await MessageRecord
+                                                                  .collection
+                                                                  .doc()
+                                                                  .set(
+                                                                      messageCreateData);
+
+                                                              final chatUpdateData1 =
+                                                                  {
+                                                                ...createChatRecordData(
+                                                                  lastActivity:
+                                                                      'Du: ${_model.messageController.text}',
+                                                                ),
+                                                                'order_date':
+                                                                    FieldValue
+                                                                        .serverTimestamp(),
+                                                              };
+                                                              await mainChatChatRecord
+                                                                  .reference
+                                                                  .update(
+                                                                      chatUpdateData1);
+
+                                                              final chatUpdateData2 =
+                                                                  {
+                                                                ...createChatRecordData(
+                                                                  lastActivity:
+                                                                      '@${currentUserDisplayName}: ${_model.messageController.text}',
+                                                                ),
+                                                                'order_date':
+                                                                    FieldValue
+                                                                        .serverTimestamp(),
+                                                                'notifications':
+                                                                    FieldValue
+                                                                        .increment(
+                                                                            1),
+                                                              };
+                                                              await userChatChatRecord!
+                                                                  .reference
+                                                                  .update(
+                                                                      chatUpdateData2);
+                                                              setState(() {
+                                                                _model
+                                                                    .messageController
+                                                                    ?.clear();
+                                                              });
+                                                              triggerPushNotification(
+                                                                notificationTitle:
+                                                                    '${valueOrDefault(currentUserDocument?.firstName, '')} ${valueOrDefault(currentUserDocument?.lastName, '')}',
+                                                                notificationText:
+                                                                    '${_model.messageController.text}',
+                                                                notificationImageUrl:
+                                                                    currentUserPhoto,
+                                                                notificationSound:
+                                                                    'default',
+                                                                userRefs: [
+                                                                  mainUserUserRecord
+                                                                      .reference
+                                                                ],
+                                                                initialPageName:
+                                                                    'ChatWindow',
+                                                                parameterData: {
+                                                                  'chat': widget
+                                                                      .chat,
+                                                                },
+                                                              );
+                                                              await Future.delayed(
+                                                                  const Duration(
+                                                                      milliseconds:
+                                                                          500));
+                                                              await _model
+                                                                  .columnController
+                                                                  ?.animateTo(
+                                                                _model
+                                                                    .columnController!
+                                                                    .position
+                                                                    .maxScrollExtent,
+                                                                duration: Duration(
+                                                                    milliseconds:
+                                                                        500),
+                                                                curve:
+                                                                    Curves.ease,
+                                                              );
+                                                            },
+                                                            obscureText: false,
+                                                            decoration:
+                                                                InputDecoration(
+                                                              hintText:
+                                                                  'Nachricht schreiben...',
+                                                              hintStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyText2
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            FlutterFlowTheme.of(context).bodyText2Family,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondaryText,
+                                                                        fontSize:
+                                                                            15.0,
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                        useGoogleFonts:
+                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText2Family),
+                                                                      ),
+                                                              enabledBorder:
+                                                                  UnderlineInputBorder(
+                                                                borderSide:
+                                                                    BorderSide(
+                                                                  color: Color(
+                                                                      0x00000000),
+                                                                  width: 0.0,
+                                                                ),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            25.0),
+                                                              ),
+                                                              focusedBorder:
+                                                                  UnderlineInputBorder(
+                                                                borderSide:
+                                                                    BorderSide(
+                                                                  color: Color(
+                                                                      0x00000000),
+                                                                  width: 0.0,
+                                                                ),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            25.0),
+                                                              ),
+                                                              errorBorder:
+                                                                  UnderlineInputBorder(
+                                                                borderSide:
+                                                                    BorderSide(
+                                                                  color: Color(
+                                                                      0x00000000),
+                                                                  width: 0.0,
+                                                                ),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            25.0),
+                                                              ),
+                                                              focusedErrorBorder:
+                                                                  UnderlineInputBorder(
+                                                                borderSide:
+                                                                    BorderSide(
+                                                                  color: Color(
+                                                                      0x00000000),
+                                                                  width: 0.0,
+                                                                ),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            25.0),
+                                                              ),
+                                                              filled: true,
+                                                              fillColor: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .secondaryBackground,
+                                                              contentPadding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          15.0,
+                                                                          15.0,
+                                                                          15.0,
+                                                                          15.0),
+                                                              suffixIcon: _model
+                                                                      .messageController!
+                                                                      .text
+                                                                      .isNotEmpty
+                                                                  ? InkWell(
+                                                                      onTap:
+                                                                          () async {
+                                                                        _model
+                                                                            .messageController
+                                                                            ?.clear();
+                                                                        setState(
+                                                                            () {});
+                                                                      },
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .clear,
+                                                                        color: Color(
+                                                                            0xFF757575),
+                                                                        size:
+                                                                            15.0,
+                                                                      ),
+                                                                    )
+                                                                  : null,
+                                                            ),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyText1Family,
+                                                                  fontSize:
+                                                                      15.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .bodyText1Family),
+                                                                ),
+                                                            maxLines: 15,
+                                                            minLines: 1,
+                                                            validator: _model
+                                                                .messageControllerValidator
+                                                                .asValidator(
+                                                                    context),
+                                                          ),
+                                                        ),
                                                       ),
-                                                      onFieldSubmitted:
-                                                          (_) async {
+                                                    ),
+                                                    InkWell(
+                                                      onTap: () async {
                                                         HapticFeedback
                                                             .mediumImpact();
+                                                        if (_model.formKey
+                                                                    .currentState ==
+                                                                null ||
+                                                            !_model.formKey
+                                                                .currentState!
+                                                                .validate()) {
+                                                          return;
+                                                        }
 
                                                         final messageCreateData =
                                                             {
@@ -1033,287 +1318,76 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                               .messageController
                                                               ?.clear();
                                                         });
+                                                        triggerPushNotification(
+                                                          notificationTitle:
+                                                              '${valueOrDefault(currentUserDocument?.firstName, '')} ${valueOrDefault(currentUserDocument?.lastName, '')}',
+                                                          notificationText:
+                                                              '${_model.messageController.text}',
+                                                          notificationImageUrl:
+                                                              currentUserPhoto,
+                                                          notificationSound:
+                                                              'default',
+                                                          userRefs: [
+                                                            mainUserUserRecord
+                                                                .reference
+                                                          ],
+                                                          initialPageName:
+                                                              'ChatWindow',
+                                                          parameterData: {
+                                                            'chat': widget.chat,
+                                                          },
+                                                        );
+                                                        await Future.delayed(
+                                                            const Duration(
+                                                                milliseconds:
+                                                                    500));
+                                                        await _model
+                                                            .columnController
+                                                            ?.animateTo(
+                                                          _model
+                                                              .columnController!
+                                                              .position
+                                                              .maxScrollExtent,
+                                                          duration: Duration(
+                                                              milliseconds:
+                                                                  500),
+                                                          curve: Curves.ease,
+                                                        );
                                                       },
-                                                      autofocus: true,
-                                                      obscureText: false,
-                                                      decoration:
-                                                          InputDecoration(
-                                                        hintText:
-                                                            'Nachricht schreiben...',
-                                                        hintStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyText2
-                                                                .override(
-                                                                  fontFamily: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyText2Family,
-                                                                  fontSize:
-                                                                      15.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  useGoogleFonts: GoogleFonts
-                                                                          .asMap()
-                                                                      .containsKey(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .bodyText2Family),
-                                                                ),
-                                                        enabledBorder:
-                                                            UnderlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide(
-                                                            color: Color(
-                                                                0x00000000),
-                                                            width: 0.0,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius.only(
-                                                            bottomLeft:
-                                                                Radius.circular(
-                                                                    25.0),
-                                                            bottomRight:
-                                                                Radius.circular(
-                                                                    0.0),
-                                                            topLeft:
-                                                                Radius.circular(
-                                                                    25.0),
-                                                            topRight:
-                                                                Radius.circular(
-                                                                    0.0),
-                                                          ),
-                                                        ),
-                                                        focusedBorder:
-                                                            UnderlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide(
-                                                            color: Color(
-                                                                0x00000000),
-                                                            width: 0.0,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius.only(
-                                                            bottomLeft:
-                                                                Radius.circular(
-                                                                    25.0),
-                                                            bottomRight:
-                                                                Radius.circular(
-                                                                    0.0),
-                                                            topLeft:
-                                                                Radius.circular(
-                                                                    25.0),
-                                                            topRight:
-                                                                Radius.circular(
-                                                                    0.0),
-                                                          ),
-                                                        ),
-                                                        errorBorder:
-                                                            UnderlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide(
-                                                            color: Color(
-                                                                0x00000000),
-                                                            width: 0.0,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius.only(
-                                                            bottomLeft:
-                                                                Radius.circular(
-                                                                    25.0),
-                                                            bottomRight:
-                                                                Radius.circular(
-                                                                    0.0),
-                                                            topLeft:
-                                                                Radius.circular(
-                                                                    25.0),
-                                                            topRight:
-                                                                Radius.circular(
-                                                                    0.0),
-                                                          ),
-                                                        ),
-                                                        focusedErrorBorder:
-                                                            UnderlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide(
-                                                            color: Color(
-                                                                0x00000000),
-                                                            width: 0.0,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius.only(
-                                                            bottomLeft:
-                                                                Radius.circular(
-                                                                    25.0),
-                                                            bottomRight:
-                                                                Radius.circular(
-                                                                    0.0),
-                                                            topLeft:
-                                                                Radius.circular(
-                                                                    25.0),
-                                                            topRight:
-                                                                Radius.circular(
-                                                                    0.0),
-                                                          ),
-                                                        ),
-                                                        filled: true,
-                                                        fillColor: FlutterFlowTheme
-                                                                .of(context)
-                                                            .secondaryBackground,
-                                                        contentPadding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    15.0,
-                                                                    15.0,
-                                                                    15.0,
-                                                                    15.0),
-                                                        suffixIcon: _model
-                                                                .messageController!
-                                                                .text
-                                                                .isNotEmpty
-                                                            ? InkWell(
-                                                                onTap:
-                                                                    () async {
-                                                                  _model
-                                                                      .messageController
-                                                                      ?.clear();
-                                                                  setState(
-                                                                      () {});
-                                                                },
-                                                                child: Icon(
-                                                                  Icons.clear,
-                                                                  color: Color(
-                                                                      0xFF757575),
-                                                                  size: 15.0,
-                                                                ),
-                                                              )
-                                                            : null,
-                                                      ),
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText1
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyText1Family,
-                                                                fontSize: 15.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .bodyText1Family),
-                                                              ),
-                                                      maxLines: null,
-                                                      keyboardType:
-                                                          TextInputType
-                                                              .multiline,
-                                                      validator: _model
-                                                          .messageControllerValidator
-                                                          .asValidator(context),
-                                                    ),
-                                                  ),
-                                                ),
-                                                InkWell(
-                                                  onTap: () async {
-                                                    HapticFeedback
-                                                        .mediumImpact();
-
-                                                    final messageCreateData = {
-                                                      ...createMessageRecordData(
-                                                        chat: widget.chat,
-                                                        sender:
-                                                            currentUserReference,
-                                                        message: _model
-                                                            .messageController
-                                                            .text,
-                                                      ),
-                                                      'datetime': FieldValue
-                                                          .serverTimestamp(),
-                                                    };
-                                                    await MessageRecord
-                                                        .collection
-                                                        .doc()
-                                                        .set(messageCreateData);
-
-                                                    final chatUpdateData1 = {
-                                                      ...createChatRecordData(
-                                                        lastActivity:
-                                                            'Du: ${_model.messageController.text}',
-                                                      ),
-                                                      'order_date': FieldValue
-                                                          .serverTimestamp(),
-                                                    };
-                                                    await mainChatChatRecord
-                                                        .reference
-                                                        .update(
-                                                            chatUpdateData1);
-
-                                                    final chatUpdateData2 = {
-                                                      ...createChatRecordData(
-                                                        lastActivity:
-                                                            '@${currentUserDisplayName}: ${_model.messageController.text}',
-                                                      ),
-                                                      'order_date': FieldValue
-                                                          .serverTimestamp(),
-                                                      'notifications':
-                                                          FieldValue.increment(
-                                                              1),
-                                                    };
-                                                    await userChatChatRecord!
-                                                        .reference
-                                                        .update(
-                                                            chatUpdateData2);
-                                                    setState(() {
-                                                      _model.messageController
-                                                          ?.clear();
-                                                    });
-                                                  },
-                                                  child: Container(
-                                                    width: 50.0,
-                                                    height: 50.0,
-                                                    decoration: BoxDecoration(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
+                                                      child: Container(
+                                                        width: 50.0,
+                                                        height: 50.0,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
                                                               .primaryColor,
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                        bottomLeft:
-                                                            Radius.circular(
-                                                                0.0),
-                                                        bottomRight:
-                                                            Radius.circular(
-                                                                25.0),
-                                                        topLeft:
-                                                            Radius.circular(
-                                                                0.0),
-                                                        topRight:
-                                                            Radius.circular(
-                                                                25.0),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      25.0),
+                                                        ),
+                                                        child: Icon(
+                                                          Icons.send_sharp,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryBackground,
+                                                          size: 25.0,
+                                                        ),
                                                       ),
                                                     ),
-                                                    child: Icon(
-                                                      Icons.send_sharp,
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .secondaryBackground,
-                                                      size: 25.0,
-                                                    ),
-                                                  ),
+                                                  ],
                                                 ),
-                                              ],
+                                              ),
                                             ),
-                                          ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),

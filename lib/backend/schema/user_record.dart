@@ -47,6 +47,17 @@ abstract class UserRecord implements Built<UserRecord, UserRecordBuilder> {
 
   BuiltList<DocumentReference>? get tags;
 
+  @BuiltValueField(wireName: 'main_tags')
+  BuiltList<DocumentReference>? get mainTags;
+
+  BuiltList<String>? get requests;
+
+  String? get about;
+
+  DocumentReference? get passion;
+
+  BuiltList<DocumentReference>? get likes;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -64,7 +75,11 @@ abstract class UserRecord implements Built<UserRecord, UserRecordBuilder> {
     ..info = ''
     ..verified = false
     ..locationAddress = ''
-    ..tags = ListBuilder();
+    ..tags = ListBuilder()
+    ..mainTags = ListBuilder()
+    ..requests = ListBuilder()
+    ..about = ''
+    ..likes = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('user');
@@ -101,6 +116,8 @@ Map<String, dynamic> createUserRecordData({
   bool? verified,
   String? locationAddress,
   LatLng? locationLatlng,
+  String? about,
+  DocumentReference? passion,
 }) {
   final firestoreData = serializers.toFirestore(
     UserRecord.serializer,
@@ -120,7 +137,12 @@ Map<String, dynamic> createUserRecordData({
         ..verified = verified
         ..locationAddress = locationAddress
         ..locationLatlng = locationLatlng
-        ..tags = null,
+        ..tags = null
+        ..mainTags = null
+        ..requests = null
+        ..about = about
+        ..passion = passion
+        ..likes = null,
     ),
   );
 

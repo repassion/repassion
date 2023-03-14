@@ -744,38 +744,6 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                           InkWell(
                             onTap: () async {
                               GoRouter.of(context).prepareAuthEvent();
-                              final user = await signInWithGoogle(context);
-                              if (user == null) {
-                                return;
-                              }
-
-                              context.goNamedAuth('Home', mounted);
-                            },
-                            child: Container(
-                              width: 50.0,
-                              height: 50.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                boxShadow: [
-                                  BoxShadow(
-                                    blurRadius: 5.0,
-                                    color: Color(0x3314181B),
-                                    offset: Offset(0.0, 2.0),
-                                  )
-                                ],
-                                shape: BoxShape.circle,
-                              ),
-                              alignment: AlignmentDirectional(0.0, 0.0),
-                              child: FaIcon(
-                                FontAwesomeIcons.google,
-                                color: Colors.white,
-                                size: 25.0,
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () async {
-                              GoRouter.of(context).prepareAuthEvent();
                               final user = await signInWithApple(context);
                               if (user == null) {
                                 return;
@@ -801,6 +769,38 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                               alignment: AlignmentDirectional(0.0, 0.0),
                               child: FaIcon(
                                 FontAwesomeIcons.apple,
+                                color: Colors.white,
+                                size: 25.0,
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () async {
+                              GoRouter.of(context).prepareAuthEvent();
+                              final user = await signInWithGoogle(context);
+                              if (user == null) {
+                                return;
+                              }
+
+                              context.goNamedAuth('Home', mounted);
+                            },
+                            child: Container(
+                              width: 50.0,
+                              height: 50.0,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 5.0,
+                                    color: Color(0x3314181B),
+                                    offset: Offset(0.0, 2.0),
+                                  )
+                                ],
+                                shape: BoxShape.circle,
+                              ),
+                              alignment: AlignmentDirectional(0.0, 0.0),
+                              child: FaIcon(
+                                FontAwesomeIcons.google,
                                 color: Colors.white,
                                 size: 25.0,
                               ),

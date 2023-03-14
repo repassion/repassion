@@ -11,13 +11,18 @@ import '../backend/backend.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../auth/auth_util.dart';
 
-int? notificationSum(List<int>? nots) {
-  if (nots == null) {
-    return null;
-  }
+int? notificationSum(
+  List<int>? nots,
+  int? requests,
+) {
   int sum = 0;
-  for (int i = 0; i < nots.length; i++) {
-    sum += nots[i];
+  if (nots != null) {
+    for (int i = 0; i < nots.length; i++) {
+      sum += nots[i];
+    }
+  }
+  if (requests != null) {
+    sum += requests;
   }
   if (sum == 0) {
     return null;
@@ -82,4 +87,15 @@ String? getLocation(String? address) {
       String country = cityCountry;
       return '${city.trim()}, ${country.trim()}';
   }
+}
+
+bool? isTagSelected(
+  List<DocumentReference>? tagsSelected,
+  List<DocumentReference>? userTags,
+) {
+  if (tagsSelected == null || userTags == null) return null;
+  for (final tag in tagsSelected) {
+    if (userTags.contains(tag)) return true;
+  }
+  return false;
 }
