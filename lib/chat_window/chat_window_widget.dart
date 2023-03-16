@@ -41,9 +41,13 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
     super.initState();
     _model = createModel(context, () => ChatWindowModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'ChatWindow'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('CHAT_WINDOW_PAGE_ChatWindow_ON_PAGE_LOAD');
+      logFirebaseEvent('ChatWindow_wait__delay');
       await Future.delayed(const Duration(milliseconds: 500));
+      logFirebaseEvent('ChatWindow_scroll_to');
       await _model.columnController?.animateTo(
         _model.columnController!.position.maxScrollExtent,
         duration: Duration(milliseconds: 500),
@@ -594,6 +598,9 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                 children: [
                                   InkWell(
                                     onTap: () async {
+                                      logFirebaseEvent(
+                                          'CHAT_WINDOW_PAGE_Row_g470pb8q_ON_TAP');
+                                      logFirebaseEvent('Row_navigate_back');
                                       context.pop();
                                     },
                                     child: Row(
@@ -772,6 +779,11 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                   Expanded(
                                     child: InkWell(
                                       onTap: () async {
+                                        logFirebaseEvent(
+                                            'CHAT_WINDOW_Container_g96zaypv_ON_TAP');
+                                        logFirebaseEvent(
+                                            'Container_navigate_to');
+
                                         context.pushNamed(
                                           'UserWindow',
                                           queryParams: {
@@ -1014,8 +1026,14 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                             ),
                                                             onFieldSubmitted:
                                                                 (_) async {
+                                                              logFirebaseEvent(
+                                                                  'CHAT_WINDOW_Message_ON_TEXTFIELD_SUBMIT');
+                                                              logFirebaseEvent(
+                                                                  'Message_haptic_feedback');
                                                               HapticFeedback
                                                                   .mediumImpact();
+                                                              logFirebaseEvent(
+                                                                  'Message_backend_call');
 
                                                               final messageCreateData =
                                                                   {
@@ -1037,6 +1055,8 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                                   .doc()
                                                                   .set(
                                                                       messageCreateData);
+                                                              logFirebaseEvent(
+                                                                  'Message_backend_call');
 
                                                               final chatUpdateData1 =
                                                                   {
@@ -1052,6 +1072,8 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                                   .reference
                                                                   .update(
                                                                       chatUpdateData1);
+                                                              logFirebaseEvent(
+                                                                  'Message_backend_call');
 
                                                               final chatUpdateData2 =
                                                                   {
@@ -1071,11 +1093,15 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                                   .reference
                                                                   .update(
                                                                       chatUpdateData2);
+                                                              logFirebaseEvent(
+                                                                  'Message_clear_text_fields');
                                                               setState(() {
                                                                 _model
                                                                     .messageController
                                                                     ?.clear();
                                                               });
+                                                              logFirebaseEvent(
+                                                                  'Message_trigger_push_notification');
                                                               triggerPushNotification(
                                                                 notificationTitle:
                                                                     '${valueOrDefault(currentUserDocument?.firstName, '')} ${valueOrDefault(currentUserDocument?.lastName, '')}',
@@ -1096,10 +1122,14 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                                       .chat,
                                                                 },
                                                               );
+                                                              logFirebaseEvent(
+                                                                  'Message_wait__delay');
                                                               await Future.delayed(
                                                                   const Duration(
                                                                       milliseconds:
                                                                           500));
+                                                              logFirebaseEvent(
+                                                                  'Message_scroll_to');
                                                               await _model
                                                                   .columnController
                                                                   ?.animateTo(
@@ -1253,8 +1283,14 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                     ),
                                                     InkWell(
                                                       onTap: () async {
+                                                        logFirebaseEvent(
+                                                            'CHAT_WINDOW_Container_xbsbbilf_ON_TAP');
+                                                        logFirebaseEvent(
+                                                            'Container_haptic_feedback');
                                                         HapticFeedback
                                                             .mediumImpact();
+                                                        logFirebaseEvent(
+                                                            'Container_validate_form');
                                                         if (_model.formKey
                                                                     .currentState ==
                                                                 null ||
@@ -1263,6 +1299,8 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                                 .validate()) {
                                                           return;
                                                         }
+                                                        logFirebaseEvent(
+                                                            'Container_backend_call');
 
                                                         final messageCreateData =
                                                             {
@@ -1282,6 +1320,8 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                             .doc()
                                                             .set(
                                                                 messageCreateData);
+                                                        logFirebaseEvent(
+                                                            'Container_backend_call');
 
                                                         final chatUpdateData1 =
                                                             {
@@ -1296,6 +1336,8 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                             .reference
                                                             .update(
                                                                 chatUpdateData1);
+                                                        logFirebaseEvent(
+                                                            'Container_backend_call');
 
                                                         final chatUpdateData2 =
                                                             {
@@ -1313,11 +1355,15 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                             .reference
                                                             .update(
                                                                 chatUpdateData2);
+                                                        logFirebaseEvent(
+                                                            'Container_clear_text_fields');
                                                         setState(() {
                                                           _model
                                                               .messageController
                                                               ?.clear();
                                                         });
+                                                        logFirebaseEvent(
+                                                            'Container_trigger_push_notification');
                                                         triggerPushNotification(
                                                           notificationTitle:
                                                               '${valueOrDefault(currentUserDocument?.firstName, '')} ${valueOrDefault(currentUserDocument?.lastName, '')}',
@@ -1337,10 +1383,14 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                             'chat': widget.chat,
                                                           },
                                                         );
+                                                        logFirebaseEvent(
+                                                            'Container_wait__delay');
                                                         await Future.delayed(
                                                             const Duration(
                                                                 milliseconds:
                                                                     500));
+                                                        logFirebaseEvent(
+                                                            'Container_scroll_to');
                                                         await _model
                                                             .columnController
                                                             ?.animateTo(

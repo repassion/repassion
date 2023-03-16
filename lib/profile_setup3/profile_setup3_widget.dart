@@ -33,6 +33,8 @@ class _ProfileSetup3WidgetState extends State<ProfileSetup3Widget> {
     super.initState();
     _model = createModel(context, () => ProfileSetup3Model());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'ProfileSetup3'});
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -78,6 +80,9 @@ class _ProfileSetup3WidgetState extends State<ProfileSetup3Widget> {
                             children: [
                               InkWell(
                                 onTap: () async {
+                                  logFirebaseEvent(
+                                      'PROFILE_SETUP3_PAGE_Row_fphfopsc_ON_TAP');
+                                  logFirebaseEvent('Row_navigate_back');
                                   context.pop();
                                 },
                                 child: Row(
@@ -201,18 +206,26 @@ class _ProfileSetup3WidgetState extends State<ProfileSetup3Widget> {
                                                 children: [
                                                   InkWell(
                                                     onTap: () async {
+                                                      logFirebaseEvent(
+                                                          'PROFILE_SETUP3_Container_0zn6rb52_ON_TAP');
+                                                      logFirebaseEvent(
+                                                          'Container_haptic_feedback');
                                                       HapticFeedback
                                                           .lightImpact();
                                                       if (_model.uploadedFileUrl !=
                                                               null &&
                                                           _model.uploadedFileUrl !=
                                                               '') {
+                                                        logFirebaseEvent(
+                                                            'Container_delete_media');
                                                         await FirebaseStorage
                                                             .instance
                                                             .refFromURL(_model
                                                                 .uploadedFileUrl)
                                                             .delete();
                                                       }
+                                                      logFirebaseEvent(
+                                                          'Container_upload_media_to_firebase');
                                                       final selectedMedia =
                                                           await selectMediaWithSourceBottomSheet(
                                                         context: context,
@@ -405,12 +418,17 @@ class _ProfileSetup3WidgetState extends State<ProfileSetup3Widget> {
                           25.0, 25.0, 25.0, 25.0),
                       child: InkWell(
                         onTap: () async {
+                          logFirebaseEvent(
+                              'PROFILE_SETUP3_Container_ajyhl9lu_ON_TAP');
+                          logFirebaseEvent('Container_haptic_feedback');
                           HapticFeedback.mediumImpact();
+                          logFirebaseEvent('Container_backend_call');
 
                           final userUpdateData = createUserRecordData(
                             photoUrl: _model.uploadedFileUrl,
                           );
                           await currentUserReference!.update(userUpdateData);
+                          logFirebaseEvent('Container_navigate_to');
 
                           context.pushNamed(
                             'ProfileSetup4',

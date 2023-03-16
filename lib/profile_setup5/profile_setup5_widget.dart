@@ -29,6 +29,8 @@ class _ProfileSetup5WidgetState extends State<ProfileSetup5Widget> {
     super.initState();
     _model = createModel(context, () => ProfileSetup5Model());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'ProfileSetup5'});
     _model.informationController ??= TextEditingController(
         text: valueOrDefault(currentUserDocument?.info, ''));
     _model.aboutController ??= TextEditingController(
@@ -78,6 +80,9 @@ class _ProfileSetup5WidgetState extends State<ProfileSetup5Widget> {
                             children: [
                               InkWell(
                                 onTap: () async {
+                                  logFirebaseEvent(
+                                      'PROFILE_SETUP5_PAGE_Row_1oi1rm73_ON_TAP');
+                                  logFirebaseEvent('Row_navigate_back');
                                   context.pop();
                                 },
                                 child: Row(
@@ -399,10 +404,15 @@ class _ProfileSetup5WidgetState extends State<ProfileSetup5Widget> {
                                 25.0, 15.0, 25.0, 25.0),
                             child: InkWell(
                               onTap: () async {
+                                logFirebaseEvent(
+                                    'PROFILE_SETUP5_Container_8akvfxzs_ON_TAP');
+                                logFirebaseEvent('Container_haptic_feedback');
                                 HapticFeedback.mediumImpact();
                                 if (_model.informationController.text !=
                                     valueOrDefault(
                                         currentUserDocument?.info, '')) {
+                                  logFirebaseEvent('Container_backend_call');
+
                                   final userUpdateData1 = createUserRecordData(
                                     about: _model.aboutController.text,
                                   );
@@ -412,12 +422,15 @@ class _ProfileSetup5WidgetState extends State<ProfileSetup5Widget> {
                                 if (_model.aboutController.text !=
                                     valueOrDefault(
                                         currentUserDocument?.about, '')) {
+                                  logFirebaseEvent('Container_backend_call');
+
                                   final userUpdateData2 = createUserRecordData(
                                     about: _model.aboutController.text,
                                   );
                                   await currentUserReference!
                                       .update(userUpdateData2);
                                 }
+                                logFirebaseEvent('Container_navigate_to');
 
                                 context.goNamed(
                                   'Home',

@@ -34,6 +34,8 @@ abstract class PassionRecord
 
   bool? get none;
 
+  bool? get public;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -47,7 +49,8 @@ abstract class PassionRecord
     ..likes = 0
     ..verified = false
     ..type = ''
-    ..none = false;
+    ..none = false
+    ..public = false;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('passion');
@@ -75,6 +78,7 @@ abstract class PassionRecord
           ..verified = snapshot.data['verified']
           ..type = snapshot.data['type']
           ..none = snapshot.data['none']
+          ..public = snapshot.data['public']
           ..ffRef = PassionRecord.collection.doc(snapshot.objectID),
       );
 
@@ -115,6 +119,7 @@ Map<String, dynamic> createPassionRecordData({
   bool? verified,
   String? type,
   bool? none,
+  bool? public,
 }) {
   final firestoreData = serializers.toFirestore(
     PassionRecord.serializer,
@@ -130,7 +135,8 @@ Map<String, dynamic> createPassionRecordData({
         ..edited = edited
         ..verified = verified
         ..type = type
-        ..none = none,
+        ..none = none
+        ..public = public,
     ),
   );
 

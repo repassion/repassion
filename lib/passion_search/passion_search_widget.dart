@@ -35,6 +35,8 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget> {
     super.initState();
     _model = createModel(context, () => PassionSearchModel());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'PassionSearch'});
     _model.searchFieldController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -88,6 +90,10 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget> {
                                 children: [
                                   InkWell(
                                     onTap: () async {
+                                      logFirebaseEvent(
+                                          'PASSION_SEARCH_Image_qt4bja2m_ON_TAP');
+                                      logFirebaseEvent('Image_navigate_to');
+
                                       context.pushNamed('Home');
                                     },
                                     child: Image.asset(
@@ -234,6 +240,11 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget> {
                                                                 5.0, 0.0),
                                                     child: InkWell(
                                                       onTap: () async {
+                                                        logFirebaseEvent(
+                                                            'PASSION_SEARCH_PAGE_Icon_csc9t2cx_ON_TAP');
+                                                        logFirebaseEvent(
+                                                            'Icon_navigate_to');
+
                                                         context.pushNamed(
                                                           'Chat',
                                                           extra: <String,
@@ -267,6 +278,10 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget> {
                                   ),
                                   InkWell(
                                     onTap: () async {
+                                      logFirebaseEvent(
+                                          'PASSION_SEARCH_PAGE_Icon_wcagfi0v_ON_TAP');
+                                      logFirebaseEvent('Icon_navigate_to');
+
                                       context.pushNamed(
                                         'Settings',
                                         extra: <String, dynamic>{
@@ -310,17 +325,22 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget> {
                                       '_model.searchFieldController',
                                       Duration(milliseconds: 500),
                                       () async {
+                                        logFirebaseEvent(
+                                            'PASSION_SEARCH_SearchField_ON_TEXTFIELD_');
+                                        logFirebaseEvent(
+                                            'SearchField_refresh_database_request');
                                         setState(() => _model
                                             .algoliaRequestCompleter2 = null);
                                         await _model
-                                            .waitForAlgoliaRequestCompleter2();
+                                            .waitForAlgoliaRequestCompleted2();
+                                        logFirebaseEvent(
+                                            'SearchField_refresh_database_request');
                                         setState(() => _model
                                             .algoliaRequestCompleter1 = null);
                                         await _model
-                                            .waitForAlgoliaRequestCompleter1();
+                                            .waitForAlgoliaRequestCompleted1();
                                       },
                                     ),
-                                    autofocus: true,
                                     textCapitalization: TextCapitalization.none,
                                     obscureText: false,
                                     decoration: InputDecoration(
@@ -402,16 +422,22 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget> {
                                               onTap: () async {
                                                 _model.searchFieldController
                                                     ?.clear();
+                                                logFirebaseEvent(
+                                                    'PASSION_SEARCH_SearchField_ON_TEXTFIELD_');
+                                                logFirebaseEvent(
+                                                    'SearchField_refresh_database_request');
                                                 setState(() => _model
                                                         .algoliaRequestCompleter2 =
                                                     null);
                                                 await _model
-                                                    .waitForAlgoliaRequestCompleter2();
+                                                    .waitForAlgoliaRequestCompleted2();
+                                                logFirebaseEvent(
+                                                    'SearchField_refresh_database_request');
                                                 setState(() => _model
                                                         .algoliaRequestCompleter1 =
                                                     null);
                                                 await _model
-                                                    .waitForAlgoliaRequestCompleter1();
+                                                    .waitForAlgoliaRequestCompleted1();
                                                 setState(() {});
                                               },
                                               child: Icon(
@@ -501,252 +527,280 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget> {
                                                     final passionsSearchPassionRecord =
                                                         passionsSearchPassionRecordList[
                                                             passionsSearchIndex];
-                                                    return Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  10.0),
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(0.0),
-                                                        child: Container(
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        0.0),
-                                                          ),
-                                                          child: InkWell(
-                                                            onTap: () async {
-                                                              context.pushNamed(
-                                                                'PassionWindow',
-                                                                queryParams: {
-                                                                  'passion':
-                                                                      serializeParam(
-                                                                    passionsSearchPassionRecord
-                                                                        .reference,
-                                                                    ParamType
-                                                                        .DocumentReference,
-                                                                  ),
-                                                                }.withoutNulls,
-                                                                extra: <String,
-                                                                    dynamic>{
-                                                                  kTransitionInfoKey:
-                                                                      TransitionInfo(
-                                                                    hasTransition:
-                                                                        true,
-                                                                    transitionType:
-                                                                        PageTransitionType
-                                                                            .bottomToTop,
-                                                                    duration: Duration(
-                                                                        milliseconds:
-                                                                            250),
-                                                                  ),
-                                                                },
-                                                              );
+                                                    return Visibility(
+                                                      visible: valueOrDefault<
+                                                              bool>(
+                                                            passionsSearchPassionRecord
+                                                                .public,
+                                                            false,
+                                                          ) ||
+                                                          (passionsSearchPassionRecord
+                                                                  .author ==
+                                                              currentUserReference),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    10.0),
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      0.0),
+                                                          child: Container(
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          0.0),
+                                                            ),
+                                                            child: InkWell(
+                                                              onTap: () async {
+                                                                logFirebaseEvent(
+                                                                    'PASSION_SEARCH_PAGE_Tag_ON_TAP');
+                                                                logFirebaseEvent(
+                                                                    'Tag_navigate_to');
 
-                                                              final userUpdateData =
-                                                                  createUserRecordData(
-                                                                passion:
-                                                                    passionsSearchPassionRecord
-                                                                        .reference,
-                                                              );
-                                                              await currentUserReference!
-                                                                  .update(
-                                                                      userUpdateData);
-                                                            },
-                                                            child: Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              children: [
-                                                                Image.network(
-                                                                  valueOrDefault<
-                                                                      String>(
-                                                                    passionsSearchPassionRecord
-                                                                        .image,
-                                                                    'https://firebasestorage.googleapis.com/v0/b/repassion-9ce5f.appspot.com/o/empty_article.jpg?alt=media&token=d8786d27-f588-4e24-8a60-2deb0358a439',
+                                                                context
+                                                                    .pushNamed(
+                                                                  'PassionWindow',
+                                                                  queryParams: {
+                                                                    'passion':
+                                                                        serializeParam(
+                                                                      passionsSearchPassionRecord
+                                                                          .reference,
+                                                                      ParamType
+                                                                          .DocumentReference,
+                                                                    ),
+                                                                  }.withoutNulls,
+                                                                  extra: <
+                                                                      String,
+                                                                      dynamic>{
+                                                                    kTransitionInfoKey:
+                                                                        TransitionInfo(
+                                                                      hasTransition:
+                                                                          true,
+                                                                      transitionType:
+                                                                          PageTransitionType
+                                                                              .bottomToTop,
+                                                                      duration: Duration(
+                                                                          milliseconds:
+                                                                              250),
+                                                                    ),
+                                                                  },
+                                                                );
+
+                                                                logFirebaseEvent(
+                                                                    'Tag_backend_call');
+
+                                                                final userUpdateData =
+                                                                    createUserRecordData(
+                                                                  passion:
+                                                                      passionsSearchPassionRecord
+                                                                          .reference,
+                                                                );
+                                                                await currentUserReference!
+                                                                    .update(
+                                                                        userUpdateData);
+                                                              },
+                                                              child: Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  Image.network(
+                                                                    valueOrDefault<
+                                                                        String>(
+                                                                      passionsSearchPassionRecord
+                                                                          .image,
+                                                                      'https://firebasestorage.googleapis.com/v0/b/repassion-9ce5f.appspot.com/o/empty_article.jpg?alt=media&token=d8786d27-f588-4e24-8a60-2deb0358a439',
+                                                                    ),
+                                                                    height:
+                                                                        50.0,
+                                                                    fit: BoxFit
+                                                                        .cover,
                                                                   ),
-                                                                  height: 50.0,
-                                                                  fit: BoxFit
-                                                                      .cover,
-                                                                ),
-                                                                Expanded(
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            10.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
+                                                                  Expanded(
                                                                     child:
-                                                                        Container(
-                                                                      decoration:
-                                                                          BoxDecoration(),
+                                                                        Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          10.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
                                                                       child:
-                                                                          Column(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.min,
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.center,
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.start,
-                                                                        children: [
-                                                                          Text(
-                                                                            passionsSearchPassionRecord.title!,
-                                                                            textAlign:
-                                                                                TextAlign.start,
-                                                                            maxLines:
-                                                                                2,
-                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                  fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
-                                                                                  fontSize: 15.0,
-                                                                                  fontWeight: FontWeight.w500,
-                                                                                  useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                          Container(
+                                                                        decoration:
+                                                                            BoxDecoration(),
+                                                                        child:
+                                                                            Column(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.min,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.start,
+                                                                          children: [
+                                                                            Text(
+                                                                              passionsSearchPassionRecord.title!,
+                                                                              textAlign: TextAlign.start,
+                                                                              maxLines: 2,
+                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                    fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                                    fontSize: 15.0,
+                                                                                    fontWeight: FontWeight.w500,
+                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                  ),
+                                                                            ),
+                                                                            Wrap(
+                                                                              spacing: 0.0,
+                                                                              runSpacing: 0.0,
+                                                                              alignment: WrapAlignment.start,
+                                                                              crossAxisAlignment: WrapCrossAlignment.start,
+                                                                              direction: Axis.horizontal,
+                                                                              runAlignment: WrapAlignment.start,
+                                                                              verticalDirection: VerticalDirection.down,
+                                                                              clipBehavior: Clip.none,
+                                                                              children: [
+                                                                                Padding(
+                                                                                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+                                                                                  child: Text(
+                                                                                    passionsSearchPassionRecord.description!,
+                                                                                    textAlign: TextAlign.start,
+                                                                                    maxLines: 1,
+                                                                                    style: FlutterFlowTheme.of(context).bodyText1.override(
+                                                                                          fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                                          color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                          fontSize: 12.0,
+                                                                                          fontWeight: FontWeight.w500,
+                                                                                          useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                        ),
+                                                                                  ),
                                                                                 ),
-                                                                          ),
-                                                                          Wrap(
-                                                                            spacing:
-                                                                                0.0,
-                                                                            runSpacing:
-                                                                                0.0,
-                                                                            alignment:
-                                                                                WrapAlignment.start,
-                                                                            crossAxisAlignment:
-                                                                                WrapCrossAlignment.start,
-                                                                            direction:
-                                                                                Axis.horizontal,
-                                                                            runAlignment:
-                                                                                WrapAlignment.start,
-                                                                            verticalDirection:
-                                                                                VerticalDirection.down,
-                                                                            clipBehavior:
-                                                                                Clip.none,
-                                                                            children: [
-                                                                              Padding(
-                                                                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
-                                                                                child: Text(
-                                                                                  passionsSearchPassionRecord.description!,
-                                                                                  textAlign: TextAlign.start,
-                                                                                  maxLines: 1,
-                                                                                  style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                        fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
-                                                                                        color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                        fontSize: 12.0,
-                                                                                        fontWeight: FontWeight.w500,
-                                                                                        useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
-                                                                                      ),
-                                                                                ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        ],
+                                                                              ],
+                                                                            ),
+                                                                          ],
+                                                                        ),
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                ),
-                                                                if ((currentUserDocument?.likes?.toList() ??
-                                                                            [])
-                                                                        .contains(
-                                                                            passionsSearchPassionRecord.reference) !=
-                                                                    true)
-                                                                  AuthUserStreamWidget(
-                                                                    builder:
-                                                                        (context) =>
-                                                                            InkWell(
-                                                                      onTap:
-                                                                          () async {
-                                                                        final userUpdateData =
-                                                                            {
-                                                                          'likes':
-                                                                              FieldValue.arrayUnion([
-                                                                            passionsSearchPassionRecord.reference
-                                                                          ]),
-                                                                        };
-                                                                        await currentUserReference!
-                                                                            .update(userUpdateData);
+                                                                  if ((currentUserDocument?.likes?.toList() ??
+                                                                              [])
+                                                                          .contains(
+                                                                              passionsSearchPassionRecord.reference) !=
+                                                                      true)
+                                                                    AuthUserStreamWidget(
+                                                                      builder:
+                                                                          (context) =>
+                                                                              InkWell(
+                                                                        onTap:
+                                                                            () async {
+                                                                          logFirebaseEvent(
+                                                                              'PASSION_SEARCH_PAGE_Icon_afwila3m_ON_TAP');
+                                                                          logFirebaseEvent(
+                                                                              'Icon_backend_call');
 
-                                                                        final passionUpdateData =
-                                                                            {
-                                                                          'likes':
-                                                                              FieldValue.increment(1),
-                                                                        };
-                                                                        await passionsSearchPassionRecord
-                                                                            .reference
-                                                                            .update(passionUpdateData);
-                                                                        setState(() =>
-                                                                            _model.algoliaRequestCompleter2 =
-                                                                                null);
-                                                                        await _model
-                                                                            .waitForAlgoliaRequestCompleter2();
-                                                                      },
-                                                                      child:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .favorite_border_sharp,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryColor,
-                                                                        size:
-                                                                            25.0,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                if ((currentUserDocument?.likes?.toList() ??
-                                                                            [])
-                                                                        .contains(
-                                                                            passionsSearchPassionRecord.reference) ==
-                                                                    true)
-                                                                  AuthUserStreamWidget(
-                                                                    builder:
-                                                                        (context) =>
-                                                                            InkWell(
-                                                                      onTap:
-                                                                          () async {
-                                                                        final userUpdateData =
-                                                                            {
-                                                                          'likes':
-                                                                              FieldValue.arrayRemove([
-                                                                            passionsSearchPassionRecord.reference
-                                                                          ]),
-                                                                        };
-                                                                        await currentUserReference!
-                                                                            .update(userUpdateData);
+                                                                          final userUpdateData =
+                                                                              {
+                                                                            'likes':
+                                                                                FieldValue.arrayUnion([
+                                                                              passionsSearchPassionRecord.reference
+                                                                            ]),
+                                                                          };
+                                                                          await currentUserReference!
+                                                                              .update(userUpdateData);
+                                                                          logFirebaseEvent(
+                                                                              'Icon_backend_call');
 
-                                                                        final passionUpdateData =
-                                                                            {
-                                                                          'likes':
-                                                                              FieldValue.increment(-(1)),
-                                                                        };
-                                                                        await passionsSearchPassionRecord
-                                                                            .reference
-                                                                            .update(passionUpdateData);
-                                                                        setState(() =>
-                                                                            _model.algoliaRequestCompleter2 =
-                                                                                null);
-                                                                        await _model
-                                                                            .waitForAlgoliaRequestCompleter2();
-                                                                      },
-                                                                      child:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .favorite_sharp,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryColor,
-                                                                        size:
-                                                                            25.0,
+                                                                          final passionUpdateData =
+                                                                              {
+                                                                            'likes':
+                                                                                FieldValue.increment(1),
+                                                                          };
+                                                                          await passionsSearchPassionRecord
+                                                                              .reference
+                                                                              .update(passionUpdateData);
+                                                                          logFirebaseEvent(
+                                                                              'Icon_refresh_database_request');
+                                                                          setState(() =>
+                                                                              _model.algoliaRequestCompleter2 = null);
+                                                                          await _model
+                                                                              .waitForAlgoliaRequestCompleted2();
+                                                                        },
+                                                                        child:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .favorite_border_sharp,
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryColor,
+                                                                          size:
+                                                                              25.0,
+                                                                        ),
                                                                       ),
                                                                     ),
-                                                                  ),
-                                                              ],
+                                                                  if ((currentUserDocument?.likes?.toList() ??
+                                                                              [])
+                                                                          .contains(
+                                                                              passionsSearchPassionRecord.reference) ==
+                                                                      true)
+                                                                    AuthUserStreamWidget(
+                                                                      builder:
+                                                                          (context) =>
+                                                                              InkWell(
+                                                                        onTap:
+                                                                            () async {
+                                                                          logFirebaseEvent(
+                                                                              'PASSION_SEARCH_PAGE_Icon_nly4inlz_ON_TAP');
+                                                                          logFirebaseEvent(
+                                                                              'Icon_backend_call');
+
+                                                                          final userUpdateData =
+                                                                              {
+                                                                            'likes':
+                                                                                FieldValue.arrayRemove([
+                                                                              passionsSearchPassionRecord.reference
+                                                                            ]),
+                                                                          };
+                                                                          await currentUserReference!
+                                                                              .update(userUpdateData);
+                                                                          logFirebaseEvent(
+                                                                              'Icon_backend_call');
+
+                                                                          final passionUpdateData =
+                                                                              {
+                                                                            'likes':
+                                                                                FieldValue.increment(-(1)),
+                                                                          };
+                                                                          await passionsSearchPassionRecord
+                                                                              .reference
+                                                                              .update(passionUpdateData);
+                                                                          logFirebaseEvent(
+                                                                              'Icon_refresh_database_request');
+                                                                          setState(() =>
+                                                                              _model.algoliaRequestCompleter2 = null);
+                                                                          await _model
+                                                                              .waitForAlgoliaRequestCompleted2();
+                                                                        },
+                                                                        child:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .favorite_sharp,
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryColor,
+                                                                          size:
+                                                                              25.0,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                ],
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
@@ -848,6 +902,11 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget> {
                                                           ),
                                                           child: InkWell(
                                                             onTap: () async {
+                                                              logFirebaseEvent(
+                                                                  'PASSION_SEARCH_PAGE_Tag_ON_TAP');
+                                                              logFirebaseEvent(
+                                                                  'Tag_navigate_to');
+
                                                               context.pushNamed(
                                                                 'CategoryWindow',
                                                                 queryParams: {
@@ -1086,6 +1145,11 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget> {
                                                           ),
                                                           child: InkWell(
                                                             onTap: () async {
+                                                              logFirebaseEvent(
+                                                                  'PASSION_SEARCH_PAGE_Tag_ON_TAP');
+                                                              logFirebaseEvent(
+                                                                  'Tag_navigate_to');
+
                                                               context.pushNamed(
                                                                 'CategoryWindow',
                                                                 queryParams: {
@@ -1295,6 +1359,11 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget> {
                                         snapshot.data!;
                                     return InkWell(
                                       onTap: () async {
+                                        logFirebaseEvent(
+                                            'PASSION_SEARCH_CurrentPassion_ON_TAP');
+                                        logFirebaseEvent(
+                                            'CurrentPassion_navigate_to');
+
                                         context.pushNamed(
                                           'PassionWindow',
                                           queryParams: {
@@ -1429,6 +1498,11 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget> {
                                                     true)
                                                   InkWell(
                                                     onTap: () async {
+                                                      logFirebaseEvent(
+                                                          'PASSION_SEARCH_PAGE_Icon_ole5hdea_ON_TAP');
+                                                      logFirebaseEvent(
+                                                          'Icon_backend_call');
+
                                                       final userUpdateData = {
                                                         'likes': FieldValue
                                                             .arrayUnion([
@@ -1439,6 +1513,8 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget> {
                                                       await currentUserReference!
                                                           .update(
                                                               userUpdateData);
+                                                      logFirebaseEvent(
+                                                          'Icon_backend_call');
 
                                                       final passionUpdateData =
                                                           {
@@ -1449,11 +1525,13 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget> {
                                                           .reference
                                                           .update(
                                                               passionUpdateData);
+                                                      logFirebaseEvent(
+                                                          'Icon_refresh_database_request');
                                                       setState(() => _model
                                                               .algoliaRequestCompleter2 =
                                                           null);
                                                       await _model
-                                                          .waitForAlgoliaRequestCompleter2();
+                                                          .waitForAlgoliaRequestCompleted2();
                                                     },
                                                     child: Icon(
                                                       Icons
@@ -1474,6 +1552,11 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget> {
                                                     true)
                                                   InkWell(
                                                     onTap: () async {
+                                                      logFirebaseEvent(
+                                                          'PASSION_SEARCH_PAGE_Icon_w9k7ext1_ON_TAP');
+                                                      logFirebaseEvent(
+                                                          'Icon_backend_call');
+
                                                       final userUpdateData = {
                                                         'likes': FieldValue
                                                             .arrayRemove([
@@ -1484,6 +1567,8 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget> {
                                                       await currentUserReference!
                                                           .update(
                                                               userUpdateData);
+                                                      logFirebaseEvent(
+                                                          'Icon_backend_call');
 
                                                       final passionUpdateData =
                                                           {
@@ -1494,11 +1579,13 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget> {
                                                           .reference
                                                           .update(
                                                               passionUpdateData);
+                                                      logFirebaseEvent(
+                                                          'Icon_refresh_database_request');
                                                       setState(() => _model
                                                               .algoliaRequestCompleter2 =
                                                           null);
                                                       await _model
-                                                          .waitForAlgoliaRequestCompleter2();
+                                                          .waitForAlgoliaRequestCompleted2();
                                                     },
                                                     child: Icon(
                                                       Icons.favorite_sharp,
@@ -1545,6 +1632,10 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget> {
                                 ),
                                 InkWell(
                                   onTap: () async {
+                                    logFirebaseEvent(
+                                        'PASSION_SEARCH_Container_dr7e05b8_ON_TAP');
+                                    logFirebaseEvent('Container_navigate_to');
+
                                     context.pushNamed(
                                       'PassionFavorite',
                                       extra: <String, dynamic>{
@@ -1572,6 +1663,10 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget> {
                                 ),
                                 InkWell(
                                   onTap: () async {
+                                    logFirebaseEvent(
+                                        'PASSION_SEARCH_Container_q1azyby2_ON_TAP');
+                                    logFirebaseEvent('Container_navigate_to');
+
                                     context.pushNamed(
                                       'PassionOwn',
                                       extra: <String, dynamic>{

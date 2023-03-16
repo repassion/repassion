@@ -146,12 +146,6 @@
       "languageVersion": "2.18"
     },
     {
-      "name": "chewie",
-      "rootUri": "file:///home/mauz/snap/flutter/common/flutter/.pub-cache/hosted/pub.dev/chewie-1.3.4",
-      "packageUri": "lib/",
-      "languageVersion": "2.13"
-    },
-    {
       "name": "clock",
       "rootUri": "file:///home/mauz/snap/flutter/common/flutter/.pub-cache/hosted/pub.dev/clock-1.1.1",
       "packageUri": "lib/",
@@ -292,6 +286,24 @@
     {
       "name": "firebase_analytics_web",
       "rootUri": "file:///home/mauz/snap/flutter/common/flutter/.pub-cache/hosted/pub.dev/firebase_analytics_web-0.5.1+6",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
+      "name": "firebase_app_check",
+      "rootUri": "file:///home/mauz/snap/flutter/common/flutter/.pub-cache/hosted/pub.dev/firebase_app_check-0.1.1+6",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
+      "name": "firebase_app_check_platform_interface",
+      "rootUri": "file:///home/mauz/snap/flutter/common/flutter/.pub-cache/hosted/pub.dev/firebase_app_check_platform_interface-0.0.5+9",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
+      "name": "firebase_app_check_web",
+      "rootUri": "file:///home/mauz/snap/flutter/common/flutter/.pub-cache/hosted/pub.dev/firebase_app_check_web-0.0.7+9",
       "packageUri": "lib/",
       "languageVersion": "2.16"
     },
@@ -771,7 +783,7 @@
     },
     {
       "name": "path_provider_foundation",
-      "rootUri": "file:///home/mauz/snap/flutter/common/flutter/.pub-cache/hosted/pub.dev/path_provider_foundation-2.1.3",
+      "rootUri": "file:///home/mauz/snap/flutter/common/flutter/.pub-cache/hosted/pub.dev/path_provider_foundation-2.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
@@ -1184,36 +1196,6 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "wakelock",
-      "rootUri": "file:///home/mauz/snap/flutter/common/flutter/.pub-cache/hosted/pub.dev/wakelock-0.6.2",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
-      "name": "wakelock_macos",
-      "rootUri": "file:///home/mauz/snap/flutter/common/flutter/.pub-cache/hosted/pub.dev/wakelock_macos-0.4.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
-      "name": "wakelock_platform_interface",
-      "rootUri": "file:///home/mauz/snap/flutter/common/flutter/.pub-cache/hosted/pub.dev/wakelock_platform_interface-0.3.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
-      "name": "wakelock_web",
-      "rootUri": "file:///home/mauz/snap/flutter/common/flutter/.pub-cache/hosted/pub.dev/wakelock_web-0.4.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
-      "name": "wakelock_windows",
-      "rootUri": "file:///home/mauz/snap/flutter/common/flutter/.pub-cache/hosted/pub.dev/wakelock_windows-0.2.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
       "name": "watcher",
       "rootUri": "file:///home/mauz/snap/flutter/common/flutter/.pub-cache/hosted/pub.dev/watcher-1.0.2",
       "packageUri": "lib/",
@@ -1224,6 +1206,30 @@
       "rootUri": "file:///home/mauz/snap/flutter/common/flutter/.pub-cache/hosted/pub.dev/web_socket_channel-2.3.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "webview_flutter",
+      "rootUri": "file:///home/mauz/snap/flutter/common/flutter/.pub-cache/hosted/pub.dev/webview_flutter-3.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "webview_flutter_android",
+      "rootUri": "file:///home/mauz/snap/flutter/common/flutter/.pub-cache/hosted/pub.dev/webview_flutter_android-2.10.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "webview_flutter_platform_interface",
+      "rootUri": "file:///home/mauz/snap/flutter/common/flutter/.pub-cache/hosted/pub.dev/webview_flutter_platform_interface-1.9.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "webview_flutter_wkwebview",
+      "rootUri": "file:///home/mauz/snap/flutter/common/flutter/.pub-cache/hosted/pub.dev/webview_flutter_wkwebview-2.9.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
     },
     {
       "name": "win32",
@@ -1250,13 +1256,25 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "youtube_player_iframe",
+      "rootUri": "file:///home/mauz/snap/flutter/common/flutter/.pub-cache/hosted/pub.dev/youtube_player_iframe-3.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "youtube_player_iframe_web",
+      "rootUri": "file:///home/mauz/snap/flutter/common/flutter/.pub-cache/hosted/pub.dev/youtube_player_iframe_web-1.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "repassion",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2023-03-14T19:12:46.932697Z",
+  "generated": "2023-03-16T19:37:03.802390Z",
   "generator": "pub",
   "generatorVersion": "2.19.4"
 }

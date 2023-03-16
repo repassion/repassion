@@ -1,5 +1,6 @@
 import '/auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/max_main_tags_warning_widget.dart';
 import '/components/no_entries_widget.dart';
 import '/components/tag_loading_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -21,7 +22,8 @@ class ProfileSetup4Model extends FlutterFlowModel {
   TextEditingController? searchFieldController;
   String? Function(BuildContext, String?)? searchFieldControllerValidator;
   Completer<List<TagRecord>>? algoliaRequestCompleter;
-  Completer<List<TagRecord>>? firestoreRequestCompleter;
+  Completer<List<TagRecord>>? firestoreRequestCompleter1;
+  Completer<List<TagRecord>>? firestoreRequestCompleter2;
 
   /// Initialization and disposal methods.
 
@@ -33,7 +35,7 @@ class ProfileSetup4Model extends FlutterFlowModel {
 
   /// Additional helper methods are added here.
 
-  Future waitForAlgoliaRequestCompleter({
+  Future waitForAlgoliaRequestCompleted({
     double minWait = 0,
     double maxWait = double.infinity,
   }) async {
@@ -48,7 +50,7 @@ class ProfileSetup4Model extends FlutterFlowModel {
     }
   }
 
-  Future waitForFirestoreRequestCompleter({
+  Future waitForFirestoreRequestCompleted1({
     double minWait = 0,
     double maxWait = double.infinity,
   }) async {
@@ -56,7 +58,22 @@ class ProfileSetup4Model extends FlutterFlowModel {
     while (true) {
       await Future.delayed(Duration(milliseconds: 50));
       final timeElapsed = stopwatch.elapsedMilliseconds;
-      final requestComplete = firestoreRequestCompleter?.isCompleted ?? false;
+      final requestComplete = firestoreRequestCompleter1?.isCompleted ?? false;
+      if (timeElapsed > maxWait || (requestComplete && timeElapsed > minWait)) {
+        break;
+      }
+    }
+  }
+
+  Future waitForFirestoreRequestCompleted2({
+    double minWait = 0,
+    double maxWait = double.infinity,
+  }) async {
+    final stopwatch = Stopwatch()..start();
+    while (true) {
+      await Future.delayed(Duration(milliseconds: 50));
+      final timeElapsed = stopwatch.elapsedMilliseconds;
+      final requestComplete = firestoreRequestCompleter2?.isCompleted ?? false;
       if (timeElapsed > maxWait || (requestComplete && timeElapsed > minWait)) {
         break;
       }

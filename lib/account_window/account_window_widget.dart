@@ -27,6 +27,8 @@ class _AccountWindowWidgetState extends State<AccountWindowWidget> {
     super.initState();
     _model = createModel(context, () => AccountWindowModel());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'AccountWindow'});
     _model.usernameController ??=
         TextEditingController(text: currentUserDisplayName);
     _model.eMailController ??= TextEditingController(text: currentUserEmail);
@@ -75,6 +77,9 @@ class _AccountWindowWidgetState extends State<AccountWindowWidget> {
                             children: [
                               InkWell(
                                 onTap: () async {
+                                  logFirebaseEvent(
+                                      'ACCOUNT_WINDOW_PAGE_Row_iwgcl6wz_ON_TAP');
+                                  logFirebaseEvent('Row_navigate_back');
                                   context.pop();
                                 },
                                 child: Row(
@@ -315,7 +320,11 @@ class _AccountWindowWidgetState extends State<AccountWindowWidget> {
                                     0.0, 0.0, 0.0, 10.0),
                                 child: InkWell(
                                   onTap: () async {
+                                    logFirebaseEvent(
+                                        'ACCOUNT_WINDOW_PAGE_Setting_ON_TAP');
+                                    logFirebaseEvent('Setting_haptic_feedback');
                                     HapticFeedback.lightImpact();
+                                    logFirebaseEvent('Setting_auth');
                                     if (_model.eMailController.text.isEmpty) {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
@@ -462,11 +471,16 @@ class _AccountWindowWidgetState extends State<AccountWindowWidget> {
                           25.0, 25.0, 25.0, 25.0),
                       child: InkWell(
                         onTap: () async {
+                          logFirebaseEvent(
+                              'ACCOUNT_WINDOW_Container_2q4hto3a_ON_TAP');
+                          logFirebaseEvent('Container_haptic_feedback');
                           HapticFeedback.mediumImpact();
+                          logFirebaseEvent('Container_validate_form');
                           if (_model.formKey.currentState == null ||
                               !_model.formKey.currentState!.validate()) {
                             return;
                           }
+                          logFirebaseEvent('Container_navigate_back');
                           context.pop();
                         },
                         child: Material(

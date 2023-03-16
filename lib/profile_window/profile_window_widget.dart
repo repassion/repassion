@@ -41,10 +41,14 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
     super.initState();
     _model = createModel(context, () => ProfileWindowModel());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'ProfileWindow'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('PROFILE_WINDOW_ProfileWindow_ON_LOAD');
       if (valueOrDefault(currentUserDocument?.locationAddress, '') != null &&
           valueOrDefault(currentUserDocument?.locationAddress, '') != '') {
+        logFirebaseEvent('ProfileWindow_google_map');
         await _model.googleMapsController.future.then(
           (c) => c.animateCamera(
             CameraUpdate.newLatLng(
@@ -52,11 +56,13 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
           ),
         );
       }
+      logFirebaseEvent('ProfileWindow_start_periodic_action');
       _model.instantTimer = InstantTimer.periodic(
         duration: Duration(milliseconds: 1000),
         callback: (timer) async {
           if (_model.standortValue.address != null &&
               _model.standortValue.address != '') {
+            logFirebaseEvent('ProfileWindow_google_map');
             await _model.googleMapsController.future.then(
               (c) => c.animateCamera(
                 CameraUpdate.newLatLng(
@@ -123,12 +129,16 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                             children: [
                               InkWell(
                                 onTap: () async {
+                                  logFirebaseEvent(
+                                      'PROFILE_WINDOW_PAGE_Row_tyyx9qfo_ON_TAP');
                                   if (_model.uploadedFileUrl != null &&
                                       _model.uploadedFileUrl != '') {
+                                    logFirebaseEvent('Row_delete_media');
                                     await FirebaseStorage.instance
                                         .refFromURL(_model.uploadedFileUrl)
                                         .delete();
                                   }
+                                  logFirebaseEvent('Row_navigate_back');
                                   context.pop();
                                 },
                                 child: Row(
@@ -220,7 +230,13 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                         children: [
                                           InkWell(
                                             onTap: () async {
+                                              logFirebaseEvent(
+                                                  'PROFILE_WINDOW_Container_9t2v1rdq_ON_TAP');
+                                              logFirebaseEvent(
+                                                  'Container_haptic_feedback');
                                               HapticFeedback.lightImpact();
+                                              logFirebaseEvent(
+                                                  'Container_alert_dialog');
                                               var confirmDialogResponse =
                                                   await showDialog<bool>(
                                                         context: context,
@@ -258,17 +274,24 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                                         null &&
                                                     _model.uploadedFileUrl !=
                                                         '') {
+                                                  logFirebaseEvent(
+                                                      'Container_delete_media');
                                                   await FirebaseStorage.instance
                                                       .refFromURL(_model
                                                           .uploadedFileUrl)
                                                       .delete();
                                                   return;
                                                 } else {
+                                                  logFirebaseEvent(
+                                                      'Container_delete_media');
                                                   await FirebaseStorage.instance
                                                       .refFromURL(
                                                           currentUserPhoto)
                                                       .delete();
                                                 }
+
+                                                logFirebaseEvent(
+                                                    'Container_backend_call');
 
                                                 final userUpdateData = {
                                                   'photo_url':
@@ -316,16 +339,24 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                           ),
                                           InkWell(
                                             onTap: () async {
+                                              logFirebaseEvent(
+                                                  'PROFILE_WINDOW_Container_fgtukfz0_ON_TAP');
+                                              logFirebaseEvent(
+                                                  'Container_haptic_feedback');
                                               HapticFeedback.lightImpact();
                                               if (_model.uploadedFileUrl !=
                                                       null &&
                                                   _model.uploadedFileUrl !=
                                                       '') {
+                                                logFirebaseEvent(
+                                                    'Container_delete_media');
                                                 await FirebaseStorage.instance
                                                     .refFromURL(
                                                         _model.uploadedFileUrl)
                                                     .delete();
                                               }
+                                              logFirebaseEvent(
+                                                  'Container_upload_media_to_firebase');
                                               final selectedMedia =
                                                   await selectMediaWithSourceBottomSheet(
                                                 context: context,
@@ -1104,7 +1135,11 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                           25.0, 25.0, 25.0, 25.0),
                       child: InkWell(
                         onTap: () async {
+                          logFirebaseEvent(
+                              'PROFILE_WINDOW_Container_6ioxl3je_ON_TAP');
+                          logFirebaseEvent('Container_haptic_feedback');
                           HapticFeedback.mediumImpact();
+                          logFirebaseEvent('Container_validate_form');
                           if (_model.formKey.currentState == null ||
                               !_model.formKey.currentState!.validate()) {
                             return;
@@ -1113,16 +1148,19 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                               _model.uploadedFileUrl != '') {
                             if (currentUserPhoto != null &&
                                 currentUserPhoto != '') {
+                              logFirebaseEvent('Container_delete_media');
                               await FirebaseStorage.instance
                                   .refFromURL(currentUserPhoto)
                                   .delete();
                             }
+                            logFirebaseEvent('Container_backend_call');
 
                             final userUpdateData1 = createUserRecordData(
                               photoUrl: _model.uploadedFileUrl,
                             );
                             await currentUserReference!.update(userUpdateData1);
                           }
+                          logFirebaseEvent('Container_backend_call');
 
                           final userUpdateData2 = createUserRecordData(
                             firstName: _model.vornameController.text,
@@ -1132,6 +1170,8 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                           await currentUserReference!.update(userUpdateData2);
                           if (_model.informationController.text !=
                               valueOrDefault(currentUserDocument?.info, '')) {
+                            logFirebaseEvent('Container_backend_call');
+
                             final userUpdateData3 = createUserRecordData(
                               info: _model.informationController.text,
                             );
@@ -1139,12 +1179,15 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                           }
                           if (_model.standortValue.address != null &&
                               _model.standortValue.address != '') {
+                            logFirebaseEvent('Container_backend_call');
+
                             final userUpdateData4 = createUserRecordData(
                               locationAddress: _model.standortValue.address,
                               locationLatlng: _model.standortValue.latLng,
                             );
                             await currentUserReference!.update(userUpdateData4);
                           }
+                          logFirebaseEvent('Container_navigate_back');
                           context.pop();
                         },
                         child: Material(

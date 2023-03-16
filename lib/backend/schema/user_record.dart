@@ -58,6 +58,8 @@ abstract class UserRecord implements Built<UserRecord, UserRecordBuilder> {
 
   BuiltList<DocumentReference>? get likes;
 
+  bool? get startupPassion;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -79,7 +81,8 @@ abstract class UserRecord implements Built<UserRecord, UserRecordBuilder> {
     ..mainTags = ListBuilder()
     ..requests = ListBuilder()
     ..about = ''
-    ..likes = ListBuilder();
+    ..likes = ListBuilder()
+    ..startupPassion = false;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('user');
@@ -118,6 +121,7 @@ Map<String, dynamic> createUserRecordData({
   LatLng? locationLatlng,
   String? about,
   DocumentReference? passion,
+  bool? startupPassion,
 }) {
   final firestoreData = serializers.toFirestore(
     UserRecord.serializer,
@@ -142,7 +146,8 @@ Map<String, dynamic> createUserRecordData({
         ..requests = null
         ..about = about
         ..passion = passion
-        ..likes = null,
+        ..likes = null
+        ..startupPassion = startupPassion,
     ),
   );
 

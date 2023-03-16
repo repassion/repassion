@@ -35,9 +35,12 @@ class _ChatWidgetState extends State<ChatWidget> {
     super.initState();
     _model = createModel(context, () => ChatModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'Chat'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('CHAT_PAGE_Chat_ON_PAGE_LOAD');
       if (!(await getPermissionStatus(notificationsPermission))) {
+        logFirebaseEvent('Chat_request_permissions');
         await requestPermission(notificationsPermission);
       }
     });
@@ -88,6 +91,10 @@ class _ChatWidgetState extends State<ChatWidget> {
                               children: [
                                 InkWell(
                                   onTap: () async {
+                                    logFirebaseEvent(
+                                        'CHAT_PAGE_Image_xtt6grm6_ON_TAP');
+                                    logFirebaseEvent('Image_navigate_to');
+
                                     context.goNamed(
                                       'Home',
                                       extra: <String, dynamic>{
@@ -111,6 +118,10 @@ class _ChatWidgetState extends State<ChatWidget> {
                                       5.0, 0.0, 0.0, 0.0),
                                   child: InkWell(
                                     onTap: () async {
+                                      logFirebaseEvent(
+                                          'CHAT_PAGE_Icon_w66c77od_ON_TAP');
+                                      logFirebaseEvent('Icon_navigate_to');
+
                                       context.pushNamed(
                                         'PassionSearch',
                                         extra: <String, dynamic>{
@@ -252,6 +263,11 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                           0.0, 0.0, 5.0, 0.0),
                                                   child: InkWell(
                                                     onTap: () async {
+                                                      logFirebaseEvent(
+                                                          'CHAT_PAGE_Icon_96bgpmg5_ON_TAP');
+                                                      logFirebaseEvent(
+                                                          'Icon_navigate_to');
+
                                                       context.pushNamed(
                                                         'Home',
                                                         extra: <String,
@@ -287,6 +303,10 @@ class _ChatWidgetState extends State<ChatWidget> {
                                 ),
                                 InkWell(
                                   onTap: () async {
+                                    logFirebaseEvent(
+                                        'CHAT_PAGE_Icon_mqsnndwx_ON_TAP');
+                                    logFirebaseEvent('Icon_navigate_to');
+
                                     context.pushNamed(
                                       'Settings',
                                       extra: <String, dynamic>{
@@ -483,6 +503,9 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                                         return InkWell(
                                                                           onTap:
                                                                               () async {
+                                                                            logFirebaseEvent('CHAT_PAGE_Container_zslqtf0y_ON_TAP');
+                                                                            logFirebaseEvent('Container_navigate_to');
+
                                                                             context.pushNamed(
                                                                               'UserWindow',
                                                                               queryParams: {
@@ -581,12 +604,16 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                                                           children: [
                                                                                             InkWell(
                                                                                               onTap: () async {
+                                                                                                logFirebaseEvent('CHAT_PAGE_Icon_oloohnor_ON_TAP');
+                                                                                                logFirebaseEvent('Icon_haptic_feedback');
                                                                                                 HapticFeedback.lightImpact();
+                                                                                                logFirebaseEvent('Icon_backend_call');
 
                                                                                                 final requestUpdateData = createRequestRecordData(
                                                                                                   status: 'blocked',
                                                                                                 );
                                                                                                 await columnRequestRecord.reference.update(requestUpdateData);
+                                                                                                logFirebaseEvent('Icon_backend_call');
 
                                                                                                 final userUpdateData1 = {
                                                                                                   'requests': FieldValue.arrayUnion([
@@ -594,6 +621,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                                                                   ]),
                                                                                                 };
                                                                                                 await currentUserReference!.update(userUpdateData1);
+                                                                                                logFirebaseEvent('Icon_backend_call');
 
                                                                                                 final userUpdateData2 = {
                                                                                                   'requests': FieldValue.arrayUnion([currentUserUid]),
@@ -602,18 +630,22 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                                                               },
                                                                                               child: Icon(
                                                                                                 Icons.close_sharp,
-                                                                                                color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                                color: FlutterFlowTheme.of(context).tertiaryColor,
                                                                                                 size: 50.0,
                                                                                               ),
                                                                                             ),
                                                                                             InkWell(
                                                                                               onTap: () async {
+                                                                                                logFirebaseEvent('CHAT_PAGE_Icon_gessjm6j_ON_TAP');
+                                                                                                logFirebaseEvent('Icon_haptic_feedback');
                                                                                                 HapticFeedback.lightImpact();
+                                                                                                logFirebaseEvent('Icon_backend_call');
 
                                                                                                 final requestUpdateData = createRequestRecordData(
                                                                                                   status: 'accepted',
                                                                                                 );
                                                                                                 await columnRequestRecord.reference.update(requestUpdateData);
+                                                                                                logFirebaseEvent('Icon_backend_call');
 
                                                                                                 final chatCreateData1 = {
                                                                                                   ...createChatRecordData(
@@ -624,6 +656,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                                                                   'order_date': FieldValue.serverTimestamp(),
                                                                                                 };
                                                                                                 await ChatRecord.collection.doc().set(chatCreateData1);
+                                                                                                logFirebaseEvent('Icon_backend_call');
 
                                                                                                 final chatCreateData2 = {
                                                                                                   ...createChatRecordData(
@@ -752,13 +785,17 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                                         return InkWell(
                                                                           onTap:
                                                                               () async {
+                                                                            logFirebaseEvent('CHAT_PAGE_Container_t72l109h_ON_TAP');
+                                                                            logFirebaseEvent('Container_haptic_feedback');
                                                                             HapticFeedback.lightImpact();
+                                                                            logFirebaseEvent('Container_backend_call');
 
                                                                             final chatUpdateData =
                                                                                 createChatRecordData(
                                                                               notifications: 0,
                                                                             );
                                                                             await columnChatRecord.reference.update(chatUpdateData);
+                                                                            logFirebaseEvent('Container_navigate_to');
 
                                                                             context.pushNamed(
                                                                               'ChatWindow',
@@ -778,6 +815,9 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                                           },
                                                                           onLongPress:
                                                                               () async {
+                                                                            logFirebaseEvent('CHAT_Container_t72l109h_ON_LONG_PRESS');
+                                                                            logFirebaseEvent('Container_navigate_to');
+
                                                                             context.pushNamed(
                                                                               'UserWindow',
                                                                               queryParams: {

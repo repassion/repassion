@@ -29,6 +29,8 @@ class _ProfileSetup1WidgetState extends State<ProfileSetup1Widget> {
     super.initState();
     _model = createModel(context, () => ProfileSetup1Model());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'ProfileSetup1'});
     _model.vornameController ??= TextEditingController(
         text: valueOrDefault(currentUserDocument?.firstName, ''));
     _model.nachnameController ??= TextEditingController(
@@ -408,17 +410,23 @@ class _ProfileSetup1WidgetState extends State<ProfileSetup1Widget> {
                           25.0, 25.0, 25.0, 25.0),
                       child: InkWell(
                         onTap: () async {
+                          logFirebaseEvent(
+                              'PROFILE_SETUP1_Container_jpndo4hz_ON_TAP');
+                          logFirebaseEvent('Container_haptic_feedback');
                           HapticFeedback.mediumImpact();
+                          logFirebaseEvent('Container_validate_form');
                           if (_model.formKey.currentState == null ||
                               !_model.formKey.currentState!.validate()) {
                             return;
                           }
+                          logFirebaseEvent('Container_backend_call');
 
                           final userUpdateData = createUserRecordData(
                             firstName: _model.vornameController.text,
                             lastName: _model.nachnameController.text,
                           );
                           await currentUserReference!.update(userUpdateData);
+                          logFirebaseEvent('Container_navigate_to');
 
                           context.pushNamed(
                             'ProfileSetup2',

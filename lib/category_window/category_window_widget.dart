@@ -34,6 +34,8 @@ class _CategoryWindowWidgetState extends State<CategoryWindowWidget> {
     super.initState();
     _model = createModel(context, () => CategoryWindowModel());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'CategoryWindow'});
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -98,6 +100,9 @@ class _CategoryWindowWidgetState extends State<CategoryWindowWidget> {
                                 children: [
                                   InkWell(
                                     onTap: () async {
+                                      logFirebaseEvent(
+                                          'CATEGORY_WINDOW_PAGE_Row_g1tq7lix_ON_TAP');
+                                      logFirebaseEvent('Row_navigate_back');
                                       context.pop();
                                     },
                                     child: Row(
@@ -323,6 +328,11 @@ class _CategoryWindowWidgetState extends State<CategoryWindowWidget> {
                                                         ),
                                                         child: InkWell(
                                                           onTap: () async {
+                                                            logFirebaseEvent(
+                                                                'CATEGORY_WINDOW_PAGE_Passion_ON_TAP');
+                                                            logFirebaseEvent(
+                                                                'Passion_navigate_to');
+
                                                             context.pushNamed(
                                                               'PassionWindow',
                                                               queryParams: {
@@ -349,6 +359,9 @@ class _CategoryWindowWidgetState extends State<CategoryWindowWidget> {
                                                                 ),
                                                               },
                                                             );
+
+                                                            logFirebaseEvent(
+                                                                'Passion_backend_call');
 
                                                             final userUpdateData =
                                                                 createUserRecordData(
@@ -473,6 +486,11 @@ class _CategoryWindowWidgetState extends State<CategoryWindowWidget> {
                                                                           InkWell(
                                                                     onTap:
                                                                         () async {
+                                                                      logFirebaseEvent(
+                                                                          'CATEGORY_WINDOW_Icon_l51x4zur_ON_TAP');
+                                                                      logFirebaseEvent(
+                                                                          'Icon_backend_call');
+
                                                                       final userUpdateData =
                                                                           {
                                                                         'likes':
@@ -484,6 +502,8 @@ class _CategoryWindowWidgetState extends State<CategoryWindowWidget> {
                                                                       await currentUserReference!
                                                                           .update(
                                                                               userUpdateData);
+                                                                      logFirebaseEvent(
+                                                                          'Icon_backend_call');
 
                                                                       final passionUpdateData =
                                                                           {
@@ -520,6 +540,11 @@ class _CategoryWindowWidgetState extends State<CategoryWindowWidget> {
                                                                           InkWell(
                                                                     onTap:
                                                                         () async {
+                                                                      logFirebaseEvent(
+                                                                          'CATEGORY_WINDOW_Icon_r05c1vw1_ON_TAP');
+                                                                      logFirebaseEvent(
+                                                                          'Icon_backend_call');
+
                                                                       final userUpdateData =
                                                                           {
                                                                         'likes':
@@ -531,6 +556,8 @@ class _CategoryWindowWidgetState extends State<CategoryWindowWidget> {
                                                                       await currentUserReference!
                                                                           .update(
                                                                               userUpdateData);
+                                                                      logFirebaseEvent(
+                                                                          'Icon_backend_call');
 
                                                                       final passionUpdateData =
                                                                           {

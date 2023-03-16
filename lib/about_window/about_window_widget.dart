@@ -29,6 +29,7 @@ class _AboutWindowWidgetState extends State<AboutWindowWidget> {
     super.initState();
     _model = createModel(context, () => AboutWindowModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'AboutWindow'});
     _model.aboutController ??= TextEditingController(
         text: valueOrDefault(currentUserDocument?.about, ''));
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -76,6 +77,9 @@ class _AboutWindowWidgetState extends State<AboutWindowWidget> {
                             children: [
                               InkWell(
                                 onTap: () async {
+                                  logFirebaseEvent(
+                                      'ABOUT_WINDOW_PAGE_Row_uc5hh9vx_ON_TAP');
+                                  logFirebaseEvent('Row_navigate_back');
                                   context.pop();
                                 },
                                 child: Row(
@@ -260,14 +264,20 @@ class _AboutWindowWidgetState extends State<AboutWindowWidget> {
                           25.0, 25.0, 25.0, 25.0),
                       child: InkWell(
                         onTap: () async {
+                          logFirebaseEvent(
+                              'ABOUT_WINDOW_Container_bdrbsbt0_ON_TAP');
+                          logFirebaseEvent('Container_haptic_feedback');
                           HapticFeedback.mediumImpact();
                           if (_model.aboutController.text != null &&
                               _model.aboutController.text != '') {
+                            logFirebaseEvent('Container_backend_call');
+
                             final userUpdateData = createUserRecordData(
                               about: _model.aboutController.text,
                             );
                             await currentUserReference!.update(userUpdateData);
                           }
+                          logFirebaseEvent('Container_navigate_back');
                           context.pop();
                         },
                         child: Material(

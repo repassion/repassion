@@ -8,8 +8,8 @@ export '/passion_search/passion_search_widget.dart' show PassionSearchWidget;
 export '/passion_favorite/passion_favorite_widget.dart'
     show PassionFavoriteWidget;
 export '/passion_own/passion_own_widget.dart' show PassionOwnWidget;
-export '/passion_edit/passion_edit_widget.dart' show PassionEditWidget;
 export '/category_window/category_window_widget.dart' show CategoryWindowWidget;
+export '/passion_edit/passion_edit_widget.dart' show PassionEditWidget;
 export '/passion_window/passion_window_widget.dart' show PassionWindowWidget;
 export '/chat/chat_widget.dart' show ChatWidget;
 export '/chat_window/chat_window_widget.dart' show ChatWindowWidget;
@@ -24,3 +24,4 @@ export '/profile_setup2/profile_setup2_widget.dart' show ProfileSetup2Widget;
 export '/profile_setup3/profile_setup3_widget.dart' show ProfileSetup3Widget;
 export '/profile_setup4/profile_setup4_widget.dart' show ProfileSetup4Widget;
 export '/profile_setup5/profile_setup5_widget.dart' show ProfileSetup5Widget;
+export '/startup/startup_widget.dart' show StartupWidget;

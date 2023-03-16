@@ -43,7 +43,7 @@ class PassionSearchModel extends FlutterFlowModel {
 
   /// Additional helper methods are added here.
 
-  Future waitForAlgoliaRequestCompleter2({
+  Future waitForAlgoliaRequestCompleted2({
     double minWait = 0,
     double maxWait = double.infinity,
   }) async {
@@ -58,7 +58,7 @@ class PassionSearchModel extends FlutterFlowModel {
     }
   }
 
-  Future waitForAlgoliaRequestCompleter1({
+  Future waitForAlgoliaRequestCompleted1({
     double minWait = 0,
     double maxWait = double.infinity,
   }) async {

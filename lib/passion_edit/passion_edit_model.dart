@@ -4,6 +4,7 @@ import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_media.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -29,6 +30,8 @@ class PassionEditModel extends FlutterFlowModel {
     return null;
   }
 
+  // State field(s) for Switch widget.
+  bool? switchValue;
   // State field(s) for Beschreibung widget.
   TextEditingController? beschreibungController1;
   String? Function(BuildContext, String?)? beschreibungController1Validator;
@@ -42,6 +45,7 @@ class PassionEditModel extends FlutterFlowModel {
 
   // State field(s) for DropDown widget.
   String? dropDownValue;
+  FormFieldController<String>? dropDownController;
   bool isMediaUploading = false;
   FFUploadedFile uploadedLocalFile =
       FFUploadedFile(bytes: Uint8List.fromList([]));

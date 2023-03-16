@@ -6,6 +6,7 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:badges/badges.dart' as badges;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -37,6 +38,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
     super.initState();
     _model = createModel(context, () => SettingsModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'Settings'});
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -82,6 +84,10 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                               children: [
                                 InkWell(
                                   onTap: () async {
+                                    logFirebaseEvent(
+                                        'SETTINGS_PAGE_Image_rlw060d1_ON_TAP');
+                                    logFirebaseEvent('Image_navigate_to');
+
                                     context.pushNamed(
                                       'Home',
                                       extra: <String, dynamic>{
@@ -105,6 +111,10 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                       5.0, 0.0, 0.0, 0.0),
                                   child: InkWell(
                                     onTap: () async {
+                                      logFirebaseEvent(
+                                          'SETTINGS_PAGE_Icon_mwtnjj16_ON_TAP');
+                                      logFirebaseEvent('Icon_navigate_to');
+
                                       context.pushNamed(
                                         'PassionSearch',
                                         extra: <String, dynamic>{
@@ -246,6 +256,11 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                                           0.0, 0.0, 5.0, 0.0),
                                                   child: InkWell(
                                                     onTap: () async {
+                                                      logFirebaseEvent(
+                                                          'SETTINGS_PAGE_Icon_vk4pty6g_ON_TAP');
+                                                      logFirebaseEvent(
+                                                          'Icon_navigate_to');
+
                                                       context.pushNamed(
                                                         'Chat',
                                                         extra: <String,
@@ -278,6 +293,10 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                 ),
                                 InkWell(
                                   onTap: () async {
+                                    logFirebaseEvent(
+                                        'SETTINGS_PAGE_Icon_yztrkrll_ON_TAP');
+                                    logFirebaseEvent('Icon_navigate_to');
+
                                     context.goNamed(
                                       'Home',
                                       extra: <String, dynamic>{
@@ -650,7 +669,13 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                                     0.0, 0.0, 0.0, 10.0),
                                             child: InkWell(
                                               onTap: () async {
+                                                logFirebaseEvent(
+                                                    'SETTINGS_PAGE_Setting_ON_TAP');
+                                                logFirebaseEvent(
+                                                    'Setting_haptic_feedback');
                                                 HapticFeedback.lightImpact();
+                                                logFirebaseEvent(
+                                                    'Setting_navigate_to');
 
                                                 context.pushNamed(
                                                   'ProfileWindow',
@@ -787,7 +812,13 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                                     0.0, 0.0, 0.0, 10.0),
                                             child: InkWell(
                                               onTap: () async {
+                                                logFirebaseEvent(
+                                                    'SETTINGS_PAGE_Setting_ON_TAP');
+                                                logFirebaseEvent(
+                                                    'Setting_haptic_feedback');
                                                 HapticFeedback.lightImpact();
+                                                logFirebaseEvent(
+                                                    'Setting_navigate_to');
 
                                                 context.pushNamed(
                                                   'TagWindow',
@@ -920,7 +951,13 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                           ),
                                           InkWell(
                                             onTap: () async {
+                                              logFirebaseEvent(
+                                                  'SETTINGS_PAGE_Setting_ON_TAP');
+                                              logFirebaseEvent(
+                                                  'Setting_haptic_feedback');
                                               HapticFeedback.lightImpact();
+                                              logFirebaseEvent(
+                                                  'Setting_navigate_to');
 
                                               context.pushNamed(
                                                 'AboutWindow',
@@ -1072,6 +1109,105 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                           ),
                                         ),
                                       ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            10.0, 0.0, 0.0, 0.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              'Bei Start \"Passion erstellen\" öffnen',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyText1
+                                                  .override(
+                                                    fontFamily:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyText1Family,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                    fontSize: 15.0,
+                                                    fontWeight: FontWeight.w500,
+                                                    useGoogleFonts: GoogleFonts
+                                                            .asMap()
+                                                        .containsKey(
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1Family),
+                                                  ),
+                                            ),
+                                            AuthUserStreamWidget(
+                                              builder: (context) => Switch(
+                                                value: _model
+                                                        .startupSwitchValue ??=
+                                                    valueOrDefault<bool>(
+                                                        currentUserDocument
+                                                            ?.startupPassion,
+                                                        false),
+                                                onChanged: (newValue) async {
+                                                  setState(() => _model
+                                                          .startupSwitchValue =
+                                                      newValue!);
+                                                  if (newValue!) {
+                                                    logFirebaseEvent(
+                                                        'SETTINGS_PAGE_startupSwitch_ON_TOGGLE_ON');
+                                                    logFirebaseEvent(
+                                                        'startupSwitch_backend_call');
+
+                                                    final userUpdateData =
+                                                        createUserRecordData(
+                                                      startupPassion: true,
+                                                    );
+                                                    await currentUserReference!
+                                                        .update(userUpdateData);
+                                                  } else {
+                                                    logFirebaseEvent(
+                                                        'SETTINGS_startupSwitch_ON_TOGGLE_OFF');
+                                                    logFirebaseEvent(
+                                                        'startupSwitch_backend_call');
+
+                                                    final userUpdateData =
+                                                        createUserRecordData(
+                                                      startupPassion: false,
+                                                    );
+                                                    await currentUserReference!
+                                                        .update(userUpdateData);
+                                                  }
+                                                },
+                                                activeColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryColor,
+                                                inactiveTrackColor:
+                                                    Color(0xFFCDCDCD),
+                                                inactiveThumbColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 10.0, 0.0, 10.0),
+                                        child: Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              1.0,
+                                          height: 1.0,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            borderRadius:
+                                                BorderRadius.circular(0.0),
+                                          ),
+                                        ),
+                                      ),
                                       Column(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -1085,7 +1221,13 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                                     0.0, 0.0, 0.0, 10.0),
                                             child: InkWell(
                                               onTap: () async {
+                                                logFirebaseEvent(
+                                                    'SETTINGS_PAGE_Setting_ON_TAP');
+                                                logFirebaseEvent(
+                                                    'Setting_haptic_feedback');
                                                 HapticFeedback.lightImpact();
+                                                logFirebaseEvent(
+                                                    'Setting_navigate_to');
 
                                                 context.pushNamed(
                                                   'AccountWindow',
@@ -1220,7 +1362,13 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                                     0.0, 0.0, 0.0, 10.0),
                                             child: InkWell(
                                               onTap: () async {
+                                                logFirebaseEvent(
+                                                    'SETTINGS_PAGE_Setting_ON_TAP');
+                                                logFirebaseEvent(
+                                                    'Setting_haptic_feedback');
                                                 HapticFeedback.lightImpact();
+                                                logFirebaseEvent(
+                                                    'Setting_alert_dialog');
                                                 var confirmDialogResponse =
                                                     await showDialog<bool>(
                                                           context: context,
@@ -1254,9 +1402,16 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                                         ) ??
                                                         false;
                                                 if (confirmDialogResponse) {
+                                                  logFirebaseEvent(
+                                                      'Setting_auth');
                                                   GoRouter.of(context)
                                                       .prepareAuthEvent();
                                                   await signOut();
+                                                  GoRouter.of(context)
+                                                      .clearRedirectLocation();
+
+                                                  logFirebaseEvent(
+                                                      'Setting_navigate_to');
 
                                                   context.goNamedAuth(
                                                     'Login',
@@ -1394,7 +1549,13 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                                     0.0, 0.0, 0.0, 10.0),
                                             child: InkWell(
                                               onTap: () async {
+                                                logFirebaseEvent(
+                                                    'SETTINGS_PAGE_Setting_ON_TAP');
+                                                logFirebaseEvent(
+                                                    'Setting_haptic_feedback');
                                                 HapticFeedback.heavyImpact();
+                                                logFirebaseEvent(
+                                                    'Setting_alert_dialog');
                                                 var confirmDialogResponse =
                                                     await showDialog<bool>(
                                                           context: context,
@@ -1428,7 +1589,11 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                                         ) ??
                                                         false;
                                                 if (confirmDialogResponse) {
+                                                  logFirebaseEvent(
+                                                      'Setting_auth');
                                                   await deleteUser(context);
+                                                  logFirebaseEvent(
+                                                      'Setting_navigate_to');
 
                                                   context.goNamed('Welcome');
 

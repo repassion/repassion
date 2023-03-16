@@ -64,18 +64,18 @@ DeviceSize getDeviceSize(BuildContext context) {
 }
 
 class LightModeTheme extends FlutterFlowTheme {
-  late Color primaryColor = const Color(0xFF6B7151);
-  late Color secondaryColor = const Color(0xFFA2AD6B);
-  late Color tertiaryColor = const Color(0xFFEE8B60);
-  late Color alternate = const Color(0xFFFF5963);
-  late Color primaryBackground = const Color(0xFFEDF2F4);
+  late Color primaryColor = const Color(0xFF15402C);
+  late Color secondaryColor = const Color(0xFF3B6E70);
+  late Color tertiaryColor = const Color(0xFFA23239);
+  late Color alternate = const Color(0xFF353535);
+  late Color primaryBackground = const Color(0xFFF5F5F5);
   late Color secondaryBackground = const Color(0xFFFFFFFF);
-  late Color primaryText = const Color(0xFF212121);
-  late Color secondaryText = const Color(0xFFA2A4A5);
+  late Color primaryText = const Color(0xFF141414);
+  late Color secondaryText = const Color(0xFF85929B);
 
   late Color primaryBtnText = Color(0xFFFFFFFF);
-  late Color lineColor = Color(0xFFE0E3E7);
-  late Color customColor1 = Color(0xFF2FB73C);
+  late Color lineColor = Color(0xFFC8CED3);
+  late Color customColor1 = Color(0xFFA23239);
 }
 
 abstract class Typography {

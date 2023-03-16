@@ -1,5 +1,6 @@
 import '/auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/max_main_tags_warning_widget.dart';
 import '/components/no_entries_widget.dart';
 import '/components/tag_loading_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -34,7 +35,7 @@ class TagWindowModel extends FlutterFlowModel {
 
   /// Additional helper methods are added here.
 
-  Future waitForAlgoliaRequestCompleter({
+  Future waitForAlgoliaRequestCompleted({
     double minWait = 0,
     double maxWait = double.infinity,
   }) async {
@@ -49,7 +50,7 @@ class TagWindowModel extends FlutterFlowModel {
     }
   }
 
-  Future waitForFirestoreRequestCompleter1({
+  Future waitForFirestoreRequestCompleted1({
     double minWait = 0,
     double maxWait = double.infinity,
   }) async {
@@ -64,7 +65,7 @@ class TagWindowModel extends FlutterFlowModel {
     }
   }
 
-  Future waitForFirestoreRequestCompleter2({
+  Future waitForFirestoreRequestCompleted2({
     double minWait = 0,
     double maxWait = double.infinity,
   }) async {

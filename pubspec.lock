@@ -193,14 +193,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.2"
-  chewie:
-    dependency: "direct main"
-    description:
-      name: chewie
-      sha256: "8c4db70db7d83f386a483fcf76a34dab6b15703df498c1678359ef6b025a2a61"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.3.4"
   clock:
     dependency: transitive
     description:
@@ -393,6 +385,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.1+6"
+  firebase_app_check:
+    dependency: "direct main"
+    description:
+      name: firebase_app_check
+      sha256: "39c5858eafdbda2d04845e9897bc10daeccaf29008ed8503cc65a3aca27d9bef"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.1+6"
+  firebase_app_check_platform_interface:
+    dependency: "direct main"
+    description:
+      name: firebase_app_check_platform_interface
+      sha256: "4c4e3d688c6a1a51a14eda0d3c75b6b03a849658b0d0a8f4c892927ca3f2d451"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.5+9"
+  firebase_app_check_web:
+    dependency: "direct main"
+    description:
+      name: firebase_app_check_web
+      sha256: "1c287def8ac1384a11f2debb86a7c4e53eaa2fca43006852e3f6156d61008211"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.7+9"
   firebase_auth:
     dependency: "direct main"
     description:
@@ -1017,10 +1033,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider_foundation
-      sha256: "026b97a6c29da75181a37aae2eba9227f5fe13cb2838c6b975ce209328b8ab4e"
+      sha256: "12eee51abdf4d34c590f043f45073adbb45514a108bd9db4491547a2fd891059"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.3"
+    version: "2.2.0"
   path_provider_linux:
     dependency: transitive
     description:
@@ -1562,46 +1578,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.12"
-  wakelock:
-    dependency: transitive
-    description:
-      name: wakelock
-      sha256: "769ecf42eb2d07128407b50cb93d7c10bd2ee48f0276ef0119db1d25cc2f87db"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.6.2"
-  wakelock_macos:
-    dependency: transitive
-    description:
-      name: wakelock_macos
-      sha256: "047c6be2f88cb6b76d02553bca5a3a3b95323b15d30867eca53a19a0a319d4cd"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.4.0"
-  wakelock_platform_interface:
-    dependency: transitive
-    description:
-      name: wakelock_platform_interface
-      sha256: "1f4aeb81fb592b863da83d2d0f7b8196067451e4df91046c26b54a403f9de621"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.3.0"
-  wakelock_web:
-    dependency: transitive
-    description:
-      name: wakelock_web
-      sha256: "1b256b811ee3f0834888efddfe03da8d18d0819317f20f6193e2922b41a501b5"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.4.0"
-  wakelock_windows:
-    dependency: transitive
-    description:
-      name: wakelock_windows
-      sha256: "108b1b73711f1664ee462e73af34a9286ff496e27d4d8371e2fb4da8fde4cdac"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.0"
   watcher:
     dependency: transitive
     description:
@@ -1618,6 +1594,38 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.0"
+  webview_flutter:
+    dependency: transitive
+    description:
+      name: webview_flutter
+      sha256: "392c1d83b70fe2495de3ea2c84531268d5b8de2de3f01086a53334d8b6030a88"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.4"
+  webview_flutter_android:
+    dependency: "direct overridden"
+    description:
+      name: webview_flutter_android
+      sha256: f463704e765eb3480d3e0f79bf0fbc41cb1746c2301c510643a2d049b82fed09
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.10.3"
+  webview_flutter_platform_interface:
+    dependency: "direct overridden"
+    description:
+      name: webview_flutter_platform_interface
+      sha256: "812165e4e34ca677bdfbfa58c01e33b27fd03ab5fa75b70832d4b7d4ca1fa8cf"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.9.5"
+  webview_flutter_wkwebview:
+    dependency: "direct overridden"
+    description:
+      name: webview_flutter_wkwebview
+      sha256: a5364369c758892aa487cbf59ea41d9edd10f9d9baf06a94e80f1bd1b4c7bbc0
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.9.5"
   win32:
     dependency: transitive
     description:
@@ -1650,6 +1658,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.1"
+  youtube_player_iframe:
+    dependency: "direct main"
+    description:
+      name: youtube_player_iframe
+      sha256: a85cdaea199ed3a3e19d115dd520009b4fb0f9af453f0c7a1aae10c2887cb700
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.0"
+  youtube_player_iframe_web:
+    dependency: transitive
+    description:
+      name: youtube_player_iframe_web
+      sha256: ce112e0af418e434465c20e8c941a90297a8c43f83d8956e63f297b9eba828fb
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.4"
 sdks:
   dart: ">=2.19.0 <3.0.0"
   flutter: ">=3.3.0"

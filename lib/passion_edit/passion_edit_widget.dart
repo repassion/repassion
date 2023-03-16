@@ -4,6 +4,7 @@ import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_media.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -39,6 +40,7 @@ class _PassionEditWidgetState extends State<PassionEditWidget> {
     super.initState();
     _model = createModel(context, () => PassionEditModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'PassionEdit'});
     _model.beschreibungController2 ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -105,13 +107,17 @@ class _PassionEditWidgetState extends State<PassionEditWidget> {
                                   children: [
                                     InkWell(
                                       onTap: () async {
+                                        logFirebaseEvent(
+                                            'PASSION_EDIT_PAGE_Row_jft8izqn_ON_TAP');
                                         if (_model.uploadedFileUrl != null &&
                                             _model.uploadedFileUrl != '') {
+                                          logFirebaseEvent('Row_delete_media');
                                           await FirebaseStorage.instance
                                               .refFromURL(
                                                   _model.uploadedFileUrl)
                                               .delete();
                                         }
+                                        logFirebaseEvent('Row_navigate_back');
                                         context.pop();
                                       },
                                       child: Row(
@@ -169,118 +175,201 @@ class _PassionEditWidgetState extends State<PassionEditWidget> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 10.0),
-                                        child: TextFormField(
-                                          controller: _model.titelController ??=
-                                              TextEditingController(
-                                            text: mainUserPassionRecord.title,
-                                          ),
-                                          autofillHints: [
-                                            AutofillHints.organizationName
-                                          ],
-                                          textCapitalization:
-                                              TextCapitalization.none,
-                                          obscureText: false,
-                                          decoration: InputDecoration(
-                                            labelText: 'Titel',
-                                            labelStyle: FlutterFlowTheme.of(
-                                                    context)
-                                                .bodyText1
-                                                .override(
-                                                  fontFamily:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyText1Family,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
-                                                  fontSize: 15.0,
-                                                  fontWeight: FontWeight.w500,
-                                                  useGoogleFonts: GoogleFonts
-                                                          .asMap()
-                                                      .containsKey(
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText1Family),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Expanded(
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0, 0.0, 0.0, 10.0),
+                                              child: TextFormField(
+                                                controller:
+                                                    _model.titelController ??=
+                                                        TextEditingController(
+                                                  text: mainUserPassionRecord
+                                                      .title,
                                                 ),
-                                            hintText: 'Titel',
-                                            hintStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyText2
-                                                    .override(
-                                                      fontFamily:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText2Family,
+                                                autofillHints: [
+                                                  AutofillHints.organizationName
+                                                ],
+                                                textCapitalization:
+                                                    TextCapitalization.none,
+                                                obscureText: false,
+                                                decoration: InputDecoration(
+                                                  labelText: 'Titel',
+                                                  labelStyle: FlutterFlowTheme
+                                                          .of(context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1Family,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
+                                                        fontSize: 15.0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyText1Family),
+                                                      ),
+                                                  hintText: 'Titel',
+                                                  hintStyle: FlutterFlowTheme
+                                                          .of(context)
+                                                      .bodyText2
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText2Family,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyText2Family),
+                                                      ),
+                                                  enabledBorder:
+                                                      UnderlineInputBorder(
+                                                    borderSide: BorderSide(
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
                                                               .secondaryText,
-                                                      useGoogleFonts: GoogleFonts
-                                                              .asMap()
-                                                          .containsKey(
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyText2Family),
+                                                      width: 1.0,
                                                     ),
-                                            enabledBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
+                                                    borderRadius:
+                                                        const BorderRadius.only(
+                                                      topLeft:
+                                                          Radius.circular(4.0),
+                                                      topRight:
+                                                          Radius.circular(4.0),
+                                                    ),
+                                                  ),
+                                                  focusedBorder:
+                                                      UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryColor,
+                                                      width: 1.0,
+                                                    ),
+                                                    borderRadius:
+                                                        const BorderRadius.only(
+                                                      topLeft:
+                                                          Radius.circular(4.0),
+                                                      topRight:
+                                                          Radius.circular(4.0),
+                                                    ),
+                                                  ),
+                                                  errorBorder:
+                                                      UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0xFFDA2C38),
+                                                      width: 1.0,
+                                                    ),
+                                                    borderRadius:
+                                                        const BorderRadius.only(
+                                                      topLeft:
+                                                          Radius.circular(4.0),
+                                                      topRight:
+                                                          Radius.circular(4.0),
+                                                    ),
+                                                  ),
+                                                  focusedErrorBorder:
+                                                      UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0xFFDA2C38),
+                                                      width: 1.0,
+                                                    ),
+                                                    borderRadius:
+                                                        const BorderRadius.only(
+                                                      topLeft:
+                                                          Radius.circular(4.0),
+                                                      topRight:
+                                                          Radius.circular(4.0),
+                                                    ),
+                                                  ),
+                                                ),
+                                                style:
                                                     FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                                width: 1.0,
-                                              ),
-                                              borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
-                                            ),
-                                            focusedBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryColor,
-                                                width: 1.0,
-                                              ),
-                                              borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
-                                            ),
-                                            errorBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0xFFDA2C38),
-                                                width: 1.0,
-                                              ),
-                                              borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
-                                            ),
-                                            focusedErrorBorder:
-                                                UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0xFFDA2C38),
-                                                width: 1.0,
-                                              ),
-                                              borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
+                                                        .bodyText1,
+                                                validator: _model
+                                                    .titelControllerValidator
+                                                    .asValidator(context),
                                               ),
                                             ),
                                           ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1,
-                                          validator: _model
-                                              .titelControllerValidator
-                                              .asValidator(context),
-                                        ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    10.0, 0.0, 0.0, 0.0),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Switch(
+                                                  value: _model.switchValue ??=
+                                                      mainUserPassionRecord
+                                                          .public!,
+                                                  onChanged: (newValue) async {
+                                                    setState(() =>
+                                                        _model.switchValue =
+                                                            newValue!);
+                                                  },
+                                                  activeColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primaryColor,
+                                                  inactiveTrackColor:
+                                                      Color(0xFFA26367),
+                                                  inactiveThumbColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .tertiaryColor,
+                                                ),
+                                                Text(
+                                                  _model.switchValue!
+                                                      ? 'Öffentlich'
+                                                      : 'Privat',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1Family,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
+                                                        fontSize: 12.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyText1Family),
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -401,11 +490,14 @@ class _PassionEditWidgetState extends State<PassionEditWidget> {
                                       ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 10.0),
+                                            0.0, 10.0, 0.0, 10.0),
                                         child: FlutterFlowDropDown<String>(
-                                          initialOption:
-                                              _model.dropDownValue ??=
-                                                  mainUserPassionRecord.type,
+                                          controller:
+                                              _model.dropDownController ??=
+                                                  FormFieldController<String>(
+                                            _model.dropDownValue ??=
+                                                mainUserPassionRecord.type,
+                                          ),
                                           options: [
                                             'Idee',
                                             'Motivation',
@@ -459,7 +551,7 @@ class _PassionEditWidgetState extends State<PassionEditWidget> {
                                       ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 10.0),
+                                            0.0, 10.0, 0.0, 10.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -496,8 +588,14 @@ class _PassionEditWidgetState extends State<PassionEditWidget> {
                                                 children: [
                                                   InkWell(
                                                     onTap: () async {
+                                                      logFirebaseEvent(
+                                                          'PASSION_EDIT_Container_wy18c13o_ON_TAP');
+                                                      logFirebaseEvent(
+                                                          'Container_haptic_feedback');
                                                       HapticFeedback
                                                           .lightImpact();
+                                                      logFirebaseEvent(
+                                                          'Container_alert_dialog');
                                                       var confirmDialogResponse =
                                                           await showDialog<
                                                                   bool>(
@@ -535,6 +633,8 @@ class _PassionEditWidgetState extends State<PassionEditWidget> {
                                                                 null &&
                                                             _model.uploadedFileUrl !=
                                                                 '') {
+                                                          logFirebaseEvent(
+                                                              'Container_delete_media');
                                                           await FirebaseStorage
                                                               .instance
                                                               .refFromURL(_model
@@ -542,6 +642,8 @@ class _PassionEditWidgetState extends State<PassionEditWidget> {
                                                               .delete();
                                                           return;
                                                         } else {
+                                                          logFirebaseEvent(
+                                                              'Container_delete_media');
                                                           await FirebaseStorage
                                                               .instance
                                                               .refFromURL(
@@ -549,6 +651,9 @@ class _PassionEditWidgetState extends State<PassionEditWidget> {
                                                                       .image!)
                                                               .delete();
                                                         }
+
+                                                        logFirebaseEvent(
+                                                            'Container_backend_call');
 
                                                         final passionUpdateData =
                                                             {
@@ -611,18 +716,26 @@ class _PassionEditWidgetState extends State<PassionEditWidget> {
                                                   ),
                                                   InkWell(
                                                     onTap: () async {
+                                                      logFirebaseEvent(
+                                                          'PASSION_EDIT_Container_p3sbxs76_ON_TAP');
+                                                      logFirebaseEvent(
+                                                          'Container_haptic_feedback');
                                                       HapticFeedback
                                                           .lightImpact();
                                                       if (_model.uploadedFileUrl !=
                                                               null &&
                                                           _model.uploadedFileUrl !=
                                                               '') {
+                                                        logFirebaseEvent(
+                                                            'Container_delete_media');
                                                         await FirebaseStorage
                                                             .instance
                                                             .refFromURL(_model
                                                                 .uploadedFileUrl)
                                                             .delete();
                                                       }
+                                                      logFirebaseEvent(
+                                                          'Container_upload_media_to_firebase');
                                                       final selectedMedia =
                                                           await selectMediaWithSourceBottomSheet(
                                                         context: context,
@@ -796,7 +909,7 @@ class _PassionEditWidgetState extends State<PassionEditWidget> {
                                               TextCapitalization.none,
                                           obscureText: false,
                                           decoration: InputDecoration(
-                                            labelText: 'Video URL',
+                                            labelText: 'Youtube URL',
                                             labelStyle: FlutterFlowTheme.of(
                                                     context)
                                                 .bodyText1
@@ -817,7 +930,7 @@ class _PassionEditWidgetState extends State<PassionEditWidget> {
                                                                   context)
                                                               .bodyText1Family),
                                                 ),
-                                            hintText: 'Video URL',
+                                            hintText: 'Youtube URL',
                                             hintStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .bodyText2
@@ -1041,7 +1154,11 @@ class _PassionEditWidgetState extends State<PassionEditWidget> {
                                 25.0, 25.0, 25.0, 25.0),
                             child: InkWell(
                               onTap: () async {
+                                logFirebaseEvent(
+                                    'PASSION_EDIT_Container_gqws655g_ON_TAP');
+                                logFirebaseEvent('Container_haptic_feedback');
                                 HapticFeedback.mediumImpact();
+                                logFirebaseEvent('Container_validate_form');
                                 if (_model.formKey.currentState == null ||
                                     !_model.formKey.currentState!.validate()) {
                                   return;
@@ -1051,10 +1168,13 @@ class _PassionEditWidgetState extends State<PassionEditWidget> {
                                       _model.uploadedFileUrl != '') {
                                     if (mainUserPassionRecord.image != null &&
                                         mainUserPassionRecord.image != '') {
+                                      logFirebaseEvent(
+                                          'Container_delete_media');
                                       await FirebaseStorage.instance
                                           .refFromURL(currentUserPhoto)
                                           .delete();
                                     }
+                                    logFirebaseEvent('Container_backend_call');
 
                                     final passionUpdateData1 =
                                         createPassionRecordData(
@@ -1063,6 +1183,7 @@ class _PassionEditWidgetState extends State<PassionEditWidget> {
                                     await mainUserPassionRecord.reference
                                         .update(passionUpdateData1);
                                   }
+                                  logFirebaseEvent('Container_backend_call');
 
                                   final passionUpdateData2 = {
                                     ...createPassionRecordData(
@@ -1070,6 +1191,7 @@ class _PassionEditWidgetState extends State<PassionEditWidget> {
                                       description:
                                           mainUserPassionRecord.description,
                                       text: _model.beschreibungController3.text,
+                                      public: _model.switchValue,
                                     ),
                                     'edited': FieldValue.serverTimestamp(),
                                   };
@@ -1077,6 +1199,8 @@ class _PassionEditWidgetState extends State<PassionEditWidget> {
                                       .update(passionUpdateData2);
                                   if (_model.beschreibungController2.text !=
                                       mainUserPassionRecord.video) {
+                                    logFirebaseEvent('Container_backend_call');
+
                                     final passionUpdateData3 =
                                         createPassionRecordData(
                                       video:
@@ -1087,6 +1211,8 @@ class _PassionEditWidgetState extends State<PassionEditWidget> {
                                   }
                                   if (_model.dropDownValue !=
                                       mainUserPassionRecord.type) {
+                                    logFirebaseEvent('Container_backend_call');
+
                                     final passionUpdateData4 =
                                         createPassionRecordData(
                                       type: _model.dropDownValue,
@@ -1095,6 +1221,8 @@ class _PassionEditWidgetState extends State<PassionEditWidget> {
                                         .update(passionUpdateData4);
                                   }
                                 } else {
+                                  logFirebaseEvent('Container_backend_call');
+
                                   final passionCreateData = {
                                     ...createPassionRecordData(
                                       author: currentUserReference,
@@ -1105,6 +1233,7 @@ class _PassionEditWidgetState extends State<PassionEditWidget> {
                                       type: _model.dropDownValue,
                                       image: _model.uploadedFileUrl,
                                       video: mainUserPassionRecord.video,
+                                      public: _model.switchValue,
                                     ),
                                     'edited': FieldValue.serverTimestamp(),
                                   };
@@ -1113,6 +1242,7 @@ class _PassionEditWidgetState extends State<PassionEditWidget> {
                                       .set(passionCreateData);
                                 }
 
+                                logFirebaseEvent('Container_navigate_back');
                                 context.safePop();
                               },
                               child: Material(
@@ -1131,7 +1261,7 @@ class _PassionEditWidgetState extends State<PassionEditWidget> {
                                     alignment: AlignmentDirectional(0.0, 0.0),
                                     child: Text(
                                       !mainUserPassionRecord.none!
-                                          ? 'Passion bearbeiten'
+                                          ? 'Passion speichern'
                                           : 'Passion erstellen',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyText1

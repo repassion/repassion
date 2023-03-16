@@ -35,6 +35,7 @@ class _UserWindowWidgetState extends State<UserWindowWidget> {
     super.initState();
     _model = createModel(context, () => UserWindowModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'UserWindow'});
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -92,6 +93,9 @@ class _UserWindowWidgetState extends State<UserWindowWidget> {
                           children: [
                             InkWell(
                               onTap: () async {
+                                logFirebaseEvent(
+                                    'USER_WINDOW_PAGE_Row_74h32aee_ON_TAP');
+                                logFirebaseEvent('Row_navigate_back');
                                 context.pop();
                               },
                               child: Row(
@@ -526,7 +530,9 @@ class _UserWindowWidgetState extends State<UserWindowWidget> {
                                                   .fromSTEB(0.0, 0.0, 5.0, 5.0),
                                               child: Container(
                                                 decoration: BoxDecoration(
-                                                  color: Color(0xFFBBBEA5),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryColor,
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           15.0),
@@ -545,6 +551,9 @@ class _UserWindowWidgetState extends State<UserWindowWidget> {
                                                               FlutterFlowTheme.of(
                                                                       context)
                                                                   .bodyText1Family,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryBackground,
                                                           fontSize: 12.0,
                                                           useGoogleFonts: GoogleFonts
                                                                   .asMap()
@@ -567,6 +576,10 @@ class _UserWindowWidgetState extends State<UserWindowWidget> {
                               if (_model.showAllTags != true)
                                 InkWell(
                                   onTap: () async {
+                                    logFirebaseEvent(
+                                        'USER_WINDOW_PAGE_Text_aoymwq76_ON_TAP');
+                                    logFirebaseEvent(
+                                        'Text_update_widget_state');
                                     setState(() {
                                       _model.showAllTags = true;
                                     });
@@ -690,6 +703,10 @@ class _UserWindowWidgetState extends State<UserWindowWidget> {
                               if (_model.showAllTags == true)
                                 InkWell(
                                   onTap: () async {
+                                    logFirebaseEvent(
+                                        'USER_WINDOW_PAGE_Text_g4oxb1q0_ON_TAP');
+                                    logFirebaseEvent(
+                                        'Text_update_widget_state');
                                     setState(() {
                                       _model.showAllTags = false;
                                     });

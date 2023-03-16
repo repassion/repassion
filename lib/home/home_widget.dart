@@ -36,6 +36,7 @@ class _HomeWidgetState extends State<HomeWidget> {
     super.initState();
     _model = createModel(context, () => HomeModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'Home'});
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -97,6 +98,10 @@ class _HomeWidgetState extends State<HomeWidget> {
                                         5.0, 0.0, 0.0, 0.0),
                                     child: InkWell(
                                       onTap: () async {
+                                        logFirebaseEvent(
+                                            'HOME_PAGE_Icon_hzhhby5b_ON_TAP');
+                                        logFirebaseEvent('Icon_navigate_to');
+
                                         context.pushNamed(
                                           'PassionSearch',
                                           extra: <String, dynamic>{
@@ -242,6 +247,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                 5.0, 0.0),
                                                     child: InkWell(
                                                       onTap: () async {
+                                                        logFirebaseEvent(
+                                                            'HOME_PAGE_Icon_fjikmp29_ON_TAP');
+                                                        logFirebaseEvent(
+                                                            'Icon_navigate_to');
+
                                                         context.pushNamed(
                                                           'Chat',
                                                           extra: <String,
@@ -275,6 +285,10 @@ class _HomeWidgetState extends State<HomeWidget> {
                                   ),
                                   InkWell(
                                     onTap: () async {
+                                      logFirebaseEvent(
+                                          'HOME_PAGE_Icon_qla792zg_ON_TAP');
+                                      logFirebaseEvent('Icon_navigate_to');
+
                                       context.pushNamed(
                                         'Settings',
                                         extra: <String, dynamic>{
@@ -350,6 +364,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     bottomCardWidthFraction: 1.0,
                                     onSwipeFn: (index) {},
                                     onLeftSwipe: (index) async {
+                                      logFirebaseEvent(
+                                          'HOME_SwipeableStack_zxq8il5j_ON_LEFT_SWI');
+                                      logFirebaseEvent(
+                                          'SwipeableStack_backend_call');
+
                                       final requestCreateData = {
                                         ...createRequestRecordData(
                                           uid1: currentUserReference,
@@ -364,6 +383,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       await RequestRecord.collection
                                           .doc()
                                           .set(requestCreateData);
+                                      logFirebaseEvent(
+                                          'SwipeableStack_backend_call');
 
                                       final userUpdateData = {
                                         'requests': FieldValue.arrayUnion([
@@ -375,6 +396,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                                           .update(userUpdateData);
                                     },
                                     onRightSwipe: (index) async {
+                                      logFirebaseEvent(
+                                          'HOME_SwipeableStack_zxq8il5j_ON_RIGHT_SW');
+                                      logFirebaseEvent(
+                                          'SwipeableStack_backend_call');
+
                                       final requestCreateData = {
                                         ...createRequestRecordData(
                                           uid1: currentUserReference,
@@ -389,6 +415,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       await RequestRecord.collection
                                           .doc()
                                           .set(requestCreateData);
+                                      logFirebaseEvent(
+                                          'SwipeableStack_backend_call');
 
                                       final userUpdateData = {
                                         'requests': FieldValue.arrayUnion([
@@ -398,6 +426,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       };
                                       await currentUserReference!
                                           .update(userUpdateData);
+                                      logFirebaseEvent(
+                                          'SwipeableStack_trigger_push_notification');
                                       triggerPushNotification(
                                         notificationTitle: 'Kontaktanfrage',
                                         notificationText:
@@ -788,8 +818,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                       Container(
                                                                     decoration:
                                                                         BoxDecoration(
-                                                                      color: Color(
-                                                                          0xFFBBBEA5),
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryColor,
                                                                       borderRadius:
                                                                           BorderRadius.circular(
                                                                               15.0),
@@ -809,6 +840,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                             .bodyText1
                                                                             .override(
                                                                               fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              color: FlutterFlowTheme.of(context).secondaryBackground,
                                                                               fontSize: 12.0,
                                                                               useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
                                                                             ),
@@ -1093,11 +1125,18 @@ class _HomeWidgetState extends State<HomeWidget> {
                             children: [
                               InkWell(
                                 onTap: () async {
+                                  logFirebaseEvent(
+                                      'HOME_PAGE_Icon_jk9n88m1_ON_TAP');
+                                  logFirebaseEvent('Icon_swipeable_stack');
                                   _model.swipeableStackController
                                       .triggerSwipeLeft();
                                 },
                                 onLongPress: () async {
+                                  logFirebaseEvent(
+                                      'HOME_PAGE_Icon_jk9n88m1_ON_LONG_PRESS');
+                                  logFirebaseEvent('Icon_haptic_feedback');
                                   HapticFeedback.mediumImpact();
+                                  logFirebaseEvent('Icon_alert_dialog');
                                   await showDialog(
                                     context: context,
                                     builder: (alertDialogContext) {
@@ -1126,11 +1165,18 @@ class _HomeWidgetState extends State<HomeWidget> {
                           ),
                           InkWell(
                             onTap: () async {
+                              logFirebaseEvent(
+                                  'HOME_PAGE_Icon_kfgzjbtc_ON_TAP');
+                              logFirebaseEvent('Icon_swipeable_stack');
                               _model.swipeableStackController
                                   .triggerSwipeRight();
                             },
                             onLongPress: () async {
+                              logFirebaseEvent(
+                                  'HOME_PAGE_Icon_kfgzjbtc_ON_LONG_PRESS');
+                              logFirebaseEvent('Icon_haptic_feedback');
                               HapticFeedback.mediumImpact();
+                              logFirebaseEvent('Icon_alert_dialog');
                               await showDialog(
                                 context: context,
                                 builder: (alertDialogContext) {

@@ -97,6 +97,13 @@ class _$PassionRecordSerializer implements StructuredSerializer<PassionRecord> {
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
+    value = object.public;
+    if (value != null) {
+      result
+        ..add('public')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -166,6 +173,10 @@ class _$PassionRecordSerializer implements StructuredSerializer<PassionRecord> {
           result.none = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
           break;
+        case 'public':
+          result.public = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -203,6 +214,8 @@ class _$PassionRecord extends PassionRecord {
   @override
   final bool? none;
   @override
+  final bool? public;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$PassionRecord([void Function(PassionRecordBuilder)? updates]) =>
@@ -220,6 +233,7 @@ class _$PassionRecord extends PassionRecord {
       this.verified,
       this.type,
       this.none,
+      this.public,
       this.ffRef})
       : super._();
 
@@ -245,6 +259,7 @@ class _$PassionRecord extends PassionRecord {
         verified == other.verified &&
         type == other.type &&
         none == other.none &&
+        public == other.public &&
         ffRef == other.ffRef;
   }
 
@@ -260,17 +275,19 @@ class _$PassionRecord extends PassionRecord {
                                 $jc(
                                     $jc(
                                         $jc(
-                                            $jc($jc(0, title.hashCode),
-                                                description.hashCode),
-                                            image.hashCode),
-                                        video.hashCode),
-                                    text.hashCode),
-                                likes.hashCode),
-                            author.hashCode),
-                        edited.hashCode),
-                    verified.hashCode),
-                type.hashCode),
-            none.hashCode),
+                                            $jc(
+                                                $jc($jc(0, title.hashCode),
+                                                    description.hashCode),
+                                                image.hashCode),
+                                            video.hashCode),
+                                        text.hashCode),
+                                    likes.hashCode),
+                                author.hashCode),
+                            edited.hashCode),
+                        verified.hashCode),
+                    type.hashCode),
+                none.hashCode),
+            public.hashCode),
         ffRef.hashCode));
   }
 
@@ -288,6 +305,7 @@ class _$PassionRecord extends PassionRecord {
           ..add('verified', verified)
           ..add('type', type)
           ..add('none', none)
+          ..add('public', public)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -341,6 +359,10 @@ class PassionRecordBuilder
   bool? get none => _$this._none;
   set none(bool? none) => _$this._none = none;
 
+  bool? _public;
+  bool? get public => _$this._public;
+  set public(bool? public) => _$this._public = public;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -363,6 +385,7 @@ class PassionRecordBuilder
       _verified = $v.verified;
       _type = $v.type;
       _none = $v.none;
+      _public = $v.public;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -397,6 +420,7 @@ class PassionRecordBuilder
             verified: verified,
             type: type,
             none: none,
+            public: public,
             ffRef: ffRef);
     replace(_$result);
     return _$result;

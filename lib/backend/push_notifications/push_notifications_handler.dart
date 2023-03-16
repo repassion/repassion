@@ -79,13 +79,13 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
   @override
   Widget build(BuildContext context) => _loading
       ? Container(
-          color: FlutterFlowTheme.of(context).primaryBackground,
+          color: Colors.transparent,
           child: Center(
             child: Image.asset(
               'assets/images/icon_512.png',
               width: 50.0,
               height: 50.0,
-              fit: BoxFit.contain,
+              fit: BoxFit.cover,
             ),
           ),
         )
@@ -121,14 +121,14 @@ final parametersBuilderMap =
   'PassionSearch': ParameterData.none(),
   'PassionFavorite': ParameterData.none(),
   'PassionOwn': ParameterData.none(),
-  'PassionEdit': (data) async => ParameterData(
-        allParams: {
-          'passion': getParameter<DocumentReference>(data, 'passion'),
-        },
-      ),
   'CategoryWindow': (data) async => ParameterData(
         allParams: {
           'category': getParameter<DocumentReference>(data, 'category'),
+        },
+      ),
+  'PassionEdit': (data) async => ParameterData(
+        allParams: {
+          'passion': getParameter<DocumentReference>(data, 'passion'),
         },
       ),
   'PassionWindow': (data) async => ParameterData(
@@ -169,6 +169,7 @@ final parametersBuilderMap =
         },
       ),
   'ProfileSetup5': ParameterData.none(),
+  'startup': ParameterData.none(),
 };
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {

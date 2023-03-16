@@ -34,6 +34,7 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget> {
     super.initState();
     _model = createModel(context, () => PassionOwnModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'PassionOwn'});
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -86,6 +87,10 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget> {
                                 children: [
                                   InkWell(
                                     onTap: () async {
+                                      logFirebaseEvent(
+                                          'PASSION_OWN_PAGE_Image_up224s9t_ON_TAP');
+                                      logFirebaseEvent('Image_navigate_to');
+
                                       context.pushNamed('Home');
                                     },
                                     child: Image.asset(
@@ -232,6 +237,11 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget> {
                                                                 5.0, 0.0),
                                                     child: InkWell(
                                                       onTap: () async {
+                                                        logFirebaseEvent(
+                                                            'PASSION_OWN_PAGE_Icon_q8drje1j_ON_TAP');
+                                                        logFirebaseEvent(
+                                                            'Icon_navigate_to');
+
                                                         context.pushNamed(
                                                           'Chat',
                                                           extra: <String,
@@ -265,6 +275,10 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget> {
                                   ),
                                   InkWell(
                                     onTap: () async {
+                                      logFirebaseEvent(
+                                          'PASSION_OWN_PAGE_Icon_5gz3qmec_ON_TAP');
+                                      logFirebaseEvent('Icon_navigate_to');
+
                                       context.pushNamed(
                                         'Settings',
                                         extra: <String, dynamic>{
@@ -345,6 +359,11 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget> {
                                                       : null;
                                               return InkWell(
                                                 onTap: () async {
+                                                  logFirebaseEvent(
+                                                      'PASSION_OWN_Container_7vrqsyrb_ON_TAP');
+                                                  logFirebaseEvent(
+                                                      'Container_navigate_to');
+
                                                   context.pushNamed(
                                                     'PassionEdit',
                                                     queryParams: {
@@ -521,6 +540,11 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget> {
                                                         ),
                                                         child: InkWell(
                                                           onTap: () async {
+                                                            logFirebaseEvent(
+                                                                'PASSION_OWN_PAGE_Tag_ON_TAP');
+                                                            logFirebaseEvent(
+                                                                'Tag_navigate_to');
+
                                                             context.pushNamed(
                                                               'PassionWindow',
                                                               queryParams: {
@@ -547,6 +571,9 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget> {
                                                                 ),
                                                               },
                                                             );
+
+                                                            logFirebaseEvent(
+                                                                'Tag_backend_call');
 
                                                             final userUpdateData =
                                                                 createUserRecordData(
@@ -660,6 +687,11 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget> {
                                                               InkWell(
                                                                 onTap:
                                                                     () async {
+                                                                  logFirebaseEvent(
+                                                                      'PASSION_OWN_PAGE_Icon_sikchdtz_ON_TAP');
+                                                                  logFirebaseEvent(
+                                                                      'Icon_navigate_to');
+
                                                                   context
                                                                       .pushNamed(
                                                                     'PassionEdit',
@@ -698,8 +730,14 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget> {
                                                               InkWell(
                                                                 onTap:
                                                                     () async {
+                                                                  logFirebaseEvent(
+                                                                      'PASSION_OWN_PAGE_Icon_cczrw3pt_ON_TAP');
+                                                                  logFirebaseEvent(
+                                                                      'Icon_haptic_feedback');
                                                                   HapticFeedback
                                                                       .mediumImpact();
+                                                                  logFirebaseEvent(
+                                                                      'Icon_alert_dialog');
                                                                   var confirmDialogResponse =
                                                                       await showDialog<
                                                                               bool>(
@@ -725,6 +763,8 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget> {
                                                                           ) ??
                                                                           false;
                                                                   if (confirmDialogResponse) {
+                                                                    logFirebaseEvent(
+                                                                        'Icon_backend_call');
                                                                     await passionsSearchPassionRecord
                                                                         .reference
                                                                         .delete();
@@ -811,6 +851,11 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget> {
                                         snapshot.data!;
                                     return InkWell(
                                       onTap: () async {
+                                        logFirebaseEvent(
+                                            'PASSION_OWN_PAGE_CurrentPassion_ON_TAP');
+                                        logFirebaseEvent(
+                                            'CurrentPassion_navigate_to');
+
                                         context.pushNamed(
                                           'PassionWindow',
                                           queryParams: {
@@ -945,6 +990,11 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget> {
                                                     true)
                                                   InkWell(
                                                     onTap: () async {
+                                                      logFirebaseEvent(
+                                                          'PASSION_OWN_PAGE_Icon_rebdygpg_ON_TAP');
+                                                      logFirebaseEvent(
+                                                          'Icon_backend_call');
+
                                                       final userUpdateData = {
                                                         'likes': FieldValue
                                                             .arrayUnion([
@@ -955,6 +1005,8 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget> {
                                                       await currentUserReference!
                                                           .update(
                                                               userUpdateData);
+                                                      logFirebaseEvent(
+                                                          'Icon_backend_call');
 
                                                       final passionUpdateData =
                                                           {
@@ -985,6 +1037,11 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget> {
                                                     true)
                                                   InkWell(
                                                     onTap: () async {
+                                                      logFirebaseEvent(
+                                                          'PASSION_OWN_PAGE_Icon_98jph9us_ON_TAP');
+                                                      logFirebaseEvent(
+                                                          'Icon_backend_call');
+
                                                       final userUpdateData = {
                                                         'likes': FieldValue
                                                             .arrayRemove([
@@ -995,6 +1052,8 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget> {
                                                       await currentUserReference!
                                                           .update(
                                                               userUpdateData);
+                                                      logFirebaseEvent(
+                                                          'Icon_backend_call');
 
                                                       final passionUpdateData =
                                                           {
@@ -1038,6 +1097,10 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget> {
                               children: [
                                 InkWell(
                                   onTap: () async {
+                                    logFirebaseEvent(
+                                        'PASSION_OWN_Container_6sms5p33_ON_TAP');
+                                    logFirebaseEvent('Container_navigate_to');
+
                                     context.pushNamed(
                                       'PassionSearch',
                                       extra: <String, dynamic>{
@@ -1065,6 +1128,10 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget> {
                                 ),
                                 InkWell(
                                   onTap: () async {
+                                    logFirebaseEvent(
+                                        'PASSION_OWN_Container_k6ioq6vk_ON_TAP');
+                                    logFirebaseEvent('Container_navigate_to');
+
                                     context.pushNamed(
                                       'PassionFavorite',
                                       extra: <String, dynamic>{

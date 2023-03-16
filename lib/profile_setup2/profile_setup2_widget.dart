@@ -30,6 +30,8 @@ class _ProfileSetup2WidgetState extends State<ProfileSetup2Widget> {
     super.initState();
     _model = createModel(context, () => ProfileSetup2Model());
 
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'ProfileSetup2'});
     _model.geburtstagController ??= TextEditingController(
         text: valueOrDefault(currentUserDocument?.birthdate, ''));
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -77,6 +79,9 @@ class _ProfileSetup2WidgetState extends State<ProfileSetup2Widget> {
                             children: [
                               InkWell(
                                 onTap: () async {
+                                  logFirebaseEvent(
+                                      'PROFILE_SETUP2_PAGE_Row_dcii3na6_ON_TAP');
+                                  logFirebaseEvent('Row_navigate_back');
                                   context.pop();
                                 },
                                 child: Row(
@@ -299,16 +304,22 @@ class _ProfileSetup2WidgetState extends State<ProfileSetup2Widget> {
                           25.0, 25.0, 25.0, 25.0),
                       child: InkWell(
                         onTap: () async {
+                          logFirebaseEvent(
+                              'PROFILE_SETUP2_Container_zfuyigdl_ON_TAP');
+                          logFirebaseEvent('Container_haptic_feedback');
                           HapticFeedback.mediumImpact();
+                          logFirebaseEvent('Container_validate_form');
                           if (_model.formKey.currentState == null ||
                               !_model.formKey.currentState!.validate()) {
                             return;
                           }
+                          logFirebaseEvent('Container_backend_call');
 
                           final userUpdateData = createUserRecordData(
                             birthdate: _model.geburtstagController.text,
                           );
                           await currentUserReference!.update(userUpdateData);
+                          logFirebaseEvent('Container_navigate_to');
 
                           context.pushNamed(
                             'ProfileSetup3',

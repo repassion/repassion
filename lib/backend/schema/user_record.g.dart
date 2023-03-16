@@ -169,6 +169,13 @@ class _$UserRecordSerializer implements StructuredSerializer<UserRecord> {
                   DocumentReference, const [const FullType.nullable(Object)])
             ])));
     }
+    value = object.startupPassion;
+    if (value != null) {
+      result
+        ..add('startupPassion')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -284,6 +291,10 @@ class _$UserRecordSerializer implements StructuredSerializer<UserRecord> {
                     DocumentReference, const [const FullType.nullable(Object)])
               ]))! as BuiltList<Object?>);
           break;
+        case 'startupPassion':
+          result.startupPassion = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -339,6 +350,8 @@ class _$UserRecord extends UserRecord {
   @override
   final BuiltList<DocumentReference<Object?>>? likes;
   @override
+  final bool? startupPassion;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$UserRecord([void Function(UserRecordBuilder)? updates]) =>
@@ -365,6 +378,7 @@ class _$UserRecord extends UserRecord {
       this.about,
       this.passion,
       this.likes,
+      this.startupPassion,
       this.ffRef})
       : super._();
 
@@ -399,6 +413,7 @@ class _$UserRecord extends UserRecord {
         about == other.about &&
         passion == other.passion &&
         likes == other.likes &&
+        startupPassion == other.startupPassion &&
         ffRef == other.ffRef;
   }
 
@@ -422,25 +437,25 @@ class _$UserRecord extends UserRecord {
                                                                 $jc(
                                                                     $jc(
                                                                         $jc(
-                                                                            $jc($jc($jc(0, email.hashCode), displayName.hashCode),
-                                                                                photoUrl.hashCode),
-                                                                            uid.hashCode),
-                                                                        createdTime.hashCode),
-                                                                    phoneNumber.hashCode),
-                                                                firstName.hashCode),
-                                                            lastName.hashCode),
-                                                        age.hashCode),
-                                                    birthdate.hashCode),
-                                                info.hashCode),
-                                            verified.hashCode),
-                                        locationAddress.hashCode),
-                                    locationLatlng.hashCode),
-                                tags.hashCode),
-                            mainTags.hashCode),
-                        requests.hashCode),
-                    about.hashCode),
-                passion.hashCode),
-            likes.hashCode),
+                                                                            $jc($jc($jc($jc(0, email.hashCode), displayName.hashCode), photoUrl.hashCode),
+                                                                                uid.hashCode),
+                                                                            createdTime.hashCode),
+                                                                        phoneNumber.hashCode),
+                                                                    firstName.hashCode),
+                                                                lastName.hashCode),
+                                                            age.hashCode),
+                                                        birthdate.hashCode),
+                                                    info.hashCode),
+                                                verified.hashCode),
+                                            locationAddress.hashCode),
+                                        locationLatlng.hashCode),
+                                    tags.hashCode),
+                                mainTags.hashCode),
+                            requests.hashCode),
+                        about.hashCode),
+                    passion.hashCode),
+                likes.hashCode),
+            startupPassion.hashCode),
         ffRef.hashCode));
   }
 
@@ -467,6 +482,7 @@ class _$UserRecord extends UserRecord {
           ..add('about', about)
           ..add('passion', passion)
           ..add('likes', likes)
+          ..add('startupPassion', startupPassion)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -564,6 +580,11 @@ class UserRecordBuilder implements Builder<UserRecord, UserRecordBuilder> {
   set likes(ListBuilder<DocumentReference<Object?>>? likes) =>
       _$this._likes = likes;
 
+  bool? _startupPassion;
+  bool? get startupPassion => _$this._startupPassion;
+  set startupPassion(bool? startupPassion) =>
+      _$this._startupPassion = startupPassion;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -595,6 +616,7 @@ class UserRecordBuilder implements Builder<UserRecord, UserRecordBuilder> {
       _about = $v.about;
       _passion = $v.passion;
       _likes = $v.likes?.toBuilder();
+      _startupPassion = $v.startupPassion;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -640,6 +662,7 @@ class UserRecordBuilder implements Builder<UserRecord, UserRecordBuilder> {
               about: about,
               passion: passion,
               likes: _likes?.build(),
+              startupPassion: startupPassion,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
