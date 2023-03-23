@@ -60,6 +60,12 @@ abstract class UserRecord implements Built<UserRecord, UserRecordBuilder> {
 
   bool? get startupPassion;
 
+  @BuiltValueField(wireName: 'privacy_version')
+  String? get privacyVersion;
+
+  @BuiltValueField(wireName: 'dark_mode')
+  bool? get darkMode;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -82,7 +88,9 @@ abstract class UserRecord implements Built<UserRecord, UserRecordBuilder> {
     ..requests = ListBuilder()
     ..about = ''
     ..likes = ListBuilder()
-    ..startupPassion = false;
+    ..startupPassion = false
+    ..privacyVersion = ''
+    ..darkMode = false;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('user');
@@ -122,6 +130,8 @@ Map<String, dynamic> createUserRecordData({
   String? about,
   DocumentReference? passion,
   bool? startupPassion,
+  String? privacyVersion,
+  bool? darkMode,
 }) {
   final firestoreData = serializers.toFirestore(
     UserRecord.serializer,
@@ -147,7 +157,9 @@ Map<String, dynamic> createUserRecordData({
         ..about = about
         ..passion = passion
         ..likes = null
-        ..startupPassion = startupPassion,
+        ..startupPassion = startupPassion
+        ..privacyVersion = privacyVersion
+        ..darkMode = darkMode,
     ),
   );
 

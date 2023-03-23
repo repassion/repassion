@@ -10,7 +10,6 @@ import '/flutter_flow/instant_timer.dart';
 import '/flutter_flow/place.dart';
 import '/flutter_flow/upload_media.dart';
 import 'dart:io';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';

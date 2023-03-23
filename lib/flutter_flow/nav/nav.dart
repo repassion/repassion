@@ -92,7 +92,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             ),
             FFRoute(
               name: 'Register',
-              path: 'register',
+              path: 'signup',
               builder: (context, params) => RegisterWidget(),
             ),
             FFRoute(
@@ -108,25 +108,25 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             ),
             FFRoute(
               name: 'PassionSearch',
-              path: 'passionSearch',
+              path: 'passion/search',
               requireAuth: true,
               builder: (context, params) => PassionSearchWidget(),
             ),
             FFRoute(
               name: 'PassionFavorite',
-              path: 'passionFavorite',
+              path: 'passion/favorite',
               requireAuth: true,
               builder: (context, params) => PassionFavoriteWidget(),
             ),
             FFRoute(
               name: 'PassionOwn',
-              path: 'passionOwn',
+              path: 'passion/me',
               requireAuth: true,
               builder: (context, params) => PassionOwnWidget(),
             ),
             FFRoute(
               name: 'CategoryWindow',
-              path: 'categoryWindow',
+              path: 'category/:category',
               requireAuth: true,
               builder: (context, params) => CategoryWindowWidget(
                 category: params.getParam('category',
@@ -135,7 +135,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             ),
             FFRoute(
               name: 'PassionEdit',
-              path: 'passionEdit',
+              path: 'passion/:passion/edit',
               requireAuth: true,
               builder: (context, params) => PassionEditWidget(
                 passion: params.getParam(
@@ -144,7 +144,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             ),
             FFRoute(
               name: 'PassionWindow',
-              path: 'passionWindow',
+              path: 'passion/:passion',
               requireAuth: true,
               builder: (context, params) => PassionWindowWidget(
                 passion: params.getParam(
@@ -159,7 +159,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             ),
             FFRoute(
               name: 'ChatWindow',
-              path: 'chatWindow',
+              path: 'chat/:chat',
               requireAuth: true,
               builder: (context, params) => ChatWindowWidget(
                 chat: params.getParam(
@@ -168,7 +168,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             ),
             FFRoute(
               name: 'UserWindow',
-              path: 'userWindow',
+              path: 'user/:user',
               requireAuth: true,
               builder: (context, params) => UserWindowWidget(
                 user: params.getParam(
@@ -185,13 +185,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             ),
             FFRoute(
               name: 'ProfileWindow',
-              path: 'profileWindow',
+              path: 'settings/profile',
               requireAuth: true,
               builder: (context, params) => ProfileWindowWidget(),
             ),
             FFRoute(
               name: 'TagWindow',
-              path: 'tagWindow',
+              path: 'settings/tags',
               requireAuth: true,
               builder: (context, params) => TagWindowWidget(
                 searchText: params.getParam('searchText', ParamType.String),
@@ -199,37 +199,37 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             ),
             FFRoute(
               name: 'AboutWindow',
-              path: 'aboutWindow',
+              path: 'settings/about',
               requireAuth: true,
               builder: (context, params) => AboutWindowWidget(),
             ),
             FFRoute(
               name: 'AccountWindow',
-              path: 'accountWindow',
+              path: 'settings/account',
               requireAuth: true,
               builder: (context, params) => AccountWindowWidget(),
             ),
             FFRoute(
               name: 'ProfileSetup1',
-              path: 'profileSetup1',
+              path: 'setup/1',
               requireAuth: true,
               builder: (context, params) => ProfileSetup1Widget(),
             ),
             FFRoute(
               name: 'ProfileSetup2',
-              path: 'profileSetup2',
+              path: 'setup/2',
               requireAuth: true,
               builder: (context, params) => ProfileSetup2Widget(),
             ),
             FFRoute(
               name: 'ProfileSetup3',
-              path: 'profileSetup3',
+              path: 'setup/3',
               requireAuth: true,
               builder: (context, params) => ProfileSetup3Widget(),
             ),
             FFRoute(
               name: 'ProfileSetup4',
-              path: 'profileSetup4',
+              path: 'setup/4',
               requireAuth: true,
               builder: (context, params) => ProfileSetup4Widget(
                 searchText: params.getParam('searchText', ParamType.String),
@@ -237,13 +237,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             ),
             FFRoute(
               name: 'ProfileSetup5',
-              path: 'profileSetup5',
+              path: 'setup/5',
               requireAuth: true,
               builder: (context, params) => ProfileSetup5Widget(),
             ),
             FFRoute(
               name: 'startup',
-              path: 'startup',
+              path: 'app',
+              requireAuth: true,
               builder: (context, params) => StartupWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),

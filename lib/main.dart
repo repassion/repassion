@@ -19,6 +19,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initFirebase();
 
+  await FlutterFlowTheme.initialize();
+
   await initializeFirebaseAppCheck();
 
   runApp(MyApp());
@@ -35,7 +37,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   Locale? _locale;
-  ThemeMode _themeMode = ThemeMode.system;
+  ThemeMode _themeMode = FlutterFlowTheme.themeMode;
 
   late Stream<RepassionFirebaseUser> userStream;
 
@@ -72,12 +74,13 @@ class _MyAppState extends State<MyApp> {
 
   void setThemeMode(ThemeMode mode) => setState(() {
         _themeMode = mode;
+        FlutterFlowTheme.saveThemeMode(mode);
       });
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'repassion',
+      title: 'repassion ALPHA',
       localizationsDelegates: [
         FFLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
@@ -89,6 +92,7 @@ class _MyAppState extends State<MyApp> {
         Locale('de'),
       ],
       theme: ThemeData(brightness: Brightness.light),
+      darkTheme: ThemeData(brightness: Brightness.dark),
       themeMode: _themeMode,
       routeInformationParser: _router.routeInformationParser,
       routerDelegate: _router.routerDelegate,

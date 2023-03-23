@@ -176,6 +176,20 @@ class _$UserRecordSerializer implements StructuredSerializer<UserRecord> {
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
+    value = object.privacyVersion;
+    if (value != null) {
+      result
+        ..add('privacy_version')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.darkMode;
+    if (value != null) {
+      result
+        ..add('dark_mode')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -295,6 +309,14 @@ class _$UserRecordSerializer implements StructuredSerializer<UserRecord> {
           result.startupPassion = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
           break;
+        case 'privacy_version':
+          result.privacyVersion = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'dark_mode':
+          result.darkMode = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -352,6 +374,10 @@ class _$UserRecord extends UserRecord {
   @override
   final bool? startupPassion;
   @override
+  final String? privacyVersion;
+  @override
+  final bool? darkMode;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$UserRecord([void Function(UserRecordBuilder)? updates]) =>
@@ -379,6 +405,8 @@ class _$UserRecord extends UserRecord {
       this.passion,
       this.likes,
       this.startupPassion,
+      this.privacyVersion,
+      this.darkMode,
       this.ffRef})
       : super._();
 
@@ -414,6 +442,8 @@ class _$UserRecord extends UserRecord {
         passion == other.passion &&
         likes == other.likes &&
         startupPassion == other.startupPassion &&
+        privacyVersion == other.privacyVersion &&
+        darkMode == other.darkMode &&
         ffRef == other.ffRef;
   }
 
@@ -437,25 +467,25 @@ class _$UserRecord extends UserRecord {
                                                                 $jc(
                                                                     $jc(
                                                                         $jc(
-                                                                            $jc($jc($jc($jc(0, email.hashCode), displayName.hashCode), photoUrl.hashCode),
-                                                                                uid.hashCode),
-                                                                            createdTime.hashCode),
-                                                                        phoneNumber.hashCode),
-                                                                    firstName.hashCode),
-                                                                lastName.hashCode),
-                                                            age.hashCode),
-                                                        birthdate.hashCode),
-                                                    info.hashCode),
-                                                verified.hashCode),
-                                            locationAddress.hashCode),
-                                        locationLatlng.hashCode),
-                                    tags.hashCode),
-                                mainTags.hashCode),
-                            requests.hashCode),
-                        about.hashCode),
-                    passion.hashCode),
-                likes.hashCode),
-            startupPassion.hashCode),
+                                                                            $jc($jc($jc($jc($jc($jc(0, email.hashCode), displayName.hashCode), photoUrl.hashCode), uid.hashCode), createdTime.hashCode),
+                                                                                phoneNumber.hashCode),
+                                                                            firstName.hashCode),
+                                                                        lastName.hashCode),
+                                                                    age.hashCode),
+                                                                birthdate.hashCode),
+                                                            info.hashCode),
+                                                        verified.hashCode),
+                                                    locationAddress.hashCode),
+                                                locationLatlng.hashCode),
+                                            tags.hashCode),
+                                        mainTags.hashCode),
+                                    requests.hashCode),
+                                about.hashCode),
+                            passion.hashCode),
+                        likes.hashCode),
+                    startupPassion.hashCode),
+                privacyVersion.hashCode),
+            darkMode.hashCode),
         ffRef.hashCode));
   }
 
@@ -483,6 +513,8 @@ class _$UserRecord extends UserRecord {
           ..add('passion', passion)
           ..add('likes', likes)
           ..add('startupPassion', startupPassion)
+          ..add('privacyVersion', privacyVersion)
+          ..add('darkMode', darkMode)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -585,6 +617,15 @@ class UserRecordBuilder implements Builder<UserRecord, UserRecordBuilder> {
   set startupPassion(bool? startupPassion) =>
       _$this._startupPassion = startupPassion;
 
+  String? _privacyVersion;
+  String? get privacyVersion => _$this._privacyVersion;
+  set privacyVersion(String? privacyVersion) =>
+      _$this._privacyVersion = privacyVersion;
+
+  bool? _darkMode;
+  bool? get darkMode => _$this._darkMode;
+  set darkMode(bool? darkMode) => _$this._darkMode = darkMode;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -617,6 +658,8 @@ class UserRecordBuilder implements Builder<UserRecord, UserRecordBuilder> {
       _passion = $v.passion;
       _likes = $v.likes?.toBuilder();
       _startupPassion = $v.startupPassion;
+      _privacyVersion = $v.privacyVersion;
+      _darkMode = $v.darkMode;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -663,6 +706,8 @@ class UserRecordBuilder implements Builder<UserRecord, UserRecordBuilder> {
               passion: passion,
               likes: _likes?.build(),
               startupPassion: startupPassion,
+              privacyVersion: privacyVersion,
+              darkMode: darkMode,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;

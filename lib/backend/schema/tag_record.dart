@@ -15,12 +15,15 @@ abstract class TagRecord implements Built<TagRecord, TagRecordBuilder> {
 
   Color? get colour;
 
+  BuiltList<String>? get synonyms;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
 
-  static void _initializeBuilder(TagRecordBuilder builder) =>
-      builder..text = '';
+  static void _initializeBuilder(TagRecordBuilder builder) => builder
+    ..text = ''
+    ..synonyms = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('tag');
@@ -37,6 +40,7 @@ abstract class TagRecord implements Built<TagRecord, TagRecordBuilder> {
         (c) => c
           ..text = snapshot.data['text']
           ..colour = safeGet(() => fromCssColor(snapshot.data['colour']))
+          ..synonyms = safeGet(() => ListBuilder(snapshot.data['synonyms']))
           ..ffRef = TagRecord.collection.doc(snapshot.objectID),
       );
 
@@ -73,7 +77,8 @@ Map<String, dynamic> createTagRecordData({
     TagRecord(
       (t) => t
         ..text = text
-        ..colour = colour,
+        ..colour = colour
+        ..synonyms = null,
     ),
   );
 

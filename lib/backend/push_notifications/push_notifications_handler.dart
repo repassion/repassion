@@ -121,32 +121,77 @@ final parametersBuilderMap =
   'PassionSearch': ParameterData.none(),
   'PassionFavorite': ParameterData.none(),
   'PassionOwn': ParameterData.none(),
-  'CategoryWindow': (data) async => ParameterData(
-        allParams: {
-          'category': getParameter<DocumentReference>(data, 'category'),
-        },
-      ),
-  'PassionEdit': (data) async => ParameterData(
-        allParams: {
-          'passion': getParameter<DocumentReference>(data, 'passion'),
-        },
-      ),
-  'PassionWindow': (data) async => ParameterData(
-        allParams: {
-          'passion': getParameter<DocumentReference>(data, 'passion'),
-        },
-      ),
+  'CategoryWindow': (data) async {
+    final allParams = {
+      'category': getParameter<DocumentReference>(data, 'category'),
+    };
+    return ParameterData(
+      requiredParams: {
+        'category': serializeParam(
+          allParams['category'],
+          ParamType.DocumentReference,
+        ),
+      },
+      allParams: allParams,
+    );
+  },
+  'PassionEdit': (data) async {
+    final allParams = {
+      'passion': getParameter<DocumentReference>(data, 'passion'),
+    };
+    return ParameterData(
+      requiredParams: {
+        'passion': serializeParam(
+          allParams['passion'],
+          ParamType.DocumentReference,
+        ),
+      },
+      allParams: allParams,
+    );
+  },
+  'PassionWindow': (data) async {
+    final allParams = {
+      'passion': getParameter<DocumentReference>(data, 'passion'),
+    };
+    return ParameterData(
+      requiredParams: {
+        'passion': serializeParam(
+          allParams['passion'],
+          ParamType.DocumentReference,
+        ),
+      },
+      allParams: allParams,
+    );
+  },
   'Chat': ParameterData.none(),
-  'ChatWindow': (data) async => ParameterData(
-        allParams: {
-          'chat': getParameter<DocumentReference>(data, 'chat'),
-        },
-      ),
-  'UserWindow': (data) async => ParameterData(
-        allParams: {
-          'user': getParameter<DocumentReference>(data, 'user'),
-        },
-      ),
+  'ChatWindow': (data) async {
+    final allParams = {
+      'chat': getParameter<DocumentReference>(data, 'chat'),
+    };
+    return ParameterData(
+      requiredParams: {
+        'chat': serializeParam(
+          allParams['chat'],
+          ParamType.DocumentReference,
+        ),
+      },
+      allParams: allParams,
+    );
+  },
+  'UserWindow': (data) async {
+    final allParams = {
+      'user': getParameter<DocumentReference>(data, 'user'),
+    };
+    return ParameterData(
+      requiredParams: {
+        'user': serializeParam(
+          allParams['user'],
+          ParamType.DocumentReference,
+        ),
+      },
+      allParams: allParams,
+    );
+  },
   'Settings': (data) async => ParameterData(
         allParams: {
           'uid': getParameter<String>(data, 'uid'),

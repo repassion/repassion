@@ -1,6 +1,7 @@
 import '/auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/no_entries_widget.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -11,6 +12,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -24,11 +26,54 @@ class ChatWidget extends StatefulWidget {
   _ChatWidgetState createState() => _ChatWidgetState();
 }
 
-class _ChatWidgetState extends State<ChatWidget> {
+class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
   late ChatModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
+
+  final animationsMap = {
+    'containerOnPageLoadAnimation1': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 500.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 500.ms,
+          begin: Offset(0.0, -10.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'containerOnPageLoadAnimation2': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 500.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 500.ms,
+          begin: Offset(0.0, -10.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+  };
 
   @override
   void initState() {
@@ -64,251 +109,69 @@ class _ChatWidgetState extends State<ChatWidget> {
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
-          child: Stack(
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width * 1.0,
-                height: MediaQuery.of(context).size.height * 1.0,
-                decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).primaryBackground,
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      height: MediaQuery.of(context).size.height * 0.1,
-                      decoration: BoxDecoration(),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            25.0, 25.0, 25.0, 0.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                InkWell(
-                                  onTap: () async {
-                                    logFirebaseEvent(
-                                        'CHAT_PAGE_Image_xtt6grm6_ON_TAP');
-                                    logFirebaseEvent('Image_navigate_to');
+          child: Align(
+            alignment: AlignmentDirectional(0.0, 0.0),
+            child: Container(
+              width: MediaQuery.of(context).size.width * 1.0,
+              height: MediaQuery.of(context).size.height * 1.0,
+              constraints: BoxConstraints(
+                maxWidth: 500.0,
+                maxHeight: 1000.0,
+              ),
+              decoration: BoxDecoration(
+                color: FlutterFlowTheme.of(context).primaryBackground,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height * 0.1,
+                    decoration: BoxDecoration(),
+                    child: Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(25.0, 25.0, 25.0, 0.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              InkWell(
+                                onTap: () async {
+                                  logFirebaseEvent(
+                                      'CHAT_PAGE_Image_kdbo4qn4_ON_TAP');
+                                  logFirebaseEvent('Image_navigate_to');
 
-                                    context.goNamed(
-                                      'Home',
-                                      extra: <String, dynamic>{
-                                        kTransitionInfoKey: TransitionInfo(
-                                          hasTransition: true,
-                                          transitionType:
-                                              PageTransitionType.fade,
-                                        ),
-                                      },
-                                    );
-                                  },
-                                  child: Image.asset(
-                                    'assets/images/icon_512_black.png',
-                                    width: 50.0,
-                                    height: 50.0,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      5.0, 0.0, 0.0, 0.0),
-                                  child: InkWell(
-                                    onTap: () async {
-                                      logFirebaseEvent(
-                                          'CHAT_PAGE_Icon_w66c77od_ON_TAP');
-                                      logFirebaseEvent('Icon_navigate_to');
-
-                                      context.pushNamed(
-                                        'PassionSearch',
-                                        extra: <String, dynamic>{
-                                          kTransitionInfoKey: TransitionInfo(
-                                            hasTransition: true,
-                                            transitionType:
-                                                PageTransitionType.fade,
-                                          ),
-                                        },
-                                      );
-                                    },
-                                    child: Icon(
-                                      Icons.library_books_outlined,
-                                      color: Colors.black,
-                                      size: 35.0,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                StreamBuilder<List<ChatRecord>>(
-                                  stream: queryChatRecord(
-                                    queryBuilder: (chatRecord) =>
-                                        chatRecord.where('sender',
-                                            isEqualTo: currentUserReference),
-                                  ),
-                                  builder: (context, snapshot) {
-                                    // Customize what your widget looks like when it's loading.
-                                    if (!snapshot.hasData) {
-                                      return Center(
-                                        child: SizedBox(
-                                          width: 25.0,
-                                          height: 25.0,
-                                          child: SpinKitRipple(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryBackground,
-                                            size: 25.0,
-                                          ),
-                                        ),
-                                      );
-                                    }
-                                    List<ChatRecord> containerChatRecordList =
-                                        snapshot.data!;
-                                    return Container(
-                                      decoration: BoxDecoration(),
-                                      child: FutureBuilder<int>(
-                                        future: queryRequestRecordCount(
-                                          queryBuilder: (requestRecord) =>
-                                              requestRecord
-                                                  .where(
-                                                      'uid2',
-                                                      isEqualTo:
-                                                          currentUserReference)
-                                                  .where('status',
-                                                      isEqualTo: 'pending'),
-                                        ),
-                                        builder: (context, snapshot) {
-                                          // Customize what your widget looks like when it's loading.
-                                          if (!snapshot.hasData) {
-                                            return Center(
-                                              child: SizedBox(
-                                                width: 25.0,
-                                                height: 25.0,
-                                                child: SpinKitRipple(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryBackground,
-                                                  size: 25.0,
-                                                ),
-                                              ),
-                                            );
-                                          }
-                                          int requestsCount = snapshot.data!;
-                                          return Container(
-                                            decoration: BoxDecoration(),
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(5.0, 5.0, 5.0, 5.0),
-                                              child: badges.Badge(
-                                                badgeContent: Text(
-                                                  functions
-                                                      .notificationSum(
-                                                          containerChatRecordList
-                                                              .map((e) => e
-                                                                  .notifications)
-                                                              .withoutNulls
-                                                              .toList(),
-                                                          requestsCount)
-                                                      .toString(),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText1
-                                                      .override(
-                                                        fontFamily:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyText1Family,
-                                                        color: Colors.white,
-                                                        fontSize: 12.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyText1Family),
-                                                      ),
-                                                ),
-                                                showBadge: functions
-                                                        .notificationSum(
-                                                            containerChatRecordList
-                                                                .map((e) => e
-                                                                    .notifications)
-                                                                .withoutNulls
-                                                                .toList(),
-                                                            requestsCount)
-                                                        .toString() !=
-                                                    'null',
-                                                shape: badges.BadgeShape.circle,
-                                                badgeColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryColor,
-                                                elevation: 1.0,
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        5.0, 5.0, 5.0, 5.0),
-                                                position: badges.BadgePosition
-                                                    .topEnd(),
-                                                animationType: badges
-                                                    .BadgeAnimationType.scale,
-                                                toAnimate: true,
-                                                child: Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 0.0, 5.0, 0.0),
-                                                  child: InkWell(
-                                                    onTap: () async {
-                                                      logFirebaseEvent(
-                                                          'CHAT_PAGE_Icon_96bgpmg5_ON_TAP');
-                                                      logFirebaseEvent(
-                                                          'Icon_navigate_to');
-
-                                                      context.pushNamed(
-                                                        'Home',
-                                                        extra: <String,
-                                                            dynamic>{
-                                                          kTransitionInfoKey:
-                                                              TransitionInfo(
-                                                            hasTransition: true,
-                                                            transitionType:
-                                                                PageTransitionType
-                                                                    .fade,
-                                                          ),
-                                                        },
-                                                      );
-                                                    },
-                                                    child: Icon(
-                                                      Icons
-                                                          .chat_bubble_outline_sharp,
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryColor,
-                                                      size: 35.0,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          );
-                                        },
+                                  context.goNamed(
+                                    'Home',
+                                    extra: <String, dynamic>{
+                                      kTransitionInfoKey: TransitionInfo(
+                                        hasTransition: true,
+                                        transitionType: PageTransitionType.fade,
                                       ),
-                                    );
-                                  },
+                                    },
+                                  );
+                                },
+                                child: Image.asset(
+                                  'assets/images/icon_512_black_outlined.png',
+                                  width: 50.0,
+                                  height: 50.0,
+                                  fit: BoxFit.cover,
                                 ),
-                                InkWell(
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    5.0, 0.0, 0.0, 0.0),
+                                child: InkWell(
                                   onTap: () async {
                                     logFirebaseEvent(
-                                        'CHAT_PAGE_Icon_mqsnndwx_ON_TAP');
+                                        'CHAT_PAGE_Icon_8kj0wvqf_ON_TAP');
                                     logFirebaseEvent('Icon_navigate_to');
 
                                     context.pushNamed(
-                                      'Settings',
+                                      'PassionSearch',
                                       extra: <String, dynamic>{
                                         kTransitionInfoKey: TransitionInfo(
                                           hasTransition: true,
@@ -319,156 +182,336 @@ class _ChatWidgetState extends State<ChatWidget> {
                                     );
                                   },
                                   child: Icon(
-                                    Icons.settings_sharp,
-                                    color: Colors.black,
+                                    Icons.library_books_outlined,
+                                    color:
+                                        FlutterFlowTheme.of(context).alternate,
                                     size: 35.0,
                                   ),
                                 ),
-                              ],
-                            ),
-                          ],
-                        ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              StreamBuilder<List<ChatRecord>>(
+                                stream: queryChatRecord(
+                                  queryBuilder: (chatRecord) =>
+                                      chatRecord.where('sender',
+                                          isEqualTo: currentUserReference),
+                                ),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 25.0,
+                                        height: 25.0,
+                                        child: SpinKitRipple(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryBackground,
+                                          size: 25.0,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  List<ChatRecord> containerChatRecordList =
+                                      snapshot.data!;
+                                  return Container(
+                                    decoration: BoxDecoration(),
+                                    child: FutureBuilder<int>(
+                                      future: queryRequestRecordCount(
+                                        queryBuilder: (requestRecord) =>
+                                            requestRecord
+                                                .where('uid2',
+                                                    isEqualTo:
+                                                        currentUserReference)
+                                                .where('status',
+                                                    isEqualTo: 'pending'),
+                                      ),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 25.0,
+                                              height: 25.0,
+                                              child: SpinKitRipple(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBackground,
+                                                size: 25.0,
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        int requestsCount = snapshot.data!;
+                                        return Container(
+                                          decoration: BoxDecoration(),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    5.0, 5.0, 5.0, 5.0),
+                                            child: badges.Badge(
+                                              badgeContent: Text(
+                                                functions
+                                                    .notificationSum(
+                                                        containerChatRecordList
+                                                            .map((e) =>
+                                                                e.notifications)
+                                                            .withoutNulls
+                                                            .toList(),
+                                                        requestsCount)
+                                                    .toString(),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyText1Family,
+                                                          color: Colors.white,
+                                                          fontSize: 12.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyText1Family),
+                                                        ),
+                                              ),
+                                              showBadge: functions
+                                                      .notificationSum(
+                                                          containerChatRecordList
+                                                              .map((e) => e
+                                                                  .notifications)
+                                                              .withoutNulls
+                                                              .toList(),
+                                                          requestsCount)
+                                                      .toString() !=
+                                                  'null',
+                                              shape: badges.BadgeShape.circle,
+                                              badgeColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryColor,
+                                              elevation: 1.0,
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(5.0, 5.0, 5.0, 5.0),
+                                              position:
+                                                  badges.BadgePosition.topEnd(),
+                                              animationType: badges
+                                                  .BadgeAnimationType.scale,
+                                              toAnimate: true,
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 5.0, 0.0),
+                                                child: InkWell(
+                                                  onTap: () async {
+                                                    logFirebaseEvent(
+                                                        'CHAT_PAGE_Icon_hfw7aguu_ON_TAP');
+                                                    logFirebaseEvent(
+                                                        'Icon_navigate_to');
+
+                                                    context.pushNamed(
+                                                      'Home',
+                                                      extra: <String, dynamic>{
+                                                        kTransitionInfoKey:
+                                                            TransitionInfo(
+                                                          hasTransition: true,
+                                                          transitionType:
+                                                              PageTransitionType
+                                                                  .fade,
+                                                        ),
+                                                      },
+                                                    );
+                                                  },
+                                                  child: Icon(
+                                                    Icons.chat_sharp,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryColor,
+                                                    size: 35.0,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  );
+                                },
+                              ),
+                              InkWell(
+                                onTap: () async {
+                                  logFirebaseEvent(
+                                      'CHAT_PAGE_Icon_uloyzajg_ON_TAP');
+                                  logFirebaseEvent('Icon_navigate_to');
+
+                                  context.pushNamed(
+                                    'Settings',
+                                    extra: <String, dynamic>{
+                                      kTransitionInfoKey: TransitionInfo(
+                                        hasTransition: true,
+                                        transitionType: PageTransitionType.fade,
+                                      ),
+                                    },
+                                  );
+                                },
+                                child: Icon(
+                                  Icons.settings_outlined,
+                                  color: FlutterFlowTheme.of(context).alternate,
+                                  size: 35.0,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 1.0,
-                      decoration: BoxDecoration(),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  15.0, 15.0, 15.0, 15.0),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(0.0),
-                                child: Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 1.0,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.85,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(0.0),
-                                  ),
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.stretch,
-                                      children: [
-                                        Container(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.85,
-                                          decoration: BoxDecoration(),
-                                          child: DefaultTabController(
-                                            length: 2,
-                                            initialIndex: 1,
-                                            child: Column(
-                                              children: [
-                                                TabBar(
-                                                  labelColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primaryColor,
-                                                  labelStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyText1
-                                                          .override(
-                                                            fontFamily:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyText1Family,
-                                                            fontSize: 15.0,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                            useGoogleFonts: GoogleFonts
-                                                                    .asMap()
-                                                                .containsKey(
-                                                                    FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyText1Family),
-                                                          ),
-                                                  indicatorColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primaryColor,
-                                                  tabs: [
-                                                    Tab(
-                                                      text: 'Anfragen',
-                                                    ),
-                                                    Tab(
-                                                      text: 'Chats',
-                                                    ),
-                                                  ],
-                                                ),
-                                                Expanded(
-                                                  child: TabBarView(
-                                                    children: [
-                                                      KeepAliveWidgetWrapper(
-                                                        builder: (context) =>
-                                                            StreamBuilder<
-                                                                List<
-                                                                    RequestRecord>>(
-                                                          stream:
-                                                              queryRequestRecord(
-                                                            queryBuilder: (requestRecord) =>
-                                                                requestRecord
-                                                                    .where(
-                                                                        'uid2',
-                                                                        isEqualTo:
-                                                                            currentUserReference)
-                                                                    .where(
-                                                                        'status',
-                                                                        isEqualTo:
-                                                                            'pending'),
-                                                          ),
-                                                          builder: (context,
-                                                              snapshot) {
-                                                            // Customize what your widget looks like when it's loading.
-                                                            if (!snapshot
-                                                                .hasData) {
-                                                              return Center(
-                                                                child: SizedBox(
-                                                                  width: 25.0,
-                                                                  height: 25.0,
-                                                                  child:
-                                                                      SpinKitRipple(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryBackground,
-                                                                    size: 25.0,
-                                                                  ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 1.0,
+                    decoration: BoxDecoration(),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                15.0, 15.0, 15.0, 15.0),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(0.0),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 1.0,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.85,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(0.0),
+                                ),
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    children: [
+                                      Container(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.85,
+                                        decoration: BoxDecoration(),
+                                        child: DefaultTabController(
+                                          length: 2,
+                                          initialIndex: 1,
+                                          child: Column(
+                                            children: [
+                                              TabBar(
+                                                labelColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryColor,
+                                                labelStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyText1Family,
+                                                          fontSize: 15.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyText1Family),
+                                                        ),
+                                                indicatorColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryColor,
+                                                tabs: [
+                                                  Tab(
+                                                    text: 'Anfragen',
+                                                  ),
+                                                  Tab(
+                                                    text: 'Chats',
+                                                  ),
+                                                ],
+                                              ),
+                                              Expanded(
+                                                child: TabBarView(
+                                                  children: [
+                                                    KeepAliveWidgetWrapper(
+                                                      builder: (context) =>
+                                                          StreamBuilder<
+                                                              List<
+                                                                  RequestRecord>>(
+                                                        stream:
+                                                            queryRequestRecord(
+                                                          queryBuilder: (requestRecord) =>
+                                                              requestRecord
+                                                                  .where('uid2',
+                                                                      isEqualTo:
+                                                                          currentUserReference)
+                                                                  .where(
+                                                                      'status',
+                                                                      isEqualTo:
+                                                                          'pending'),
+                                                        ),
+                                                        builder: (context,
+                                                            snapshot) {
+                                                          // Customize what your widget looks like when it's loading.
+                                                          if (!snapshot
+                                                              .hasData) {
+                                                            return Center(
+                                                              child: SizedBox(
+                                                                width: 25.0,
+                                                                height: 25.0,
+                                                                child:
+                                                                    SpinKitRipple(
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryBackground,
+                                                                  size: 25.0,
                                                                 ),
-                                                              );
-                                                            }
-                                                            List<RequestRecord>
-                                                                columnRequestRecordList =
-                                                                snapshot.data!;
-                                                            if (columnRequestRecordList
-                                                                .isEmpty) {
-                                                              return NoEntriesWidget(
-                                                                text:
-                                                                    'Keine Anfragen.',
-                                                              );
-                                                            }
-                                                            return SingleChildScrollView(
-                                                              child: Column(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: List.generate(
-                                                                    columnRequestRecordList
-                                                                        .length,
-                                                                    (columnIndex) {
-                                                                  final columnRequestRecord =
-                                                                      columnRequestRecordList[
-                                                                          columnIndex];
-                                                                  return Padding(
+                                                              ),
+                                                            );
+                                                          }
+                                                          List<RequestRecord>
+                                                              columnRequestRecordList =
+                                                              snapshot.data!;
+                                                          if (columnRequestRecordList
+                                                              .isEmpty) {
+                                                            return NoEntriesWidget(
+                                                              text:
+                                                                  'Keine Anfragen.',
+                                                            );
+                                                          }
+                                                          return SingleChildScrollView(
+                                                            child: Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              children: List.generate(
+                                                                  columnRequestRecordList
+                                                                      .length,
+                                                                  (columnIndex) {
+                                                                final columnRequestRecord =
+                                                                    columnRequestRecordList[
+                                                                        columnIndex];
+                                                                return Visibility(
+                                                                  visible:
+                                                                      columnRequestRecord
+                                                                              .uid1 !=
+                                                                          null,
+                                                                  child:
+                                                                      Padding(
                                                                     padding: EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             0.0,
@@ -503,12 +546,12 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                                         return InkWell(
                                                                           onTap:
                                                                               () async {
-                                                                            logFirebaseEvent('CHAT_PAGE_Container_zslqtf0y_ON_TAP');
+                                                                            logFirebaseEvent('CHAT_PAGE_Container_w93bd738_ON_TAP');
                                                                             logFirebaseEvent('Container_navigate_to');
 
                                                                             context.pushNamed(
                                                                               'UserWindow',
-                                                                              queryParams: {
+                                                                              params: {
                                                                                 'user': serializeParam(
                                                                                   containerUserRecord.reference,
                                                                                   ParamType.DocumentReference,
@@ -604,7 +647,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                                                           children: [
                                                                                             InkWell(
                                                                                               onTap: () async {
-                                                                                                logFirebaseEvent('CHAT_PAGE_Icon_oloohnor_ON_TAP');
+                                                                                                logFirebaseEvent('CHAT_PAGE_Icon_wwzw4gz4_ON_TAP');
                                                                                                 logFirebaseEvent('Icon_haptic_feedback');
                                                                                                 HapticFeedback.lightImpact();
                                                                                                 logFirebaseEvent('Icon_backend_call');
@@ -636,7 +679,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                                                             ),
                                                                                             InkWell(
                                                                                               onTap: () async {
-                                                                                                logFirebaseEvent('CHAT_PAGE_Icon_gessjm6j_ON_TAP');
+                                                                                                logFirebaseEvent('CHAT_PAGE_Icon_sj8p1e54_ON_TAP');
                                                                                                 logFirebaseEvent('Icon_haptic_feedback');
                                                                                                 HapticFeedback.lightImpact();
                                                                                                 logFirebaseEvent('Icon_backend_call');
@@ -683,74 +726,82 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                                               ),
                                                                             ),
                                                                           ),
-                                                                        );
+                                                                        ).animateOnPageLoad(
+                                                                            animationsMap['containerOnPageLoadAnimation1']!);
                                                                       },
                                                                     ),
-                                                                  );
-                                                                }),
+                                                                  ),
+                                                                );
+                                                              }),
+                                                            ),
+                                                          );
+                                                        },
+                                                      ),
+                                                    ),
+                                                    KeepAliveWidgetWrapper(
+                                                      builder: (context) =>
+                                                          StreamBuilder<
+                                                              List<ChatRecord>>(
+                                                        stream: queryChatRecord(
+                                                          queryBuilder: (chatRecord) =>
+                                                              chatRecord
+                                                                  .where(
+                                                                      'sender',
+                                                                      isEqualTo:
+                                                                          currentUserReference)
+                                                                  .orderBy(
+                                                                      'order_date',
+                                                                      descending:
+                                                                          true),
+                                                        ),
+                                                        builder: (context,
+                                                            snapshot) {
+                                                          // Customize what your widget looks like when it's loading.
+                                                          if (!snapshot
+                                                              .hasData) {
+                                                            return Center(
+                                                              child: SizedBox(
+                                                                width: 25.0,
+                                                                height: 25.0,
+                                                                child:
+                                                                    SpinKitRipple(
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryBackground,
+                                                                  size: 25.0,
+                                                                ),
                                                               ),
                                                             );
-                                                          },
-                                                        ),
-                                                      ),
-                                                      KeepAliveWidgetWrapper(
-                                                        builder: (context) =>
-                                                            StreamBuilder<
-                                                                List<
-                                                                    ChatRecord>>(
-                                                          stream:
-                                                              queryChatRecord(
-                                                            queryBuilder: (chatRecord) => chatRecord
-                                                                .where('sender',
-                                                                    isEqualTo:
-                                                                        currentUserReference)
-                                                                .orderBy(
-                                                                    'order_date',
-                                                                    descending:
-                                                                        true),
-                                                          ),
-                                                          builder: (context,
-                                                              snapshot) {
-                                                            // Customize what your widget looks like when it's loading.
-                                                            if (!snapshot
-                                                                .hasData) {
-                                                              return Center(
-                                                                child: SizedBox(
-                                                                  width: 25.0,
-                                                                  height: 25.0,
+                                                          }
+                                                          List<ChatRecord>
+                                                              columnChatRecordList =
+                                                              snapshot.data!;
+                                                          if (columnChatRecordList
+                                                              .isEmpty) {
+                                                            return NoEntriesWidget(
+                                                              text:
+                                                                  'Keine Chats.',
+                                                            );
+                                                          }
+                                                          return SingleChildScrollView(
+                                                            child: Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              children: List.generate(
+                                                                  columnChatRecordList
+                                                                      .length,
+                                                                  (columnIndex) {
+                                                                final columnChatRecord =
+                                                                    columnChatRecordList[
+                                                                        columnIndex];
+                                                                return Visibility(
+                                                                  visible:
+                                                                      columnChatRecord
+                                                                              .receiver !=
+                                                                          null,
                                                                   child:
-                                                                      SpinKitRipple(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryBackground,
-                                                                    size: 25.0,
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            }
-                                                            List<ChatRecord>
-                                                                columnChatRecordList =
-                                                                snapshot.data!;
-                                                            if (columnChatRecordList
-                                                                .isEmpty) {
-                                                              return NoEntriesWidget(
-                                                                text:
-                                                                    'Keine Chats.',
-                                                              );
-                                                            }
-                                                            return SingleChildScrollView(
-                                                              child: Column(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: List.generate(
-                                                                    columnChatRecordList
-                                                                        .length,
-                                                                    (columnIndex) {
-                                                                  final columnChatRecord =
-                                                                      columnChatRecordList[
-                                                                          columnIndex];
-                                                                  return Padding(
+                                                                      Padding(
                                                                     padding: EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             0.0,
@@ -785,7 +836,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                                         return InkWell(
                                                                           onTap:
                                                                               () async {
-                                                                            logFirebaseEvent('CHAT_PAGE_Container_t72l109h_ON_TAP');
+                                                                            logFirebaseEvent('CHAT_PAGE_Container_ekt9bti4_ON_TAP');
                                                                             logFirebaseEvent('Container_haptic_feedback');
                                                                             HapticFeedback.lightImpact();
                                                                             logFirebaseEvent('Container_backend_call');
@@ -799,7 +850,7 @@ class _ChatWidgetState extends State<ChatWidget> {
 
                                                                             context.pushNamed(
                                                                               'ChatWindow',
-                                                                              queryParams: {
+                                                                              params: {
                                                                                 'chat': serializeParam(
                                                                                   columnChatRecord.reference,
                                                                                   ParamType.DocumentReference,
@@ -815,12 +866,12 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                                           },
                                                                           onLongPress:
                                                                               () async {
-                                                                            logFirebaseEvent('CHAT_Container_t72l109h_ON_LONG_PRESS');
+                                                                            logFirebaseEvent('CHAT_Container_ekt9bti4_ON_LONG_PRESS');
                                                                             logFirebaseEvent('Container_navigate_to');
 
                                                                             context.pushNamed(
                                                                               'UserWindow',
-                                                                              queryParams: {
+                                                                              params: {
                                                                                 'user': serializeParam(
                                                                                   containerUserRecord.reference,
                                                                                   ParamType.DocumentReference,
@@ -982,37 +1033,38 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                                               ),
                                                                             ),
                                                                           ),
-                                                                        );
+                                                                        ).animateOnPageLoad(
+                                                                            animationsMap['containerOnPageLoadAnimation2']!);
                                                                       },
                                                                     ),
-                                                                  );
-                                                                }),
-                                                              ),
-                                                            );
-                                                          },
-                                                        ),
+                                                                  ),
+                                                                );
+                                                              }),
+                                                            ),
+                                                          );
+                                                        },
                                                       ),
-                                                    ],
-                                                  ),
+                                                    ),
+                                                  ],
                                                 ),
-                                              ],
-                                            ),
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),

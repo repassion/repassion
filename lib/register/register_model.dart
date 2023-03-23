@@ -1,5 +1,4 @@
 import '/auth/auth_util.dart';
-import '/auth/firebase_user_provider.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';

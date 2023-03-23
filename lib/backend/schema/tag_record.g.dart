@@ -33,6 +33,14 @@ class _$TagRecordSerializer implements StructuredSerializer<TagRecord> {
         ..add(
             serializers.serialize(value, specifiedType: const FullType(Color)));
     }
+    value = object.synonyms;
+    if (value != null) {
+      result
+        ..add('synonyms')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -63,6 +71,12 @@ class _$TagRecordSerializer implements StructuredSerializer<TagRecord> {
           result.colour = serializers.deserialize(value,
               specifiedType: const FullType(Color)) as Color?;
           break;
+        case 'synonyms':
+          result.synonyms.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -82,12 +96,15 @@ class _$TagRecord extends TagRecord {
   @override
   final Color? colour;
   @override
+  final BuiltList<String>? synonyms;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$TagRecord([void Function(TagRecordBuilder)? updates]) =>
       (new TagRecordBuilder()..update(updates))._build();
 
-  _$TagRecord._({this.text, this.colour, this.ffRef}) : super._();
+  _$TagRecord._({this.text, this.colour, this.synonyms, this.ffRef})
+      : super._();
 
   @override
   TagRecord rebuild(void Function(TagRecordBuilder) updates) =>
@@ -102,13 +119,15 @@ class _$TagRecord extends TagRecord {
     return other is TagRecord &&
         text == other.text &&
         colour == other.colour &&
+        synonyms == other.synonyms &&
         ffRef == other.ffRef;
   }
 
   @override
   int get hashCode {
-    return $jf(
-        $jc($jc($jc(0, text.hashCode), colour.hashCode), ffRef.hashCode));
+    return $jf($jc(
+        $jc($jc($jc(0, text.hashCode), colour.hashCode), synonyms.hashCode),
+        ffRef.hashCode));
   }
 
   @override
@@ -116,6 +135,7 @@ class _$TagRecord extends TagRecord {
     return (newBuiltValueToStringHelper(r'TagRecord')
           ..add('text', text)
           ..add('colour', colour)
+          ..add('synonyms', synonyms)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -132,6 +152,11 @@ class TagRecordBuilder implements Builder<TagRecord, TagRecordBuilder> {
   Color? get colour => _$this._colour;
   set colour(Color? colour) => _$this._colour = colour;
 
+  ListBuilder<String>? _synonyms;
+  ListBuilder<String> get synonyms =>
+      _$this._synonyms ??= new ListBuilder<String>();
+  set synonyms(ListBuilder<String>? synonyms) => _$this._synonyms = synonyms;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -145,6 +170,7 @@ class TagRecordBuilder implements Builder<TagRecord, TagRecordBuilder> {
     if ($v != null) {
       _text = $v.text;
       _colour = $v.colour;
+      _synonyms = $v.synonyms?.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -166,8 +192,25 @@ class TagRecordBuilder implements Builder<TagRecord, TagRecordBuilder> {
   TagRecord build() => _build();
 
   _$TagRecord _build() {
-    final _$result =
-        _$v ?? new _$TagRecord._(text: text, colour: colour, ffRef: ffRef);
+    _$TagRecord _$result;
+    try {
+      _$result = _$v ??
+          new _$TagRecord._(
+              text: text,
+              colour: colour,
+              synonyms: _synonyms?.build(),
+              ffRef: ffRef);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'synonyms';
+        _synonyms?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'TagRecord', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }
