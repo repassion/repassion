@@ -1,3 +1,3 @@
 # repassion
-Eine Dating-App für Geschäftsmenschen. 
+Eine Dating-App für Geschäftsmenschen. \
 Mit sozialer Lernplattform. 
