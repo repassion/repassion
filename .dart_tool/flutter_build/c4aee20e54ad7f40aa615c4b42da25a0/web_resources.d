@@ -1,1 +1,0 @@
- build/web/icons/Icon-192.png build/web/icons/Icon-512.png build/web/favicon.png build/web/manifest.json build/web/index.html:  /home/mauz/Downloads/repassion/web/icons/Icon-192.png /home/mauz/Downloads/repassion/web/icons/Icon-512.png /home/mauz/Downloads/repassion/web/favicon.png /home/mauz/Downloads/repassion/web/manifest.json /home/mauz/Downloads/repassion/web/index.html

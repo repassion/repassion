@@ -1,4 +1,4 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/no_entries_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
@@ -79,12 +79,15 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+    context.watch<FFAppState>();
+
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        body: SafeArea(
+          top: true,
           child: Align(
             alignment: AlignmentDirectional(0.0, 0.0),
             child: StreamBuilder<UserRecord>(
@@ -126,6 +129,10 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
                                 onTap: () async {
                                   logFirebaseEvent(
                                       'USER_WINDOW_PAGE_Row_74h32aee_ON_TAP');
@@ -138,8 +145,8 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                   children: [
                                     Icon(
                                       Icons.chevron_left_sharp,
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryColor,
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
                                       size: 50.0,
                                     ),
                                     ClipRRect(
@@ -206,12 +213,12 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                               maxLines: 1,
                                               style:
                                                   FlutterFlowTheme.of(context)
-                                                      .title3
+                                                      .headlineSmall
                                                       .override(
                                                         fontFamily:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .title3Family,
+                                                                .headlineSmallFamily,
                                                         fontSize: 15.0,
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -220,7 +227,7 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                                             .containsKey(
                                                                 FlutterFlowTheme.of(
                                                                         context)
-                                                                    .title3Family),
+                                                                    .headlineSmallFamily),
                                                       ),
                                             ),
                                           ],
@@ -232,15 +239,15 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                               '@${mainUserUserRecord.displayName}',
                                               style: FlutterFlowTheme.of(
                                                       context)
-                                                  .bodyText1
+                                                  .bodyMedium
                                                   .override(
                                                     fontFamily:
                                                         FlutterFlowTheme.of(
                                                                 context)
-                                                            .bodyText1Family,
+                                                            .bodyMediumFamily,
                                                     color: FlutterFlowTheme.of(
                                                             context)
-                                                        .primaryColor,
+                                                        .primary,
                                                     fontSize: 12.0,
                                                     fontWeight: FontWeight.bold,
                                                     useGoogleFonts: GoogleFonts
@@ -248,16 +255,15 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                                         .containsKey(
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .bodyText1Family),
+                                                                .bodyMediumFamily),
                                                   ),
                                             ),
-                                            if (mainUserUserRecord.verified ??
-                                                true)
+                                            if (mainUserUserRecord.verified)
                                               Icon(
                                                 Icons.verified,
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .primaryColor,
+                                                        .primary,
                                                 size: 12.0,
                                               ),
                                           ],
@@ -346,12 +352,12 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                                     maxLines: 2,
                                                     style: FlutterFlowTheme.of(
                                                             context)
-                                                        .title3
+                                                        .headlineSmall
                                                         .override(
                                                           fontFamily:
                                                               FlutterFlowTheme.of(
                                                                       context)
-                                                                  .title3Family,
+                                                                  .headlineSmallFamily,
                                                           fontSize: 20.0,
                                                           fontWeight:
                                                               FontWeight.bold,
@@ -360,7 +366,7 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                                               .containsKey(
                                                                   FlutterFlowTheme.of(
                                                                           context)
-                                                                      .title3Family),
+                                                                      .headlineSmallFamily),
                                                         ),
                                                   ),
                                                 ],
@@ -378,14 +384,14 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .bodyText1
+                                                              .bodyMedium
                                                               .override(
                                                                 fontFamily: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyText1Family,
+                                                                    .bodyMediumFamily,
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .primaryColor,
+                                                                    .primary,
                                                                 fontSize: 15.0,
                                                                 fontWeight:
                                                                     FontWeight
@@ -394,18 +400,17 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                                                         .asMap()
                                                                     .containsKey(
                                                                         FlutterFlowTheme.of(context)
-                                                                            .bodyText1Family),
+                                                                            .bodyMediumFamily),
                                                               ),
                                                     ),
                                                     if (mainUserUserRecord
-                                                            .verified ??
-                                                        true)
+                                                        .verified)
                                                       Icon(
                                                         Icons.verified,
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .primaryColor,
+                                                                .primary,
                                                         size: 15.0,
                                                       ),
                                                   ],
@@ -418,12 +423,12 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                                   'Information',
                                                   style: FlutterFlowTheme.of(
                                                           context)
-                                                      .bodyText1
+                                                      .bodyMedium
                                                       .override(
                                                         fontFamily:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .bodyText1Family,
+                                                                .bodyMediumFamily,
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -436,7 +441,7 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                                             .containsKey(
                                                                 FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyText1Family),
+                                                                    .bodyMediumFamily),
                                                       ),
                                                 ),
                                               Padding(
@@ -458,16 +463,16 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                                   clipBehavior: Clip.none,
                                                   children: [
                                                     Text(
-                                                      mainUserUserRecord.info!,
+                                                      mainUserUserRecord.info,
                                                       maxLines: 2,
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .title3
+                                                              .headlineSmall
                                                               .override(
                                                                 fontFamily: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .title3Family,
+                                                                    .headlineSmallFamily,
                                                                 fontSize: 15.0,
                                                                 fontWeight:
                                                                     FontWeight
@@ -476,7 +481,7 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                                                         .asMap()
                                                                     .containsKey(
                                                                         FlutterFlowTheme.of(context)
-                                                                            .title3Family),
+                                                                            .headlineSmallFamily),
                                                               ),
                                                     ),
                                                   ],
@@ -502,15 +507,15 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                                     maxLines: 2,
                                                     style: FlutterFlowTheme.of(
                                                             context)
-                                                        .title3
+                                                        .headlineSmall
                                                         .override(
                                                           fontFamily:
                                                               FlutterFlowTheme.of(
                                                                       context)
-                                                                  .title3Family,
+                                                                  .headlineSmallFamily,
                                                           color: FlutterFlowTheme
                                                                   .of(context)
-                                                              .primaryColor,
+                                                              .primary,
                                                           fontSize: 12.0,
                                                           fontWeight:
                                                               FontWeight.bold,
@@ -519,7 +524,7 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                                               .containsKey(
                                                                   FlutterFlowTheme.of(
                                                                           context)
-                                                                      .title3Family),
+                                                                      .headlineSmallFamily),
                                                         ),
                                                   ),
                                                 ),
@@ -575,8 +580,7 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                                 wrapTagRecordList[wrapIndex];
                                             return Visibility(
                                               visible: mainUserUserRecord
-                                                      .mainTags!
-                                                      .toList()
+                                                      .mainTags
                                                       .contains(wrapTagRecord
                                                           .reference) ==
                                                   true,
@@ -588,7 +592,7 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                                   decoration: BoxDecoration(
                                                     color: FlutterFlowTheme.of(
                                                             context)
-                                                        .primaryColor,
+                                                        .primary,
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             15.0),
@@ -599,15 +603,15 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                                             .fromSTEB(10.0, 5.0,
                                                                 10.0, 5.0),
                                                     child: Text(
-                                                      wrapTagRecord.text!,
+                                                      wrapTagRecord.text,
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .bodyText1
+                                                              .bodyMedium
                                                               .override(
                                                                 fontFamily: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyText1Family,
+                                                                    .bodyMediumFamily,
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .secondaryBackground,
@@ -616,7 +620,7 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                                                         .asMap()
                                                                     .containsKey(
                                                                         FlutterFlowTheme.of(context)
-                                                                            .bodyText1Family),
+                                                                            .bodyMediumFamily),
                                                               ),
                                                     ),
                                                   ),
@@ -631,6 +635,10 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                 ),
                                 if (_model.showAllTags != true)
                                   InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
                                     onTap: () async {
                                       logFirebaseEvent(
                                           'USER_WINDOW_PAGE_Text_aoymwq76_ON_TAP');
@@ -643,11 +651,11 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                     child: Text(
                                       '⤦ Alle Tags anzeigen',
                                       style: FlutterFlowTheme.of(context)
-                                          .bodyText1
+                                          .bodyMedium
                                           .override(
                                             fontFamily:
                                                 FlutterFlowTheme.of(context)
-                                                    .bodyText1Family,
+                                                    .bodyMediumFamily,
                                             color: FlutterFlowTheme.of(context)
                                                 .primaryText,
                                             fontSize: 12.0,
@@ -655,7 +663,7 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                             useGoogleFonts: GoogleFonts.asMap()
                                                 .containsKey(
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyText1Family),
+                                                        .bodyMediumFamily),
                                           ),
                                     ),
                                   ),
@@ -702,14 +710,12 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                                 wrapTagRecordList[wrapIndex];
                                             return Visibility(
                                               visible: (mainUserUserRecord
-                                                          .mainTags!
-                                                          .toList()
+                                                          .mainTags
                                                           .contains(
                                                               wrapTagRecord
                                                                   .reference) ==
                                                       false) &&
-                                                  (mainUserUserRecord.tags!
-                                                          .toList()
+                                                  (mainUserUserRecord.tags
                                                           .contains(
                                                               wrapTagRecord
                                                                   .reference) ==
@@ -733,21 +739,21 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                                             .fromSTEB(10.0, 5.0,
                                                                 10.0, 5.0),
                                                     child: Text(
-                                                      wrapTagRecord.text!,
+                                                      wrapTagRecord.text,
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .bodyText1
+                                                              .bodyMedium
                                                               .override(
                                                                 fontFamily: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyText1Family,
+                                                                    .bodyMediumFamily,
                                                                 fontSize: 12.0,
                                                                 useGoogleFonts: GoogleFonts
                                                                         .asMap()
                                                                     .containsKey(
                                                                         FlutterFlowTheme.of(context)
-                                                                            .bodyText1Family),
+                                                                            .bodyMediumFamily),
                                                               ),
                                                     ),
                                                   ),
@@ -761,6 +767,10 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                   ),
                                 if (_model.showAllTags == true)
                                   InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
                                     onTap: () async {
                                       logFirebaseEvent(
                                           'USER_WINDOW_PAGE_Text_g4oxb1q0_ON_TAP');
@@ -773,11 +783,11 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                     child: Text(
                                       '⤤ Nur Wichtige anzeigen',
                                       style: FlutterFlowTheme.of(context)
-                                          .bodyText1
+                                          .bodyMedium
                                           .override(
                                             fontFamily:
                                                 FlutterFlowTheme.of(context)
-                                                    .bodyText1Family,
+                                                    .bodyMediumFamily,
                                             color: FlutterFlowTheme.of(context)
                                                 .primaryText,
                                             fontSize: 12.0,
@@ -785,7 +795,7 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                             useGoogleFonts: GoogleFonts.asMap()
                                                 .containsKey(
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyText1Family),
+                                                        .bodyMediumFamily),
                                           ),
                                     ),
                                   ),
@@ -802,11 +812,11 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                         Text(
                                           'Über mich',
                                           style: FlutterFlowTheme.of(context)
-                                              .bodyText1
+                                              .bodyMedium
                                               .override(
                                                 fontFamily:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyText1Family,
+                                                        .bodyMediumFamily,
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryText,
@@ -817,7 +827,7 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                                     .containsKey(
                                                         FlutterFlowTheme.of(
                                                                 context)
-                                                            .bodyText1Family),
+                                                            .bodyMediumFamily),
                                               ),
                                         ),
                                         Padding(
@@ -837,15 +847,15 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                             clipBehavior: Clip.none,
                                             children: [
                                               Text(
-                                                mainUserUserRecord.about!,
+                                                mainUserUserRecord.about,
                                                 style:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyText1
+                                                        .bodyMedium
                                                         .override(
                                                           fontFamily:
                                                               FlutterFlowTheme.of(
                                                                       context)
-                                                                  .bodyText1Family,
+                                                                  .bodyMediumFamily,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                           useGoogleFonts: GoogleFonts
@@ -853,7 +863,7 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                                               .containsKey(
                                                                   FlutterFlowTheme.of(
                                                                           context)
-                                                                      .bodyText1Family),
+                                                                      .bodyMediumFamily),
                                                         ),
                                               ),
                                             ],
@@ -873,22 +883,22 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                       Text(
                                         'Veröffentlichte Passions',
                                         style: FlutterFlowTheme.of(context)
-                                            .bodyText1
+                                            .bodyMedium
                                             .override(
                                               fontFamily:
                                                   FlutterFlowTheme.of(context)
-                                                      .bodyText1Family,
+                                                      .bodyMediumFamily,
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .secondaryText,
                                               fontSize: 12.0,
                                               fontWeight: FontWeight.w500,
-                                              useGoogleFonts:
-                                                  GoogleFonts.asMap()
-                                                      .containsKey(
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText1Family),
+                                              useGoogleFonts: GoogleFonts
+                                                      .asMap()
+                                                  .containsKey(
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMediumFamily),
                                             ),
                                       ),
                                       Padding(
@@ -959,6 +969,14 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                                                 .circular(0.0),
                                                       ),
                                                       child: InkWell(
+                                                        splashColor:
+                                                            Colors.transparent,
+                                                        focusColor:
+                                                            Colors.transparent,
+                                                        hoverColor:
+                                                            Colors.transparent,
+                                                        highlightColor:
+                                                            Colors.transparent,
                                                         onTap: () async {
                                                           logFirebaseEvent(
                                                               'USER_WINDOW_PAGE_Tag_ON_TAP');
@@ -1050,18 +1068,18 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                                                     children: [
                                                                       Text(
                                                                         passionsSearchPassionRecord
-                                                                            .title!,
+                                                                            .title,
                                                                         textAlign:
                                                                             TextAlign.start,
                                                                         maxLines:
                                                                             2,
                                                                         style: FlutterFlowTheme.of(context)
-                                                                            .bodyText1
+                                                                            .bodyMedium
                                                                             .override(
-                                                                              fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                               fontSize: 15.0,
                                                                               fontWeight: FontWeight.w500,
-                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                             ),
                                                                       ),
                                                                       Wrap(
@@ -1090,15 +1108,15 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                                                                 0.0),
                                                                             child:
                                                                                 Text(
-                                                                              passionsSearchPassionRecord.description!,
+                                                                              passionsSearchPassionRecord.description,
                                                                               textAlign: TextAlign.start,
                                                                               maxLines: 1,
-                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                    fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                     color: FlutterFlowTheme.of(context).secondaryText,
                                                                                     fontSize: 12.0,
                                                                                     fontWeight: FontWeight.w500,
-                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                   ),
                                                                             ),
                                                                           ),
@@ -1121,6 +1139,16 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                                                 builder:
                                                                     (context) =>
                                                                         InkWell(
+                                                                  splashColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  focusColor: Colors
+                                                                      .transparent,
+                                                                  hoverColor: Colors
+                                                                      .transparent,
+                                                                  highlightColor:
+                                                                      Colors
+                                                                          .transparent,
                                                                   onTap:
                                                                       () async {
                                                                     logFirebaseEvent(
@@ -1159,7 +1187,7 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                                                         .favorite_border_sharp,
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .primaryColor,
+                                                                        .primary,
                                                                     size: 25.0,
                                                                   ),
                                                                 ),
@@ -1176,6 +1204,16 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                                                 builder:
                                                                     (context) =>
                                                                         InkWell(
+                                                                  splashColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  focusColor: Colors
+                                                                      .transparent,
+                                                                  hoverColor: Colors
+                                                                      .transparent,
+                                                                  highlightColor:
+                                                                      Colors
+                                                                          .transparent,
                                                                   onTap:
                                                                       () async {
                                                                     logFirebaseEvent(
@@ -1214,7 +1252,7 @@ class _UserWindowWidgetState extends State<UserWindowWidget>
                                                                         .favorite_sharp,
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .primaryColor,
+                                                                        .primary,
                                                                     size: 25.0,
                                                                   ),
                                                                 ),

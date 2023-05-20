@@ -40,6 +40,8 @@ class _HeaderWidgetState extends State<HeaderWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Container(
       width: MediaQuery.of(context).size.width * 1.0,
       decoration: BoxDecoration(
@@ -72,13 +74,15 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                   ),
                   Text(
                     'repassion',
-                    style: FlutterFlowTheme.of(context).title2.override(
-                          fontFamily: FlutterFlowTheme.of(context).title2Family,
+                    style: FlutterFlowTheme.of(context).headlineMedium.override(
+                          fontFamily:
+                              FlutterFlowTheme.of(context).headlineMediumFamily,
                           color: Color(0xFF6B7151),
                           fontSize: 25.0,
                           fontWeight: FontWeight.w500,
                           useGoogleFonts: GoogleFonts.asMap().containsKey(
-                              FlutterFlowTheme.of(context).title2Family),
+                              FlutterFlowTheme.of(context)
+                                  .headlineMediumFamily),
                         ),
                   ),
                 ],

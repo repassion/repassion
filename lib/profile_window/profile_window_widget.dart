@@ -1,4 +1,4 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_google_map.dart';
@@ -8,7 +8,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/instant_timer.dart';
 import '/flutter_flow/place.dart';
-import '/flutter_flow/upload_media.dart';
+import '/flutter_flow/upload_data.dart';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -44,7 +44,7 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
         parameters: {'screen_name': 'ProfileWindow'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      logFirebaseEvent('PROFILE_WINDOW_ProfileWindow_ON_LOAD');
+      logFirebaseEvent('PROFILE_WINDOW_ProfileWindow_ON_INIT_STA');
       if (valueOrDefault(currentUserDocument?.locationAddress, '') != null &&
           valueOrDefault(currentUserDocument?.locationAddress, '') != '') {
         logFirebaseEvent('ProfileWindow_google_map');
@@ -95,13 +95,16 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      resizeToAvoidBottomInset: false,
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+    context.watch<FFAppState>();
+
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      child: Scaffold(
+        key: scaffoldKey,
+        resizeToAvoidBottomInset: false,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        body: SafeArea(
+          top: true,
           child: Align(
             alignment: AlignmentDirectional(0.0, 0.0),
             child: Container(
@@ -135,12 +138,16 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
                                     onTap: () async {
                                       logFirebaseEvent(
                                           'PROFILE_WINDOW_PAGE_Row_tyyx9qfo_ON_TAP');
                                       if (_model.uploadedFileUrl != null &&
                                           _model.uploadedFileUrl != '') {
-                                        logFirebaseEvent('Row_delete_media');
+                                        logFirebaseEvent('Row_delete_data');
                                         await FirebaseStorage.instance
                                             .refFromURL(_model.uploadedFileUrl)
                                             .delete();
@@ -156,17 +163,17 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                         Icon(
                                           Icons.chevron_left_sharp,
                                           color: FlutterFlowTheme.of(context)
-                                              .primaryColor,
+                                              .primary,
                                           size: 50.0,
                                         ),
                                         Text(
                                           'Profil bearbeiten',
                                           style: FlutterFlowTheme.of(context)
-                                              .bodyText1
+                                              .bodyMedium
                                               .override(
                                                 fontFamily:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyText1Family,
+                                                        .bodyMediumFamily,
                                                 fontSize: 18.0,
                                                 fontWeight: FontWeight.w500,
                                                 useGoogleFonts: GoogleFonts
@@ -174,7 +181,7 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                                     .containsKey(
                                                         FlutterFlowTheme.of(
                                                                 context)
-                                                            .bodyText1Family),
+                                                            .bodyMediumFamily),
                                               ),
                                         ),
                                       ],
@@ -243,6 +250,11 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                                 CrossAxisAlignment.center,
                                             children: [
                                               InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
                                                 onTap: () async {
                                                   logFirebaseEvent(
                                                       'PROFILE_WINDOW_Container_9t2v1rdq_ON_TAP');
@@ -289,7 +301,7 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                                         _model.uploadedFileUrl !=
                                                             '') {
                                                       logFirebaseEvent(
-                                                          'Container_delete_media');
+                                                          'Container_delete_data');
                                                       await FirebaseStorage
                                                           .instance
                                                           .refFromURL(_model
@@ -298,7 +310,7 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                                       return;
                                                     } else {
                                                       logFirebaseEvent(
-                                                          'Container_delete_media');
+                                                          'Container_delete_data');
                                                       await FirebaseStorage
                                                           .instance
                                                           .refFromURL(
@@ -356,12 +368,17 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .bodyText1,
+                                                              .bodyMedium,
                                                     ),
                                                   ),
                                                 ),
                                               ),
                                               InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
                                                 onTap: () async {
                                                   logFirebaseEvent(
                                                       'PROFILE_WINDOW_Container_fgtukfz0_ON_TAP');
@@ -373,7 +390,7 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                                       _model.uploadedFileUrl !=
                                                           '') {
                                                     logFirebaseEvent(
-                                                        'Container_delete_media');
+                                                        'Container_delete_data');
                                                     await FirebaseStorage
                                                         .instance
                                                         .refFromURL(_model
@@ -394,9 +411,9 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                                           validateFileFormat(
                                                               m.storagePath,
                                                               context))) {
-                                                    setState(() => _model
-                                                            .isMediaUploading =
-                                                        true);
+                                                    setState(() =>
+                                                        _model.isDataUploading =
+                                                            true);
                                                     var selectedUploadedFiles =
                                                         <FFUploadedFile>[];
                                                     var downloadUrls =
@@ -424,6 +441,8 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                                                     width: m
                                                                         .dimensions
                                                                         ?.width,
+                                                                    blurHash: m
+                                                                        .blurHash,
                                                                   ))
                                                               .toList();
 
@@ -444,7 +463,7 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                                       ScaffoldMessenger.of(
                                                               context)
                                                           .hideCurrentSnackBar();
-                                                      _model.isMediaUploading =
+                                                      _model.isDataUploading =
                                                           false;
                                                     }
                                                     if (selectedUploadedFiles
@@ -479,7 +498,7 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                                   decoration: BoxDecoration(
                                                     color: FlutterFlowTheme.of(
                                                             context)
-                                                        .primaryColor,
+                                                        .primary,
                                                     borderRadius:
                                                         BorderRadius.only(
                                                       bottomLeft:
@@ -507,11 +526,11 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .bodyText1
+                                                              .bodyMedium
                                                               .override(
                                                                 fontFamily: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyText1Family,
+                                                                    .bodyMediumFamily,
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .secondaryBackground,
@@ -519,7 +538,7 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                                                         .asMap()
                                                                     .containsKey(
                                                                         FlutterFlowTheme.of(context)
-                                                                            .bodyText1Family),
+                                                                            .bodyMediumFamily),
                                                               ),
                                                     ),
                                                   ),
@@ -557,12 +576,12 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                                   labelText: 'Vorname*',
                                                   labelStyle: FlutterFlowTheme
                                                           .of(context)
-                                                      .bodyText1
+                                                      .bodyMedium
                                                       .override(
                                                         fontFamily:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .bodyText1Family,
+                                                                .bodyMediumFamily,
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -575,7 +594,7 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                                             .containsKey(
                                                                 FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyText1Family),
+                                                                    .bodyMediumFamily),
                                                       ),
                                                   hintText:
                                                       valueOrDefault<String>(
@@ -587,12 +606,12 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                                   ),
                                                   hintStyle: FlutterFlowTheme
                                                           .of(context)
-                                                      .bodyText2
+                                                      .bodySmall
                                                       .override(
                                                         fontFamily:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .bodyText2Family,
+                                                                .bodySmallFamily,
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -602,7 +621,7 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                                             .containsKey(
                                                                 FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyText2Family),
+                                                                    .bodySmallFamily),
                                                       ),
                                                   enabledBorder:
                                                       UnderlineInputBorder(
@@ -627,7 +646,7 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .primaryColor,
+                                                              .primary,
                                                       width: 1.0,
                                                     ),
                                                     borderRadius:
@@ -669,7 +688,7 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                                 ),
                                                 style:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyText1,
+                                                        .bodyMedium,
                                                 keyboardType:
                                                     TextInputType.name,
                                                 validator: _model
@@ -703,12 +722,12 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                                   labelText: 'Nachname*',
                                                   labelStyle: FlutterFlowTheme
                                                           .of(context)
-                                                      .bodyText1
+                                                      .bodyMedium
                                                       .override(
                                                         fontFamily:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .bodyText1Family,
+                                                                .bodyMediumFamily,
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -721,7 +740,7 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                                             .containsKey(
                                                                 FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyText1Family),
+                                                                    .bodyMediumFamily),
                                                       ),
                                                   hintText:
                                                       valueOrDefault<String>(
@@ -733,12 +752,12 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                                   ),
                                                   hintStyle: FlutterFlowTheme
                                                           .of(context)
-                                                      .bodyText2
+                                                      .bodySmall
                                                       .override(
                                                         fontFamily:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .bodyText2Family,
+                                                                .bodySmallFamily,
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -748,7 +767,7 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                                             .containsKey(
                                                                 FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyText2Family),
+                                                                    .bodySmallFamily),
                                                       ),
                                                   enabledBorder:
                                                       UnderlineInputBorder(
@@ -773,7 +792,7 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .primaryColor,
+                                                              .primary,
                                                       width: 1.0,
                                                     ),
                                                     borderRadius:
@@ -815,7 +834,7 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                                 ),
                                                 style:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyText1,
+                                                        .bodyMedium,
                                                 keyboardType:
                                                     TextInputType.name,
                                                 validator: _model
@@ -846,11 +865,11 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                           labelText: 'Geburtsdatum*',
                                           labelStyle: FlutterFlowTheme.of(
                                                   context)
-                                              .bodyText1
+                                              .bodyMedium
                                               .override(
                                                 fontFamily:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyText1Family,
+                                                        .bodyMediumFamily,
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryText,
@@ -861,18 +880,18 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                                     .containsKey(
                                                         FlutterFlowTheme.of(
                                                                 context)
-                                                            .bodyText1Family),
+                                                            .bodyMediumFamily),
                                               ),
                                           hintText: valueOrDefault(
                                               currentUserDocument?.birthdate,
                                               ''),
                                           hintStyle: FlutterFlowTheme.of(
                                                   context)
-                                              .bodyText2
+                                              .bodySmall
                                               .override(
                                                 fontFamily:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyText2Family,
+                                                        .bodySmallFamily,
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryText,
@@ -881,7 +900,7 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                                     .containsKey(
                                                         FlutterFlowTheme.of(
                                                                 context)
-                                                            .bodyText2Family),
+                                                            .bodySmallFamily),
                                               ),
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
@@ -900,7 +919,7 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                             borderSide: BorderSide(
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primaryColor,
+                                                      .primary,
                                               width: 1.0,
                                             ),
                                             borderRadius:
@@ -934,7 +953,7 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                           ),
                                         ),
                                         style: FlutterFlowTheme.of(context)
-                                            .bodyText1,
+                                            .bodyMedium,
                                         keyboardType: TextInputType.number,
                                         validator: _model
                                             .geburtstagControllerValidator
@@ -962,11 +981,11 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                           labelText: 'Profil-Slogan*',
                                           labelStyle: FlutterFlowTheme.of(
                                                   context)
-                                              .bodyText1
+                                              .bodyMedium
                                               .override(
                                                 fontFamily:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyText1Family,
+                                                        .bodyMediumFamily,
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryText,
@@ -977,7 +996,7 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                                     .containsKey(
                                                         FlutterFlowTheme.of(
                                                                 context)
-                                                            .bodyText1Family),
+                                                            .bodyMediumFamily),
                                               ),
                                           hintText: valueOrDefault<String>(
                                             valueOrDefault(
@@ -986,11 +1005,11 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                           ),
                                           hintStyle: FlutterFlowTheme.of(
                                                   context)
-                                              .bodyText2
+                                              .bodySmall
                                               .override(
                                                 fontFamily:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyText2Family,
+                                                        .bodySmallFamily,
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryText,
@@ -999,7 +1018,7 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                                     .containsKey(
                                                         FlutterFlowTheme.of(
                                                                 context)
-                                                            .bodyText2Family),
+                                                            .bodySmallFamily),
                                               ),
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
@@ -1018,7 +1037,7 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                             borderSide: BorderSide(
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primaryColor,
+                                                      .primary,
                                               width: 1.0,
                                             ),
                                             borderRadius:
@@ -1052,7 +1071,7 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                           ),
                                         ),
                                         style: FlutterFlowTheme.of(context)
-                                            .bodyText1,
+                                            .bodyMedium,
                                         validator: _model
                                             .informationControllerValidator
                                             .asValidator(context),
@@ -1175,16 +1194,16 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                                   height: 50.0,
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .primaryColor,
+                                                      .primary,
                                                   textStyle:
                                                       FlutterFlowTheme.of(
                                                               context)
-                                                          .subtitle2
+                                                          .titleSmall
                                                           .override(
                                                             fontFamily:
                                                                 FlutterFlowTheme.of(
                                                                         context)
-                                                                    .subtitle2Family,
+                                                                    .titleSmallFamily,
                                                             color: FlutterFlowTheme
                                                                     .of(context)
                                                                 .secondaryBackground,
@@ -1196,7 +1215,7 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                                                 .containsKey(
                                                                     FlutterFlowTheme.of(
                                                                             context)
-                                                                        .subtitle2Family),
+                                                                        .titleSmallFamily),
                                                           ),
                                                   elevation: 0.0,
                                                   borderSide: BorderSide(
@@ -1241,6 +1260,10 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(
                               25.0, 25.0, 25.0, 25.0),
                           child: InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
                             onTap: () async {
                               logFirebaseEvent(
                                   'PROFILE_WINDOW_Container_6ioxl3je_ON_TAP');
@@ -1255,7 +1278,7 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                   _model.uploadedFileUrl != '') {
                                 if (currentUserPhoto != null &&
                                     currentUserPhoto != '') {
-                                  logFirebaseEvent('Container_delete_media');
+                                  logFirebaseEvent('Container_delete_data');
                                   await FirebaseStorage.instance
                                       .refFromURL(currentUserPhoto)
                                       .delete();
@@ -1310,8 +1333,7 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                               ),
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryColor,
+                                  color: FlutterFlowTheme.of(context).primary,
                                   borderRadius: BorderRadius.circular(15.0),
                                 ),
                                 child: Align(
@@ -1319,11 +1341,11 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                   child: Text(
                                     'Änderungen speichern',
                                     style: FlutterFlowTheme.of(context)
-                                        .bodyText1
+                                        .bodyMedium
                                         .override(
                                           fontFamily:
                                               FlutterFlowTheme.of(context)
-                                                  .bodyText1Family,
+                                                  .bodyMediumFamily,
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryBackground,
                                           fontSize: 18.0,
@@ -1331,7 +1353,7 @@ class _ProfileWindowWidgetState extends State<ProfileWindowWidget> {
                                           useGoogleFonts: GoogleFonts.asMap()
                                               .containsKey(
                                                   FlutterFlowTheme.of(context)
-                                                      .bodyText1Family),
+                                                      .bodyMediumFamily),
                                         ),
                                   ),
                                 ),

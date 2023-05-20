@@ -1,4 +1,4 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -77,12 +77,15 @@ class _CategoryWindowWidgetState extends State<CategoryWindowWidget>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+    context.watch<FFAppState>();
+
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        body: SafeArea(
+          top: true,
           child: Align(
             alignment: AlignmentDirectional(0.0, 0.0),
             child: Container(
@@ -192,14 +195,14 @@ class _CategoryWindowWidgetState extends State<CategoryWindowWidget>
                                                       children: [
                                                         Text(
                                                           stackCategoryRecord
-                                                              .title!,
+                                                              .title,
                                                           style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .bodyText1
+                                                              .bodyMedium
                                                               .override(
                                                                 fontFamily: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyText1Family,
+                                                                    .bodyMediumFamily,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500,
@@ -207,7 +210,7 @@ class _CategoryWindowWidgetState extends State<CategoryWindowWidget>
                                                                         .asMap()
                                                                     .containsKey(
                                                                         FlutterFlowTheme.of(context)
-                                                                            .bodyText1Family),
+                                                                            .bodyMediumFamily),
                                                               ),
                                                         ),
                                                         Wrap(
@@ -232,15 +235,15 @@ class _CategoryWindowWidgetState extends State<CategoryWindowWidget>
                                                           children: [
                                                             Text(
                                                               stackCategoryRecord
-                                                                  .description!,
+                                                                  .description,
                                                               maxLines: 3,
                                                               style: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .bodyText1
+                                                                  .bodyMedium
                                                                   .override(
                                                                     fontFamily:
                                                                         FlutterFlowTheme.of(context)
-                                                                            .bodyText1Family,
+                                                                            .bodyMediumFamily,
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
                                                                         .secondaryText,
@@ -252,7 +255,7 @@ class _CategoryWindowWidgetState extends State<CategoryWindowWidget>
                                                                     useGoogleFonts: GoogleFonts
                                                                             .asMap()
                                                                         .containsKey(
-                                                                            FlutterFlowTheme.of(context).bodyText1Family),
+                                                                            FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                   ),
                                                             ),
                                                           ],
@@ -267,7 +270,7 @@ class _CategoryWindowWidgetState extends State<CategoryWindowWidget>
                                           Builder(
                                             builder: (context) {
                                               final passions =
-                                                  stackCategoryRecord.passions!
+                                                  stackCategoryRecord.passions
                                                       .toList();
                                               return Column(
                                                 mainAxisSize: MainAxisSize.max,
@@ -324,6 +327,15 @@ class _CategoryWindowWidgetState extends State<CategoryWindowWidget>
                                                                           0.0),
                                                             ),
                                                             child: InkWell(
+                                                              splashColor: Colors
+                                                                  .transparent,
+                                                              focusColor: Colors
+                                                                  .transparent,
+                                                              hoverColor: Colors
+                                                                  .transparent,
+                                                              highlightColor:
+                                                                  Colors
+                                                                      .transparent,
                                                               onTap: () async {
                                                                 logFirebaseEvent(
                                                                     'CATEGORY_WINDOW_PAGE_Passion_ON_TAP');
@@ -416,14 +428,14 @@ class _CategoryWindowWidgetState extends State<CategoryWindowWidget>
                                                                               CrossAxisAlignment.start,
                                                                           children: [
                                                                             Text(
-                                                                              containerPassionRecord.title!,
+                                                                              containerPassionRecord.title,
                                                                               textAlign: TextAlign.start,
                                                                               maxLines: 2,
-                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                    fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                     fontSize: 15.0,
                                                                                     fontWeight: FontWeight.w500,
-                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                   ),
                                                                             ),
                                                                             Wrap(
@@ -439,15 +451,15 @@ class _CategoryWindowWidgetState extends State<CategoryWindowWidget>
                                                                                 Padding(
                                                                                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
                                                                                   child: Text(
-                                                                                    containerPassionRecord.description!,
+                                                                                    containerPassionRecord.description,
                                                                                     textAlign: TextAlign.start,
                                                                                     maxLines: 1,
-                                                                                    style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                          fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                           color: FlutterFlowTheme.of(context).secondaryText,
                                                                                           fontSize: 12.0,
                                                                                           fontWeight: FontWeight.w500,
-                                                                                          useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                          useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                         ),
                                                                                   ),
                                                                                 ),
@@ -467,6 +479,14 @@ class _CategoryWindowWidgetState extends State<CategoryWindowWidget>
                                                                       builder:
                                                                           (context) =>
                                                                               InkWell(
+                                                                        splashColor:
+                                                                            Colors.transparent,
+                                                                        focusColor:
+                                                                            Colors.transparent,
+                                                                        hoverColor:
+                                                                            Colors.transparent,
+                                                                        highlightColor:
+                                                                            Colors.transparent,
                                                                         onTap:
                                                                             () async {
                                                                           logFirebaseEvent(
@@ -500,7 +520,7 @@ class _CategoryWindowWidgetState extends State<CategoryWindowWidget>
                                                                           Icons
                                                                               .favorite_border_sharp,
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).primaryColor,
+                                                                              FlutterFlowTheme.of(context).primary,
                                                                           size:
                                                                               25.0,
                                                                         ),
@@ -515,6 +535,14 @@ class _CategoryWindowWidgetState extends State<CategoryWindowWidget>
                                                                       builder:
                                                                           (context) =>
                                                                               InkWell(
+                                                                        splashColor:
+                                                                            Colors.transparent,
+                                                                        focusColor:
+                                                                            Colors.transparent,
+                                                                        hoverColor:
+                                                                            Colors.transparent,
+                                                                        highlightColor:
+                                                                            Colors.transparent,
                                                                         onTap:
                                                                             () async {
                                                                           logFirebaseEvent(
@@ -548,7 +576,7 @@ class _CategoryWindowWidgetState extends State<CategoryWindowWidget>
                                                                           Icons
                                                                               .favorite_sharp,
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).primaryColor,
+                                                                              FlutterFlowTheme.of(context).primary,
                                                                           size:
                                                                               25.0,
                                                                         ),
@@ -600,6 +628,10 @@ class _CategoryWindowWidgetState extends State<CategoryWindowWidget>
                               children: [
                                 Expanded(
                                   child: InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
                                     onTap: () async {
                                       logFirebaseEvent(
                                           'CATEGORY_WINDOW_PAGE_Row_g1tq7lix_ON_TAP');
@@ -614,7 +646,7 @@ class _CategoryWindowWidgetState extends State<CategoryWindowWidget>
                                         Icon(
                                           Icons.chevron_left_sharp,
                                           color: FlutterFlowTheme.of(context)
-                                              .primaryColor,
+                                              .primary,
                                           size: 50.0,
                                         ),
                                         Expanded(
@@ -631,15 +663,15 @@ class _CategoryWindowWidgetState extends State<CategoryWindowWidget>
                                             clipBehavior: Clip.none,
                                             children: [
                                               Text(
-                                                stackCategoryRecord.title!,
+                                                stackCategoryRecord.title,
                                                 style:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyText1
+                                                        .bodyMedium
                                                         .override(
                                                           fontFamily:
                                                               FlutterFlowTheme.of(
                                                                       context)
-                                                                  .bodyText1Family,
+                                                                  .bodyMediumFamily,
                                                           fontSize: 18.0,
                                                           fontWeight:
                                                               FontWeight.w500,
@@ -648,7 +680,7 @@ class _CategoryWindowWidgetState extends State<CategoryWindowWidget>
                                                               .containsKey(
                                                                   FlutterFlowTheme.of(
                                                                           context)
-                                                                      .bodyText1Family),
+                                                                      .bodyMediumFamily),
                                                         ),
                                               ),
                                             ],

@@ -46,6 +46,8 @@ class _MaxMainTagsWarningWidgetState extends State<MaxMainTagsWarningWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Container(
       width: MediaQuery.of(context).size.width * 1.0,
       decoration: BoxDecoration(
@@ -61,7 +63,7 @@ class _MaxMainTagsWarningWidgetState extends State<MaxMainTagsWarningWidget> {
         padding: EdgeInsetsDirectional.fromSTEB(25.0, 25.0, 25.0, 25.0),
         child: Text(
           widget.text!,
-          style: FlutterFlowTheme.of(context).bodyText1,
+          style: FlutterFlowTheme.of(context).bodyMedium,
         ),
       ),
     );

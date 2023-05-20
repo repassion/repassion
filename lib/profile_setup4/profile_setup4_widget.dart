@@ -1,4 +1,4 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/max_main_tags_warning_widget.dart';
 import '/components/no_entries_widget.dart';
@@ -102,12 +102,15 @@ class _ProfileSetup4WidgetState extends State<ProfileSetup4Widget>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+    context.watch<FFAppState>();
+
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        body: SafeArea(
+          top: true,
           child: Align(
             alignment: AlignmentDirectional(0.0, 0.0),
             child: Container(
@@ -141,6 +144,10 @@ class _ProfileSetup4WidgetState extends State<ProfileSetup4Widget>
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
                                     onTap: () async {
                                       logFirebaseEvent(
                                           'PROFILE_SETUP4_PAGE_Row_9pysk548_ON_TAP');
@@ -155,17 +162,17 @@ class _ProfileSetup4WidgetState extends State<ProfileSetup4Widget>
                                         Icon(
                                           Icons.chevron_left_sharp,
                                           color: FlutterFlowTheme.of(context)
-                                              .primaryColor,
+                                              .primary,
                                           size: 50.0,
                                         ),
                                         Text(
                                           'Tags hinzufügen',
                                           style: FlutterFlowTheme.of(context)
-                                              .bodyText1
+                                              .bodyMedium
                                               .override(
                                                 fontFamily:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyText1Family,
+                                                        .bodyMediumFamily,
                                                 fontSize: 18.0,
                                                 fontWeight: FontWeight.w500,
                                                 useGoogleFonts: GoogleFonts
@@ -173,7 +180,7 @@ class _ProfileSetup4WidgetState extends State<ProfileSetup4Widget>
                                                     .containsKey(
                                                         FlutterFlowTheme.of(
                                                                 context)
-                                                            .bodyText1Family),
+                                                            .bodyMediumFamily),
                                               ),
                                         ),
                                       ],
@@ -184,23 +191,23 @@ class _ProfileSetup4WidgetState extends State<ProfileSetup4Widget>
                                     radius: 25.0,
                                     lineWidth: 5.0,
                                     animation: true,
-                                    progressColor: FlutterFlowTheme.of(context)
-                                        .primaryColor,
+                                    progressColor:
+                                        FlutterFlowTheme.of(context).primary,
                                     backgroundColor: Color(0x8015402C),
                                     center: Text(
                                       '4/5',
                                       style: FlutterFlowTheme.of(context)
-                                          .bodyText1
+                                          .bodyMedium
                                           .override(
                                             fontFamily:
                                                 FlutterFlowTheme.of(context)
-                                                    .bodyText1Family,
+                                                    .bodyMediumFamily,
                                             color: FlutterFlowTheme.of(context)
-                                                .primaryColor,
+                                                .primary,
                                             useGoogleFonts: GoogleFonts.asMap()
                                                 .containsKey(
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyText1Family),
+                                                        .bodyMediumFamily),
                                           ),
                                     ),
                                   ),
@@ -249,30 +256,30 @@ class _ProfileSetup4WidgetState extends State<ProfileSetup4Widget>
                                       decoration: InputDecoration(
                                         labelText: 'Suche',
                                         labelStyle: FlutterFlowTheme.of(context)
-                                            .bodyText1
+                                            .bodyMedium
                                             .override(
                                               fontFamily:
                                                   FlutterFlowTheme.of(context)
-                                                      .bodyText1Family,
+                                                      .bodyMediumFamily,
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .secondaryText,
                                               fontSize: 15.0,
                                               fontWeight: FontWeight.w500,
-                                              useGoogleFonts:
-                                                  GoogleFonts.asMap()
-                                                      .containsKey(
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText1Family),
+                                              useGoogleFonts: GoogleFonts
+                                                      .asMap()
+                                                  .containsKey(
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMediumFamily),
                                             ),
                                         hintText: 'Tags durchsuchen',
                                         hintStyle: FlutterFlowTheme.of(context)
-                                            .bodyText2
+                                            .bodySmall
                                             .override(
                                               fontFamily:
                                                   FlutterFlowTheme.of(context)
-                                                      .bodyText2Family,
+                                                      .bodySmallFamily,
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .secondaryText,
@@ -281,7 +288,7 @@ class _ProfileSetup4WidgetState extends State<ProfileSetup4Widget>
                                                       .containsKey(
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .bodyText2Family),
+                                                              .bodySmallFamily),
                                             ),
                                         enabledBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
@@ -297,7 +304,7 @@ class _ProfileSetup4WidgetState extends State<ProfileSetup4Widget>
                                         focusedBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
                                             color: FlutterFlowTheme.of(context)
-                                                .primaryColor,
+                                                .primary,
                                             width: 1.0,
                                           ),
                                           borderRadius: const BorderRadius.only(
@@ -356,7 +363,7 @@ class _ProfileSetup4WidgetState extends State<ProfileSetup4Widget>
                                             : null,
                                       ),
                                       style: FlutterFlowTheme.of(context)
-                                          .bodyText1,
+                                          .bodyMedium,
                                       validator: _model
                                           .searchFieldControllerValidator
                                           .asValidator(context),
@@ -392,6 +399,7 @@ class _ProfileSetup4WidgetState extends State<ProfileSetup4Widget>
                                                                   .searchFieldController
                                                                   .text,
                                                               maxResults: 25,
+                                                              useCache: true,
                                                             )))
                                                       .future,
                                                   builder: (context, snapshot) {
@@ -447,6 +455,18 @@ class _ProfileSetup4WidgetState extends State<ProfileSetup4Widget>
                                                                   builder:
                                                                       (context) =>
                                                                           InkWell(
+                                                                    splashColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    focusColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    hoverColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    highlightColor:
+                                                                        Colors
+                                                                            .transparent,
                                                                     onTap:
                                                                         () async {
                                                                       logFirebaseEvent(
@@ -496,16 +516,21 @@ class _ProfileSetup4WidgetState extends State<ProfileSetup4Widget>
                                                                               true,
                                                                           backgroundColor:
                                                                               Colors.transparent,
+                                                                          barrierColor:
+                                                                              Color(0x00000000),
                                                                           enableDrag:
                                                                               false,
                                                                           context:
                                                                               context,
                                                                           builder:
-                                                                              (context) {
-                                                                            return Padding(
-                                                                              padding: MediaQuery.of(context).viewInsets,
-                                                                              child: MaxMainTagsWarningWidget(
-                                                                                text: 'Du kannst maximal 15 Tags auswählen.',
+                                                                              (bottomSheetContext) {
+                                                                            return GestureDetector(
+                                                                              onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+                                                                              child: Padding(
+                                                                                padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                child: MaxMainTagsWarningWidget(
+                                                                                  text: 'Du kannst maximal 15 Tags auswählen.',
+                                                                                ),
                                                                               ),
                                                                             );
                                                                           },
@@ -544,16 +569,20 @@ class _ProfileSetup4WidgetState extends State<ProfileSetup4Widget>
                                                                           children: [
                                                                             Expanded(
                                                                               child: Text(
-                                                                                searchColumnTagRecord.text!,
-                                                                                style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                      fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                                searchColumnTagRecord.text,
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                       fontSize: 12.0,
                                                                                       fontWeight: FontWeight.bold,
-                                                                                      useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                      useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                     ),
                                                                               ),
                                                                             ),
                                                                             InkWell(
+                                                                              splashColor: Colors.transparent,
+                                                                              focusColor: Colors.transparent,
+                                                                              hoverColor: Colors.transparent,
+                                                                              highlightColor: Colors.transparent,
                                                                               onTap: () async {
                                                                                 logFirebaseEvent('PROFILE_SETUP4_PAGE_Icon_p4o13noc_ON_TAP');
                                                                                 if ((currentUserDocument?.mainTags?.toList() ?? []).length < 3) {
@@ -591,13 +620,17 @@ class _ProfileSetup4WidgetState extends State<ProfileSetup4Widget>
                                                                                   await showModalBottomSheet(
                                                                                     isScrollControlled: true,
                                                                                     backgroundColor: Colors.transparent,
+                                                                                    barrierColor: Color(0x00000000),
                                                                                     enableDrag: false,
                                                                                     context: context,
-                                                                                    builder: (context) {
-                                                                                      return Padding(
-                                                                                        padding: MediaQuery.of(context).viewInsets,
-                                                                                        child: MaxMainTagsWarningWidget(
-                                                                                          text: 'Du kannst maximal 3 Tags hervorheben.',
+                                                                                    builder: (bottomSheetContext) {
+                                                                                      return GestureDetector(
+                                                                                        onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+                                                                                        child: Padding(
+                                                                                          padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                          child: MaxMainTagsWarningWidget(
+                                                                                            text: 'Du kannst maximal 3 Tags hervorheben.',
+                                                                                          ),
                                                                                         ),
                                                                                       );
                                                                                     },
@@ -612,7 +645,7 @@ class _ProfileSetup4WidgetState extends State<ProfileSetup4Widget>
                                                                             ),
                                                                             Icon(
                                                                               Icons.add_sharp,
-                                                                              color: FlutterFlowTheme.of(context).primaryColor,
+                                                                              color: FlutterFlowTheme.of(context).primary,
                                                                               size: 25.0,
                                                                             ),
                                                                           ],
@@ -633,6 +666,18 @@ class _ProfileSetup4WidgetState extends State<ProfileSetup4Widget>
                                                                   builder:
                                                                       (context) =>
                                                                           InkWell(
+                                                                    splashColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    focusColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    hoverColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    highlightColor:
+                                                                        Colors
+                                                                            .transparent,
                                                                     onTap:
                                                                         () async {
                                                                       logFirebaseEvent(
@@ -706,7 +751,7 @@ class _ProfileSetup4WidgetState extends State<ProfileSetup4Widget>
                                                                       decoration:
                                                                           BoxDecoration(
                                                                         color: FlutterFlowTheme.of(context)
-                                                                            .primaryColor,
+                                                                            .primary,
                                                                         borderRadius:
                                                                             BorderRadius.circular(10.0),
                                                                       ),
@@ -728,19 +773,23 @@ class _ProfileSetup4WidgetState extends State<ProfileSetup4Widget>
                                                                           children: [
                                                                             Expanded(
                                                                               child: Text(
-                                                                                searchColumnTagRecord.text!,
-                                                                                style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                      fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                                searchColumnTagRecord.text,
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                       color: FlutterFlowTheme.of(context).primaryBackground,
                                                                                       fontSize: 12.0,
                                                                                       fontWeight: FontWeight.bold,
-                                                                                      useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                      useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                     ),
                                                                               ),
                                                                             ),
                                                                             if ((currentUserDocument?.mainTags?.toList() ?? []).contains(searchColumnTagRecord.reference) ==
                                                                                 false)
                                                                               InkWell(
+                                                                                splashColor: Colors.transparent,
+                                                                                focusColor: Colors.transparent,
+                                                                                hoverColor: Colors.transparent,
+                                                                                highlightColor: Colors.transparent,
                                                                                 onTap: () async {
                                                                                   logFirebaseEvent('PROFILE_SETUP4_PAGE_Icon_xe4voiaw_ON_TAP');
                                                                                   if ((currentUserDocument?.mainTags?.toList() ?? []).length < 3) {
@@ -770,13 +819,17 @@ class _ProfileSetup4WidgetState extends State<ProfileSetup4Widget>
                                                                                     await showModalBottomSheet(
                                                                                       isScrollControlled: true,
                                                                                       backgroundColor: Colors.transparent,
+                                                                                      barrierColor: Color(0x00000000),
                                                                                       enableDrag: false,
                                                                                       context: context,
-                                                                                      builder: (context) {
-                                                                                        return Padding(
-                                                                                          padding: MediaQuery.of(context).viewInsets,
-                                                                                          child: MaxMainTagsWarningWidget(
-                                                                                            text: 'Du kannst maximal 3 Tags hervorheben.',
+                                                                                      builder: (bottomSheetContext) {
+                                                                                        return GestureDetector(
+                                                                                          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+                                                                                          child: Padding(
+                                                                                            padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                            child: MaxMainTagsWarningWidget(
+                                                                                              text: 'Du kannst maximal 3 Tags hervorheben.',
+                                                                                            ),
                                                                                           ),
                                                                                         );
                                                                                       },
@@ -792,6 +845,10 @@ class _ProfileSetup4WidgetState extends State<ProfileSetup4Widget>
                                                                             if ((currentUserDocument?.mainTags?.toList() ?? []).contains(searchColumnTagRecord.reference) ==
                                                                                 true)
                                                                               InkWell(
+                                                                                splashColor: Colors.transparent,
+                                                                                focusColor: Colors.transparent,
+                                                                                hoverColor: Colors.transparent,
+                                                                                highlightColor: Colors.transparent,
                                                                                 onTap: () async {
                                                                                   logFirebaseEvent('PROFILE_SETUP4_PAGE_Icon_rfxof7np_ON_TAP');
                                                                                   logFirebaseEvent('Icon_backend_call');
@@ -905,6 +962,16 @@ class _ProfileSetup4WidgetState extends State<ProfileSetup4Widget>
                                                                 builder:
                                                                     (context) =>
                                                                         InkWell(
+                                                                  splashColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  focusColor: Colors
+                                                                      .transparent,
+                                                                  hoverColor: Colors
+                                                                      .transparent,
+                                                                  highlightColor:
+                                                                      Colors
+                                                                          .transparent,
                                                                   onTap:
                                                                       () async {
                                                                     logFirebaseEvent(
@@ -960,7 +1027,7 @@ class _ProfileSetup4WidgetState extends State<ProfileSetup4Widget>
                                                                         BoxDecoration(
                                                                       color: FlutterFlowTheme.of(
                                                                               context)
-                                                                          .primaryColor,
+                                                                          .primary,
                                                                       borderRadius:
                                                                           BorderRadius.circular(
                                                                               10.0),
@@ -984,19 +1051,23 @@ class _ProfileSetup4WidgetState extends State<ProfileSetup4Widget>
                                                                           Expanded(
                                                                             child:
                                                                                 Text(
-                                                                              tagColumnTagRecord.text!,
-                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                    fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              tagColumnTagRecord.text,
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                     color: FlutterFlowTheme.of(context).primaryBackground,
                                                                                     fontSize: 12.0,
                                                                                     fontWeight: FontWeight.bold,
-                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                   ),
                                                                             ),
                                                                           ),
                                                                           if ((currentUserDocument?.mainTags?.toList() ?? []).contains(tagColumnTagRecord.reference) ==
                                                                               true)
                                                                             InkWell(
+                                                                              splashColor: Colors.transparent,
+                                                                              focusColor: Colors.transparent,
+                                                                              hoverColor: Colors.transparent,
+                                                                              highlightColor: Colors.transparent,
                                                                               onTap: () async {
                                                                                 logFirebaseEvent('PROFILE_SETUP4_PAGE_Icon_q1gsoafk_ON_TAP');
                                                                                 logFirebaseEvent('Icon_backend_call');
@@ -1107,6 +1178,16 @@ class _ProfileSetup4WidgetState extends State<ProfileSetup4Widget>
                                                                 builder:
                                                                     (context) =>
                                                                         InkWell(
+                                                                  splashColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  focusColor: Colors
+                                                                      .transparent,
+                                                                  hoverColor: Colors
+                                                                      .transparent,
+                                                                  highlightColor:
+                                                                      Colors
+                                                                          .transparent,
                                                                   onTap:
                                                                       () async {
                                                                     logFirebaseEvent(
@@ -1162,7 +1243,7 @@ class _ProfileSetup4WidgetState extends State<ProfileSetup4Widget>
                                                                         BoxDecoration(
                                                                       color: FlutterFlowTheme.of(
                                                                               context)
-                                                                          .primaryColor,
+                                                                          .primary,
                                                                       borderRadius:
                                                                           BorderRadius.circular(
                                                                               10.0),
@@ -1186,19 +1267,23 @@ class _ProfileSetup4WidgetState extends State<ProfileSetup4Widget>
                                                                           Expanded(
                                                                             child:
                                                                                 Text(
-                                                                              tagColumnTagRecord.text!,
-                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                    fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              tagColumnTagRecord.text,
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                     color: FlutterFlowTheme.of(context).primaryBackground,
                                                                                     fontSize: 12.0,
                                                                                     fontWeight: FontWeight.bold,
-                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                   ),
                                                                             ),
                                                                           ),
                                                                           if ((currentUserDocument?.mainTags?.toList() ?? []).contains(tagColumnTagRecord.reference) !=
                                                                               true)
                                                                             InkWell(
+                                                                              splashColor: Colors.transparent,
+                                                                              focusColor: Colors.transparent,
+                                                                              hoverColor: Colors.transparent,
+                                                                              highlightColor: Colors.transparent,
                                                                               onTap: () async {
                                                                                 logFirebaseEvent('PROFILE_SETUP4_PAGE_Icon_yl9ls4tu_ON_TAP');
                                                                                 if ((currentUserDocument?.mainTags?.toList() ?? []).length < 3) {
@@ -1221,13 +1306,17 @@ class _ProfileSetup4WidgetState extends State<ProfileSetup4Widget>
                                                                                   await showModalBottomSheet(
                                                                                     isScrollControlled: true,
                                                                                     backgroundColor: Colors.transparent,
+                                                                                    barrierColor: Color(0x00000000),
                                                                                     enableDrag: false,
                                                                                     context: context,
-                                                                                    builder: (context) {
-                                                                                      return Padding(
-                                                                                        padding: MediaQuery.of(context).viewInsets,
-                                                                                        child: MaxMainTagsWarningWidget(
-                                                                                          text: 'Du kannst maximal 3 Tags hervorheben.',
+                                                                                    builder: (bottomSheetContext) {
+                                                                                      return GestureDetector(
+                                                                                        onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+                                                                                        child: Padding(
+                                                                                          padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                          child: MaxMainTagsWarningWidget(
+                                                                                            text: 'Du kannst maximal 3 Tags hervorheben.',
+                                                                                          ),
                                                                                         ),
                                                                                       );
                                                                                     },
@@ -1243,6 +1332,10 @@ class _ProfileSetup4WidgetState extends State<ProfileSetup4Widget>
                                                                           if ((currentUserDocument?.mainTags?.toList() ?? []).contains(tagColumnTagRecord.reference) ==
                                                                               true)
                                                                             InkWell(
+                                                                              splashColor: Colors.transparent,
+                                                                              focusColor: Colors.transparent,
+                                                                              hoverColor: Colors.transparent,
+                                                                              highlightColor: Colors.transparent,
                                                                               onTap: () async {
                                                                                 logFirebaseEvent('PROFILE_SETUP4_PAGE_Icon_4605wpjn_ON_TAP');
                                                                                 logFirebaseEvent('Icon_backend_call');
@@ -1327,6 +1420,10 @@ class _ProfileSetup4WidgetState extends State<ProfileSetup4Widget>
                           padding: EdgeInsetsDirectional.fromSTEB(
                               25.0, 25.0, 25.0, 25.0),
                           child: InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
                             onTap: () async {
                               logFirebaseEvent(
                                   'PROFILE_SETUP4_Container_u3nxb1zf_ON_TAP');
@@ -1353,8 +1450,7 @@ class _ProfileSetup4WidgetState extends State<ProfileSetup4Widget>
                               ),
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryColor,
+                                  color: FlutterFlowTheme.of(context).primary,
                                   borderRadius: BorderRadius.circular(15.0),
                                 ),
                                 child: Align(
@@ -1362,11 +1458,11 @@ class _ProfileSetup4WidgetState extends State<ProfileSetup4Widget>
                                   child: Text(
                                     'Nächster Schritt',
                                     style: FlutterFlowTheme.of(context)
-                                        .bodyText1
+                                        .bodyMedium
                                         .override(
                                           fontFamily:
                                               FlutterFlowTheme.of(context)
-                                                  .bodyText1Family,
+                                                  .bodyMediumFamily,
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryBackground,
                                           fontSize: 18.0,
@@ -1374,7 +1470,7 @@ class _ProfileSetup4WidgetState extends State<ProfileSetup4Widget>
                                           useGoogleFonts: GoogleFonts.asMap()
                                               .containsKey(
                                                   FlutterFlowTheme.of(context)
-                                                      .bodyText1Family),
+                                                      .bodyMediumFamily),
                                         ),
                                   ),
                                 ),

@@ -1,4 +1,4 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/current_passion_loading_widget.dart';
 import '/components/no_entries_widget.dart';
@@ -100,12 +100,15 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+    context.watch<FFAppState>();
+
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        body: SafeArea(
+          top: true,
           child: Align(
             alignment: AlignmentDirectional(0.0, 0.0),
             child: Container(
@@ -144,6 +147,10 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
                                       onTap: () async {
                                         logFirebaseEvent(
                                             'PASSION_SEARCH_Image_qt4bja2m_ON_TAP');
@@ -164,7 +171,7 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                       child: Icon(
                                         Icons.library_books_sharp,
                                         color: FlutterFlowTheme.of(context)
-                                            .primaryColor,
+                                            .primary,
                                         size: 35.0,
                                       ),
                                     ),
@@ -242,18 +249,17 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                                               containerChatRecordList
                                                                   .map((e) => e
                                                                       .notifications)
-                                                                  .withoutNulls
                                                                   .toList(),
                                                               requestsCount)
                                                           .toString(),
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .bodyText1
+                                                              .bodyMedium
                                                               .override(
                                                                 fontFamily: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyText1Family,
+                                                                    .bodyMediumFamily,
                                                                 color: Colors
                                                                     .white,
                                                                 fontSize: 12.0,
@@ -264,7 +270,7 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                                                         .asMap()
                                                                     .containsKey(
                                                                         FlutterFlowTheme.of(context)
-                                                                            .bodyText1Family),
+                                                                            .bodyMediumFamily),
                                                               ),
                                                     ),
                                                     showBadge: functions
@@ -272,7 +278,6 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                                                 containerChatRecordList
                                                                     .map((e) =>
                                                                         e.notifications)
-                                                                    .withoutNulls
                                                                     .toList(),
                                                                 requestsCount)
                                                             .toString() !=
@@ -282,7 +287,7 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                                     badgeColor:
                                                         FlutterFlowTheme.of(
                                                                 context)
-                                                            .primaryColor,
+                                                            .primary,
                                                     elevation: 1.0,
                                                     padding:
                                                         EdgeInsetsDirectional
@@ -303,6 +308,14 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                                                   5.0,
                                                                   0.0),
                                                       child: InkWell(
+                                                        splashColor:
+                                                            Colors.transparent,
+                                                        focusColor:
+                                                            Colors.transparent,
+                                                        hoverColor:
+                                                            Colors.transparent,
+                                                        highlightColor:
+                                                            Colors.transparent,
                                                         onTap: () async {
                                                           logFirebaseEvent(
                                                               'PASSION_SEARCH_PAGE_Icon_csc9t2cx_ON_TAP');
@@ -343,6 +356,10 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                       },
                                     ),
                                     InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
                                       onTap: () async {
                                         logFirebaseEvent(
                                             'PASSION_SEARCH_PAGE_Icon_wcagfi0v_ON_TAP');
@@ -414,30 +431,30 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                       decoration: InputDecoration(
                                         labelText: 'Suche',
                                         labelStyle: FlutterFlowTheme.of(context)
-                                            .bodyText1
+                                            .bodyMedium
                                             .override(
                                               fontFamily:
                                                   FlutterFlowTheme.of(context)
-                                                      .bodyText1Family,
+                                                      .bodyMediumFamily,
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .secondaryText,
                                               fontSize: 15.0,
                                               fontWeight: FontWeight.w500,
-                                              useGoogleFonts:
-                                                  GoogleFonts.asMap()
-                                                      .containsKey(
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText1Family),
+                                              useGoogleFonts: GoogleFonts
+                                                      .asMap()
+                                                  .containsKey(
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMediumFamily),
                                             ),
                                         hintText: 'Passions durchsuchen',
                                         hintStyle: FlutterFlowTheme.of(context)
-                                            .bodyText2
+                                            .bodySmall
                                             .override(
                                               fontFamily:
                                                   FlutterFlowTheme.of(context)
-                                                      .bodyText2Family,
+                                                      .bodySmallFamily,
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .secondaryText,
@@ -446,7 +463,7 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                                       .containsKey(
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .bodyText2Family),
+                                                              .bodySmallFamily),
                                             ),
                                         enabledBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
@@ -462,7 +479,7 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                         focusedBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
                                             color: FlutterFlowTheme.of(context)
-                                                .primaryColor,
+                                                .primary,
                                             width: 1.0,
                                           ),
                                           borderRadius: const BorderRadius.only(
@@ -528,7 +545,7 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                             : null,
                                       ),
                                       style: FlutterFlowTheme.of(context)
-                                          .bodyText1,
+                                          .bodyMedium,
                                       validator: _model
                                           .searchFieldControllerValidator
                                           .asValidator(context),
@@ -558,6 +575,7 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                                               .searchFieldController
                                                               .text,
                                                           maxResults: 10,
+                                                          useCache: true,
                                                         )))
                                                   .future,
                                               builder: (context, snapshot) {
@@ -633,6 +651,15 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                                                           0.0),
                                                             ),
                                                             child: InkWell(
+                                                              splashColor: Colors
+                                                                  .transparent,
+                                                              focusColor: Colors
+                                                                  .transparent,
+                                                              hoverColor: Colors
+                                                                  .transparent,
+                                                              highlightColor:
+                                                                  Colors
+                                                                      .transparent,
                                                               onTap: () async {
                                                                 logFirebaseEvent(
                                                                     'PASSION_SEARCH_PAGE_Tag_ON_TAP');
@@ -725,14 +752,14 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                                                               CrossAxisAlignment.start,
                                                                           children: [
                                                                             Text(
-                                                                              passionsSearchPassionRecord.title!,
+                                                                              passionsSearchPassionRecord.title,
                                                                               textAlign: TextAlign.start,
                                                                               maxLines: 2,
-                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                    fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                     fontSize: 15.0,
                                                                                     fontWeight: FontWeight.w500,
-                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                   ),
                                                                             ),
                                                                             Wrap(
@@ -748,15 +775,15 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                                                                 Padding(
                                                                                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
                                                                                   child: Text(
-                                                                                    passionsSearchPassionRecord.description!,
+                                                                                    passionsSearchPassionRecord.description,
                                                                                     textAlign: TextAlign.start,
                                                                                     maxLines: 1,
-                                                                                    style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                          fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                           color: FlutterFlowTheme.of(context).secondaryText,
                                                                                           fontSize: 12.0,
                                                                                           fontWeight: FontWeight.w500,
-                                                                                          useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                          useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                         ),
                                                                                   ),
                                                                                 ),
@@ -776,6 +803,14 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                                                       builder:
                                                                           (context) =>
                                                                               InkWell(
+                                                                        splashColor:
+                                                                            Colors.transparent,
+                                                                        focusColor:
+                                                                            Colors.transparent,
+                                                                        hoverColor:
+                                                                            Colors.transparent,
+                                                                        highlightColor:
+                                                                            Colors.transparent,
                                                                         onTap:
                                                                             () async {
                                                                           logFirebaseEvent(
@@ -815,7 +850,7 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                                                           Icons
                                                                               .favorite_border_sharp,
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).primaryColor,
+                                                                              FlutterFlowTheme.of(context).primary,
                                                                           size:
                                                                               25.0,
                                                                         ),
@@ -830,6 +865,14 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                                                       builder:
                                                                           (context) =>
                                                                               InkWell(
+                                                                        splashColor:
+                                                                            Colors.transparent,
+                                                                        focusColor:
+                                                                            Colors.transparent,
+                                                                        hoverColor:
+                                                                            Colors.transparent,
+                                                                        highlightColor:
+                                                                            Colors.transparent,
                                                                         onTap:
                                                                             () async {
                                                                           logFirebaseEvent(
@@ -869,7 +912,7 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                                                           Icons
                                                                               .favorite_sharp,
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).primaryColor,
+                                                                              FlutterFlowTheme.of(context).primary,
                                                                           size:
                                                                               25.0,
                                                                         ),
@@ -891,12 +934,12 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                           Text(
                                             'Kategorien',
                                             style: FlutterFlowTheme.of(context)
-                                                .bodyText1
+                                                .bodyMedium
                                                 .override(
                                                   fontFamily:
                                                       FlutterFlowTheme.of(
                                                               context)
-                                                          .bodyText1Family,
+                                                          .bodyMediumFamily,
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .secondaryText,
@@ -907,7 +950,7 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                                       .containsKey(
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .bodyText1Family),
+                                                              .bodyMediumFamily),
                                                 ),
                                           ),
                                           if (_model.searchFieldController
@@ -920,215 +963,243 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       0.0, 10.0, 0.0, 0.0),
-                                              child: StreamBuilder<
-                                                  List<CategoryRecord>>(
-                                                stream: queryCategoryRecord(),
-                                                builder: (context, snapshot) {
-                                                  // Customize what your widget looks like when it's loading.
-                                                  if (!snapshot.hasData) {
-                                                    return Center(
-                                                      child: SizedBox(
-                                                        width: 25.0,
-                                                        height: 25.0,
-                                                        child: SpinKitRipple(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryBackground,
-                                                          size: 25.0,
-                                                        ),
-                                                      ),
-                                                    );
-                                                  }
-                                                  List<CategoryRecord>
-                                                      categoriesCategoryRecordList =
-                                                      snapshot.data!;
-                                                  return Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .stretch,
-                                                    children: List.generate(
-                                                        categoriesCategoryRecordList
-                                                            .length,
-                                                        (categoriesIndex) {
-                                                      final categoriesCategoryRecord =
-                                                          categoriesCategoryRecordList[
-                                                              categoriesIndex];
-                                                      return Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    10.0),
-                                                        child: ClipRRect(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      10.0),
-                                                          child: Container(
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .secondaryBackground,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10.0),
-                                                            ),
-                                                            child: InkWell(
-                                                              onTap: () async {
-                                                                logFirebaseEvent(
-                                                                    'PASSION_SEARCH_PAGE_Tag_ON_TAP');
-                                                                logFirebaseEvent(
-                                                                    'Tag_navigate_to');
-
-                                                                context
-                                                                    .pushNamed(
-                                                                  'CategoryWindow',
-                                                                  params: {
-                                                                    'category':
-                                                                        serializeParam(
-                                                                      categoriesCategoryRecord
-                                                                          .reference,
-                                                                      ParamType
-                                                                          .DocumentReference,
-                                                                    ),
-                                                                  }.withoutNulls,
-                                                                  extra: <
-                                                                      String,
-                                                                      dynamic>{
-                                                                    kTransitionInfoKey:
-                                                                        TransitionInfo(
-                                                                      hasTransition:
-                                                                          true,
-                                                                      transitionType:
-                                                                          PageTransitionType
-                                                                              .rightToLeft,
-                                                                      duration: Duration(
-                                                                          milliseconds:
-                                                                              250),
-                                                                    ),
-                                                                  },
-                                                                );
-                                                              },
-                                                              child: Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
-                                                                children: [
-                                                                  CachedNetworkImage(
-                                                                    imageUrl:
-                                                                        valueOrDefault<
-                                                                            String>(
-                                                                      categoriesCategoryRecord
-                                                                          .image,
-                                                                      'https://firebasestorage.googleapis.com/v0/b/repassion-9ce5f.appspot.com/o/empty_article.jpg?alt=media&token=d8786d27-f588-4e24-8a60-2deb0358a439',
-                                                                    ),
-                                                                    width: 50.0,
-                                                                    height:
-                                                                        50.0,
-                                                                    fit: BoxFit
-                                                                        .cover,
-                                                                  ),
-                                                                  Expanded(
-                                                                    child:
-                                                                        Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          10.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                                      child:
-                                                                          Container(
-                                                                        decoration:
-                                                                            BoxDecoration(),
-                                                                        child:
-                                                                            Column(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.min,
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.center,
-                                                                          crossAxisAlignment:
-                                                                              CrossAxisAlignment.start,
-                                                                          children: [
-                                                                            Text(
-                                                                              categoriesCategoryRecord.title!,
-                                                                              textAlign: TextAlign.start,
-                                                                              maxLines: 2,
-                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                    fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
-                                                                                    fontSize: 15.0,
-                                                                                    fontWeight: FontWeight.w500,
-                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
-                                                                                  ),
-                                                                            ),
-                                                                            Wrap(
-                                                                              spacing: 0.0,
-                                                                              runSpacing: 0.0,
-                                                                              alignment: WrapAlignment.start,
-                                                                              crossAxisAlignment: WrapCrossAlignment.start,
-                                                                              direction: Axis.horizontal,
-                                                                              runAlignment: WrapAlignment.start,
-                                                                              verticalDirection: VerticalDirection.down,
-                                                                              clipBehavior: Clip.none,
-                                                                              children: [
-                                                                                Padding(
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
-                                                                                  child: Text(
-                                                                                    categoriesCategoryRecord.description!,
-                                                                                    textAlign: TextAlign.start,
-                                                                                    maxLines: 1,
-                                                                                    style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                          fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
-                                                                                          color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                          fontSize: 12.0,
-                                                                                          fontWeight: FontWeight.w500,
-                                                                                          useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
-                                                                                        ),
-                                                                                  ),
-                                                                                ),
-                                                                              ],
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            15.0,
-                                                                            0.0),
-                                                                    child: Icon(
-                                                                      Icons
-                                                                          .chevron_right_sharp,
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryColor,
-                                                                      size:
-                                                                          35.0,
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
+                                              child: AuthUserStreamWidget(
+                                                builder: (context) =>
+                                                    StreamBuilder<
+                                                        List<CategoryRecord>>(
+                                                  stream:
+                                                      _model.passionCategories(
+                                                    uniqueQueryKey:
+                                                        'passion_categories:${currentUserUid}',
+                                                    overrideCache: (currentUserDocument
+                                                                    ?.cacheOverride
+                                                                    ?.toList() ??
+                                                                [])
+                                                            .contains(
+                                                                'passion_categories') ||
+                                                        FFAppState()
+                                                            .cacheOverride
+                                                            .contains(
+                                                                'passion_categories'),
+                                                    requestFn: () =>
+                                                        queryCategoryRecord(),
+                                                  ),
+                                                  builder: (context, snapshot) {
+                                                    // Customize what your widget looks like when it's loading.
+                                                    if (!snapshot.hasData) {
+                                                      return Center(
+                                                        child: SizedBox(
+                                                          width: 25.0,
+                                                          height: 25.0,
+                                                          child: SpinKitRipple(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryBackground,
+                                                            size: 25.0,
                                                           ),
                                                         ),
                                                       );
-                                                    }),
-                                                  );
-                                                },
+                                                    }
+                                                    List<CategoryRecord>
+                                                        categoriesCategoryRecordList =
+                                                        snapshot.data!;
+                                                    return Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .stretch,
+                                                      children: List.generate(
+                                                          categoriesCategoryRecordList
+                                                              .length,
+                                                          (categoriesIndex) {
+                                                        final categoriesCategoryRecord =
+                                                            categoriesCategoryRecordList[
+                                                                categoriesIndex];
+                                                        return Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      10.0),
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10.0),
+                                                            child: Container(
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryBackground,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10.0),
+                                                              ),
+                                                              child: InkWell(
+                                                                splashColor: Colors
+                                                                    .transparent,
+                                                                focusColor: Colors
+                                                                    .transparent,
+                                                                hoverColor: Colors
+                                                                    .transparent,
+                                                                highlightColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                onTap:
+                                                                    () async {
+                                                                  logFirebaseEvent(
+                                                                      'PASSION_SEARCH_PAGE_Tag_ON_TAP');
+                                                                  logFirebaseEvent(
+                                                                      'Tag_navigate_to');
+
+                                                                  context
+                                                                      .pushNamed(
+                                                                    'CategoryWindow',
+                                                                    params: {
+                                                                      'category':
+                                                                          serializeParam(
+                                                                        categoriesCategoryRecord
+                                                                            .reference,
+                                                                        ParamType
+                                                                            .DocumentReference,
+                                                                      ),
+                                                                    }.withoutNulls,
+                                                                    extra: <
+                                                                        String,
+                                                                        dynamic>{
+                                                                      kTransitionInfoKey:
+                                                                          TransitionInfo(
+                                                                        hasTransition:
+                                                                            true,
+                                                                        transitionType:
+                                                                            PageTransitionType.rightToLeft,
+                                                                        duration:
+                                                                            Duration(milliseconds: 250),
+                                                                      ),
+                                                                    },
+                                                                  );
+                                                                },
+                                                                child: Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    CachedNetworkImage(
+                                                                      imageUrl:
+                                                                          valueOrDefault<
+                                                                              String>(
+                                                                        categoriesCategoryRecord
+                                                                            .image,
+                                                                        'https://firebasestorage.googleapis.com/v0/b/repassion-9ce5f.appspot.com/o/empty_article.jpg?alt=media&token=d8786d27-f588-4e24-8a60-2deb0358a439',
+                                                                      ),
+                                                                      width:
+                                                                          50.0,
+                                                                      height:
+                                                                          50.0,
+                                                                      fit: BoxFit
+                                                                          .cover,
+                                                                    ),
+                                                                    Expanded(
+                                                                      child:
+                                                                          Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            10.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                        child:
+                                                                            Container(
+                                                                          decoration:
+                                                                              BoxDecoration(),
+                                                                          child:
+                                                                              Column(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.min,
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.center,
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.start,
+                                                                            children: [
+                                                                              Text(
+                                                                                categoriesCategoryRecord.title,
+                                                                                textAlign: TextAlign.start,
+                                                                                maxLines: 2,
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                      fontSize: 15.0,
+                                                                                      fontWeight: FontWeight.w500,
+                                                                                      useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                                    ),
+                                                                              ),
+                                                                              Wrap(
+                                                                                spacing: 0.0,
+                                                                                runSpacing: 0.0,
+                                                                                alignment: WrapAlignment.start,
+                                                                                crossAxisAlignment: WrapCrossAlignment.start,
+                                                                                direction: Axis.horizontal,
+                                                                                runAlignment: WrapAlignment.start,
+                                                                                verticalDirection: VerticalDirection.down,
+                                                                                clipBehavior: Clip.none,
+                                                                                children: [
+                                                                                  Padding(
+                                                                                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+                                                                                    child: Text(
+                                                                                      categoriesCategoryRecord.description,
+                                                                                      textAlign: TextAlign.start,
+                                                                                      maxLines: 1,
+                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                            fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                            color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                            fontSize: 12.0,
+                                                                                            fontWeight: FontWeight.w500,
+                                                                                            useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                                          ),
+                                                                                    ),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          15.0,
+                                                                          0.0),
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .chevron_right_sharp,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primary,
+                                                                        size:
+                                                                            35.0,
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }),
+                                                    );
+                                                  },
+                                                ),
                                               ),
                                             ),
                                           if (_model.searchFieldController
@@ -1155,6 +1226,7 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                                                 .searchFieldController
                                                                 .text,
                                                             maxResults: 10,
+                                                            useCache: true,
                                                           )))
                                                     .future,
                                                 builder: (context, snapshot) {
@@ -1223,6 +1295,15 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                                                           10.0),
                                                             ),
                                                             child: InkWell(
+                                                              splashColor: Colors
+                                                                  .transparent,
+                                                              focusColor: Colors
+                                                                  .transparent,
+                                                              hoverColor: Colors
+                                                                  .transparent,
+                                                              highlightColor:
+                                                                  Colors
+                                                                      .transparent,
                                                               onTap: () async {
                                                                 logFirebaseEvent(
                                                                     'PASSION_SEARCH_PAGE_Tag_ON_TAP');
@@ -1302,14 +1383,14 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                                                               CrossAxisAlignment.start,
                                                                           children: [
                                                                             Text(
-                                                                              categoriesSearchCategoryRecord.title!,
+                                                                              categoriesSearchCategoryRecord.title,
                                                                               textAlign: TextAlign.start,
                                                                               maxLines: 2,
-                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                    fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                     fontSize: 15.0,
                                                                                     fontWeight: FontWeight.w500,
-                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                   ),
                                                                             ),
                                                                             Wrap(
@@ -1325,15 +1406,15 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                                                                 Padding(
                                                                                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
                                                                                   child: Text(
-                                                                                    categoriesSearchCategoryRecord.description!,
+                                                                                    categoriesSearchCategoryRecord.description,
                                                                                     textAlign: TextAlign.start,
                                                                                     maxLines: 1,
-                                                                                    style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                          fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                           color: FlutterFlowTheme.of(context).secondaryText,
                                                                                           fontSize: 12.0,
                                                                                           fontWeight: FontWeight.w500,
-                                                                                          useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                          useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                         ),
                                                                                   ),
                                                                                 ),
@@ -1356,7 +1437,7 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                                                           .chevron_right_sharp,
                                                                       color: FlutterFlowTheme.of(
                                                                               context)
-                                                                          .primaryColor,
+                                                                          .primary,
                                                                       size:
                                                                           35.0,
                                                                     ),
@@ -1434,6 +1515,10 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                       final currentPassionPassionRecord =
                                           snapshot.data!;
                                       return InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
                                         onTap: () async {
                                           logFirebaseEvent(
                                               'PASSION_SEARCH_CurrentPassion_ON_TAP');
@@ -1534,15 +1619,15 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                                           children: [
                                                             AutoSizeText(
                                                               currentPassionPassionRecord
-                                                                  .title!,
+                                                                  .title,
                                                               maxLines: 2,
                                                               style: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .bodyText1
+                                                                  .bodyMedium
                                                                   .override(
                                                                     fontFamily:
                                                                         FlutterFlowTheme.of(context)
-                                                                            .bodyText1Family,
+                                                                            .bodyMediumFamily,
                                                                     fontSize:
                                                                         15.0,
                                                                     fontWeight:
@@ -1551,7 +1636,7 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                                                     useGoogleFonts: GoogleFonts
                                                                             .asMap()
                                                                         .containsKey(
-                                                                            FlutterFlowTheme.of(context).bodyText1Family),
+                                                                            FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                   ),
                                                             ),
                                                           ],
@@ -1560,14 +1645,14 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                                           'Weiterlesen',
                                                           style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .bodyText1
+                                                              .bodyMedium
                                                               .override(
                                                                 fontFamily: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyText1Family,
+                                                                    .bodyMediumFamily,
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .primaryColor,
+                                                                    .primary,
                                                                 fontSize: 12.0,
                                                                 fontWeight:
                                                                     FontWeight
@@ -1576,7 +1661,7 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                                                         .asMap()
                                                                     .containsKey(
                                                                         FlutterFlowTheme.of(context)
-                                                                            .bodyText1Family),
+                                                                            .bodyMediumFamily),
                                                               ),
                                                         ),
                                                       ],
@@ -1591,6 +1676,14 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                                                   .reference) !=
                                                       true)
                                                     InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
                                                       onTap: () async {
                                                         logFirebaseEvent(
                                                             'PASSION_SEARCH_PAGE_Icon_ole5hdea_ON_TAP');
@@ -1633,7 +1726,7 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .primaryColor,
+                                                                .primary,
                                                         size: 25.0,
                                                       ),
                                                     ),
@@ -1646,6 +1739,14 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                                                   .reference) ==
                                                       true)
                                                     InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
                                                       onTap: () async {
                                                         logFirebaseEvent(
                                                             'PASSION_SEARCH_PAGE_Icon_w9k7ext1_ON_TAP');
@@ -1687,7 +1788,7 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .primaryColor,
+                                                                .primary,
                                                         size: 25.0,
                                                       ),
                                                     ),
@@ -1727,6 +1828,10 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                     ),
                                   ),
                                   InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
                                     onTap: () async {
                                       logFirebaseEvent(
                                           'PASSION_SEARCH_Container_dr7e05b8_ON_TAP');
@@ -1758,6 +1863,10 @@ class _PassionSearchWidgetState extends State<PassionSearchWidget>
                                     ),
                                   ),
                                   InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
                                     onTap: () async {
                                       logFirebaseEvent(
                                           'PASSION_SEARCH_Container_q1azyby2_ON_TAP');

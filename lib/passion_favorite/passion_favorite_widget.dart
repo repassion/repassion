@@ -1,4 +1,4 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/current_passion_loading_widget.dart';
 import '/components/no_entries_widget.dart';
@@ -77,12 +77,15 @@ class _PassionFavoriteWidgetState extends State<PassionFavoriteWidget>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+    context.watch<FFAppState>();
+
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        body: SafeArea(
+          top: true,
           child: Align(
             alignment: AlignmentDirectional(0.0, 0.0),
             child: Container(
@@ -121,6 +124,10 @@ class _PassionFavoriteWidgetState extends State<PassionFavoriteWidget>
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
                                       onTap: () async {
                                         logFirebaseEvent(
                                             'PASSION_FAVORITE_Image_tnp2mmjl_ON_TAP');
@@ -141,7 +148,7 @@ class _PassionFavoriteWidgetState extends State<PassionFavoriteWidget>
                                       child: Icon(
                                         Icons.library_books_sharp,
                                         color: FlutterFlowTheme.of(context)
-                                            .primaryColor,
+                                            .primary,
                                         size: 35.0,
                                       ),
                                     ),
@@ -219,18 +226,17 @@ class _PassionFavoriteWidgetState extends State<PassionFavoriteWidget>
                                                               containerChatRecordList
                                                                   .map((e) => e
                                                                       .notifications)
-                                                                  .withoutNulls
                                                                   .toList(),
                                                               requestsCount)
                                                           .toString(),
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .bodyText1
+                                                              .bodyMedium
                                                               .override(
                                                                 fontFamily: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyText1Family,
+                                                                    .bodyMediumFamily,
                                                                 color: Colors
                                                                     .white,
                                                                 fontSize: 12.0,
@@ -241,7 +247,7 @@ class _PassionFavoriteWidgetState extends State<PassionFavoriteWidget>
                                                                         .asMap()
                                                                     .containsKey(
                                                                         FlutterFlowTheme.of(context)
-                                                                            .bodyText1Family),
+                                                                            .bodyMediumFamily),
                                                               ),
                                                     ),
                                                     showBadge: functions
@@ -249,7 +255,6 @@ class _PassionFavoriteWidgetState extends State<PassionFavoriteWidget>
                                                                 containerChatRecordList
                                                                     .map((e) =>
                                                                         e.notifications)
-                                                                    .withoutNulls
                                                                     .toList(),
                                                                 requestsCount)
                                                             .toString() !=
@@ -259,7 +264,7 @@ class _PassionFavoriteWidgetState extends State<PassionFavoriteWidget>
                                                     badgeColor:
                                                         FlutterFlowTheme.of(
                                                                 context)
-                                                            .primaryColor,
+                                                            .primary,
                                                     elevation: 1.0,
                                                     padding:
                                                         EdgeInsetsDirectional
@@ -280,6 +285,14 @@ class _PassionFavoriteWidgetState extends State<PassionFavoriteWidget>
                                                                   5.0,
                                                                   0.0),
                                                       child: InkWell(
+                                                        splashColor:
+                                                            Colors.transparent,
+                                                        focusColor:
+                                                            Colors.transparent,
+                                                        hoverColor:
+                                                            Colors.transparent,
+                                                        highlightColor:
+                                                            Colors.transparent,
                                                         onTap: () async {
                                                           logFirebaseEvent(
                                                               'PASSION_FAVORITE_Icon_v8w0pr8n_ON_TAP');
@@ -320,6 +333,10 @@ class _PassionFavoriteWidgetState extends State<PassionFavoriteWidget>
                                       },
                                     ),
                                     InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
                                       onTap: () async {
                                         logFirebaseEvent(
                                             'PASSION_FAVORITE_Icon_u7w8v8lm_ON_TAP');
@@ -370,12 +387,12 @@ class _PassionFavoriteWidgetState extends State<PassionFavoriteWidget>
                                           Text(
                                             'Favoriten',
                                             style: FlutterFlowTheme.of(context)
-                                                .bodyText1
+                                                .bodyMedium
                                                 .override(
                                                   fontFamily:
                                                       FlutterFlowTheme.of(
                                                               context)
-                                                          .bodyText1Family,
+                                                          .bodyMediumFamily,
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .secondaryText,
@@ -386,7 +403,7 @@ class _PassionFavoriteWidgetState extends State<PassionFavoriteWidget>
                                                       .containsKey(
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .bodyText1Family),
+                                                              .bodyMediumFamily),
                                                 ),
                                           ),
                                           Padding(
@@ -470,6 +487,15 @@ class _PassionFavoriteWidgetState extends State<PassionFavoriteWidget>
                                                                             0.0),
                                                               ),
                                                               child: InkWell(
+                                                                splashColor: Colors
+                                                                    .transparent,
+                                                                focusColor: Colors
+                                                                    .transparent,
+                                                                hoverColor: Colors
+                                                                    .transparent,
+                                                                highlightColor:
+                                                                    Colors
+                                                                        .transparent,
                                                                 onTap:
                                                                     () async {
                                                                   logFirebaseEvent(
@@ -562,14 +588,14 @@ class _PassionFavoriteWidgetState extends State<PassionFavoriteWidget>
                                                                                 CrossAxisAlignment.start,
                                                                             children: [
                                                                               Text(
-                                                                                passionsSearchPassionRecord.title!,
+                                                                                passionsSearchPassionRecord.title,
                                                                                 textAlign: TextAlign.start,
                                                                                 maxLines: 2,
-                                                                                style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                      fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                       fontSize: 15.0,
                                                                                       fontWeight: FontWeight.w500,
-                                                                                      useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                      useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                     ),
                                                                               ),
                                                                               Wrap(
@@ -585,15 +611,15 @@ class _PassionFavoriteWidgetState extends State<PassionFavoriteWidget>
                                                                                   Padding(
                                                                                     padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
                                                                                     child: Text(
-                                                                                      passionsSearchPassionRecord.description!,
+                                                                                      passionsSearchPassionRecord.description,
                                                                                       textAlign: TextAlign.start,
                                                                                       maxLines: 1,
-                                                                                      style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                            fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                            fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                             color: FlutterFlowTheme.of(context).secondaryText,
                                                                                             fontSize: 12.0,
                                                                                             fontWeight: FontWeight.w500,
-                                                                                            useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                            useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                           ),
                                                                                     ),
                                                                                   ),
@@ -605,6 +631,18 @@ class _PassionFavoriteWidgetState extends State<PassionFavoriteWidget>
                                                                       ),
                                                                     ),
                                                                     InkWell(
+                                                                      splashColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      focusColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      hoverColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      highlightColor:
+                                                                          Colors
+                                                                              .transparent,
                                                                       onTap:
                                                                           () async {
                                                                         logFirebaseEvent(
@@ -638,7 +676,7 @@ class _PassionFavoriteWidgetState extends State<PassionFavoriteWidget>
                                                                         Icons
                                                                             .favorite_sharp,
                                                                         color: FlutterFlowTheme.of(context)
-                                                                            .primaryColor,
+                                                                            .primary,
                                                                         size:
                                                                             25.0,
                                                                       ),
@@ -718,6 +756,10 @@ class _PassionFavoriteWidgetState extends State<PassionFavoriteWidget>
                                       final currentPassionPassionRecord =
                                           snapshot.data!;
                                       return InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
                                         onTap: () async {
                                           logFirebaseEvent(
                                               'PASSION_FAVORITE_CurrentPassion_ON_TAP');
@@ -818,15 +860,15 @@ class _PassionFavoriteWidgetState extends State<PassionFavoriteWidget>
                                                           children: [
                                                             AutoSizeText(
                                                               currentPassionPassionRecord
-                                                                  .title!,
+                                                                  .title,
                                                               maxLines: 2,
                                                               style: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .bodyText1
+                                                                  .bodyMedium
                                                                   .override(
                                                                     fontFamily:
                                                                         FlutterFlowTheme.of(context)
-                                                                            .bodyText1Family,
+                                                                            .bodyMediumFamily,
                                                                     fontSize:
                                                                         15.0,
                                                                     fontWeight:
@@ -835,7 +877,7 @@ class _PassionFavoriteWidgetState extends State<PassionFavoriteWidget>
                                                                     useGoogleFonts: GoogleFonts
                                                                             .asMap()
                                                                         .containsKey(
-                                                                            FlutterFlowTheme.of(context).bodyText1Family),
+                                                                            FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                   ),
                                                             ),
                                                           ],
@@ -844,14 +886,14 @@ class _PassionFavoriteWidgetState extends State<PassionFavoriteWidget>
                                                           'Weiterlesen',
                                                           style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .bodyText1
+                                                              .bodyMedium
                                                               .override(
                                                                 fontFamily: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyText1Family,
+                                                                    .bodyMediumFamily,
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .primaryColor,
+                                                                    .primary,
                                                                 fontSize: 12.0,
                                                                 fontWeight:
                                                                     FontWeight
@@ -860,7 +902,7 @@ class _PassionFavoriteWidgetState extends State<PassionFavoriteWidget>
                                                                         .asMap()
                                                                     .containsKey(
                                                                         FlutterFlowTheme.of(context)
-                                                                            .bodyText1Family),
+                                                                            .bodyMediumFamily),
                                                               ),
                                                         ),
                                                       ],
@@ -875,6 +917,14 @@ class _PassionFavoriteWidgetState extends State<PassionFavoriteWidget>
                                                                   .reference) !=
                                                       true)
                                                     InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
                                                       onTap: () async {
                                                         logFirebaseEvent(
                                                             'PASSION_FAVORITE_Icon_hneg9v17_ON_TAP');
@@ -910,7 +960,7 @@ class _PassionFavoriteWidgetState extends State<PassionFavoriteWidget>
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .primaryColor,
+                                                                .primary,
                                                         size: 25.0,
                                                       ),
                                                     ),
@@ -923,6 +973,14 @@ class _PassionFavoriteWidgetState extends State<PassionFavoriteWidget>
                                                                   .reference) ==
                                                       true)
                                                     InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
                                                       onTap: () async {
                                                         logFirebaseEvent(
                                                             'PASSION_FAVORITE_Icon_9x1cjw8p_ON_TAP');
@@ -957,7 +1015,7 @@ class _PassionFavoriteWidgetState extends State<PassionFavoriteWidget>
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .primaryColor,
+                                                                .primary,
                                                         size: 25.0,
                                                       ),
                                                     ),
@@ -984,6 +1042,10 @@ class _PassionFavoriteWidgetState extends State<PassionFavoriteWidget>
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
                                     onTap: () async {
                                       logFirebaseEvent(
                                           'PASSION_FAVORITE_Container_tsm8988m_ON_T');
@@ -1028,6 +1090,10 @@ class _PassionFavoriteWidgetState extends State<PassionFavoriteWidget>
                                     ),
                                   ),
                                   InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
                                     onTap: () async {
                                       logFirebaseEvent(
                                           'PASSION_FAVORITE_Container_2m2tc7wx_ON_T');

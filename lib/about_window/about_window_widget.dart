@@ -1,4 +1,4 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -45,12 +45,15 @@ class _AboutWindowWidgetState extends State<AboutWindowWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+    context.watch<FFAppState>();
+
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        body: SafeArea(
+          top: true,
           child: Align(
             alignment: AlignmentDirectional(0.0, 0.0),
             child: Container(
@@ -84,6 +87,10 @@ class _AboutWindowWidgetState extends State<AboutWindowWidget> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
                                     onTap: () async {
                                       logFirebaseEvent(
                                           'ABOUT_WINDOW_PAGE_Row_uc5hh9vx_ON_TAP');
@@ -98,17 +105,17 @@ class _AboutWindowWidgetState extends State<AboutWindowWidget> {
                                         Icon(
                                           Icons.chevron_left_sharp,
                                           color: FlutterFlowTheme.of(context)
-                                              .primaryColor,
+                                              .primary,
                                           size: 50.0,
                                         ),
                                         Text(
                                           '\"Über mich\" bearbeiten',
                                           style: FlutterFlowTheme.of(context)
-                                              .bodyText1
+                                              .bodyMedium
                                               .override(
                                                 fontFamily:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyText1Family,
+                                                        .bodyMediumFamily,
                                                 fontSize: 18.0,
                                                 fontWeight: FontWeight.w500,
                                                 useGoogleFonts: GoogleFonts
@@ -116,7 +123,7 @@ class _AboutWindowWidgetState extends State<AboutWindowWidget> {
                                                     .containsKey(
                                                         FlutterFlowTheme.of(
                                                                 context)
-                                                            .bodyText1Family),
+                                                            .bodyMediumFamily),
                                               ),
                                         ),
                                       ],
@@ -156,12 +163,12 @@ class _AboutWindowWidgetState extends State<AboutWindowWidget> {
                                             labelText: 'Über mich',
                                             labelStyle: FlutterFlowTheme.of(
                                                     context)
-                                                .bodyText1
+                                                .bodyMedium
                                                 .override(
                                                   fontFamily:
                                                       FlutterFlowTheme.of(
                                                               context)
-                                                          .bodyText1Family,
+                                                          .bodyMediumFamily,
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .secondaryText,
@@ -172,7 +179,7 @@ class _AboutWindowWidgetState extends State<AboutWindowWidget> {
                                                       .containsKey(
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .bodyText1Family),
+                                                              .bodyMediumFamily),
                                                 ),
                                             hintText: valueOrDefault<String>(
                                               valueOrDefault(
@@ -182,12 +189,12 @@ class _AboutWindowWidgetState extends State<AboutWindowWidget> {
                                             ),
                                             hintStyle:
                                                 FlutterFlowTheme.of(context)
-                                                    .bodyText2
+                                                    .bodySmall
                                                     .override(
                                                       fontFamily:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .bodyText2Family,
+                                                              .bodySmallFamily,
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -197,7 +204,7 @@ class _AboutWindowWidgetState extends State<AboutWindowWidget> {
                                                           .containsKey(
                                                               FlutterFlowTheme.of(
                                                                       context)
-                                                                  .bodyText2Family),
+                                                                  .bodySmallFamily),
                                                     ),
                                             enabledBorder: UnderlineInputBorder(
                                               borderSide: BorderSide(
@@ -216,7 +223,7 @@ class _AboutWindowWidgetState extends State<AboutWindowWidget> {
                                               borderSide: BorderSide(
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .primaryColor,
+                                                        .primary,
                                                 width: 1.0,
                                               ),
                                               borderRadius:
@@ -250,7 +257,7 @@ class _AboutWindowWidgetState extends State<AboutWindowWidget> {
                                             ),
                                           ),
                                           style: FlutterFlowTheme.of(context)
-                                              .bodyText1,
+                                              .bodyMedium,
                                           maxLines: 25,
                                           minLines: 1,
                                           keyboardType: TextInputType.multiline,
@@ -288,6 +295,10 @@ class _AboutWindowWidgetState extends State<AboutWindowWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(
                               25.0, 25.0, 25.0, 25.0),
                           child: InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
                             onTap: () async {
                               logFirebaseEvent(
                                   'ABOUT_WINDOW_Container_bdrbsbt0_ON_TAP');
@@ -314,8 +325,7 @@ class _AboutWindowWidgetState extends State<AboutWindowWidget> {
                               ),
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryColor,
+                                  color: FlutterFlowTheme.of(context).primary,
                                   borderRadius: BorderRadius.circular(15.0),
                                 ),
                                 child: Align(
@@ -323,11 +333,11 @@ class _AboutWindowWidgetState extends State<AboutWindowWidget> {
                                   child: Text(
                                     'Änderungen speichern',
                                     style: FlutterFlowTheme.of(context)
-                                        .bodyText1
+                                        .bodyMedium
                                         .override(
                                           fontFamily:
                                               FlutterFlowTheme.of(context)
-                                                  .bodyText1Family,
+                                                  .bodyMediumFamily,
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryBackground,
                                           fontSize: 18.0,
@@ -335,7 +345,7 @@ class _AboutWindowWidgetState extends State<AboutWindowWidget> {
                                           useGoogleFonts: GoogleFonts.asMap()
                                               .containsKey(
                                                   FlutterFlowTheme.of(context)
-                                                      .bodyText1Family),
+                                                      .bodyMediumFamily),
                                         ),
                                   ),
                                 ),

@@ -1,4 +1,4 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -51,13 +51,16 @@ class _PassionWindowWidgetState extends State<PassionWindowWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return YoutubeFullScreenWrapper(
-      child: Scaffold(
-        key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        body: SafeArea(
-          child: GestureDetector(
-            onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+        child: Scaffold(
+          key: scaffoldKey,
+          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+          body: SafeArea(
+            top: true,
             child: Align(
               alignment: AlignmentDirectional(0.0, 0.0),
               child: Container(
@@ -144,8 +147,8 @@ class _PassionWindowWidgetState extends State<PassionWindowWidget> {
                                                 mainUserPassionRecord.video !=
                                                     '')
                                               FlutterFlowYoutubePlayer(
-                                                url: mainUserPassionRecord
-                                                    .video!,
+                                                url:
+                                                    mainUserPassionRecord.video,
                                                 width: MediaQuery.of(context)
                                                         .size
                                                         .width *
@@ -230,11 +233,11 @@ class _PassionWindowWidgetState extends State<PassionWindowWidget> {
                                                                             Clip.none,
                                                                         children: [
                                                                           Text(
-                                                                            mainUserPassionRecord.title!,
-                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                  fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                            mainUserPassionRecord.title,
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                   fontWeight: FontWeight.w500,
-                                                                                  useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                  useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                 ),
                                                                           ),
                                                                         ],
@@ -268,13 +271,13 @@ class _PassionWindowWidgetState extends State<PassionWindowWidget> {
                                                                                 5.0),
                                                                             child:
                                                                                 Text(
-                                                                              mainUserPassionRecord.type!,
-                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                    fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              mainUserPassionRecord.type,
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                     color: FlutterFlowTheme.of(context).primaryText,
                                                                                     fontSize: 12.0,
                                                                                     fontWeight: FontWeight.bold,
-                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                   ),
                                                                             ),
                                                                           ),
@@ -305,15 +308,15 @@ class _PassionWindowWidgetState extends State<PassionWindowWidget> {
                                                                   children: [
                                                                     Text(
                                                                       mainUserPassionRecord
-                                                                          .description!,
+                                                                          .description,
                                                                       maxLines:
                                                                           3,
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
-                                                                          .bodyText1
+                                                                          .bodyMedium
                                                                           .override(
                                                                             fontFamily:
-                                                                                FlutterFlowTheme.of(context).bodyText1Family,
+                                                                                FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                             color:
                                                                                 FlutterFlowTheme.of(context).secondaryText,
                                                                             fontSize:
@@ -321,7 +324,7 @@ class _PassionWindowWidgetState extends State<PassionWindowWidget> {
                                                                             fontWeight:
                                                                                 FontWeight.bold,
                                                                             useGoogleFonts:
-                                                                                GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                           ),
                                                                     ),
                                                                   ],
@@ -352,6 +355,18 @@ class _PassionWindowWidgetState extends State<PassionWindowWidget> {
                                                                   builder:
                                                                       (context) =>
                                                                           InkWell(
+                                                                    splashColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    focusColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    hoverColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    highlightColor:
+                                                                        Colors
+                                                                            .transparent,
                                                                     onTap:
                                                                         () async {
                                                                       logFirebaseEvent(
@@ -388,7 +403,7 @@ class _PassionWindowWidgetState extends State<PassionWindowWidget> {
                                                                           .favorite_border_sharp,
                                                                       color: FlutterFlowTheme.of(
                                                                               context)
-                                                                          .primaryColor,
+                                                                          .primary,
                                                                       size:
                                                                           25.0,
                                                                     ),
@@ -406,6 +421,18 @@ class _PassionWindowWidgetState extends State<PassionWindowWidget> {
                                                                   builder:
                                                                       (context) =>
                                                                           InkWell(
+                                                                    splashColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    focusColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    hoverColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    highlightColor:
+                                                                        Colors
+                                                                            .transparent,
                                                                     onTap:
                                                                         () async {
                                                                       logFirebaseEvent(
@@ -442,37 +469,37 @@ class _PassionWindowWidgetState extends State<PassionWindowWidget> {
                                                                           .favorite_sharp,
                                                                       color: FlutterFlowTheme.of(
                                                                               context)
-                                                                          .primaryColor,
+                                                                          .primary,
                                                                       size:
                                                                           25.0,
                                                                     ),
                                                                   ),
                                                                 ),
                                                               if (mainUserPassionRecord
-                                                                      .likes! >=
+                                                                      .likes >=
                                                                   1)
                                                                 Text(
                                                                   formatNumber(
                                                                     mainUserPassionRecord
-                                                                        .likes!,
+                                                                        .likes,
                                                                     formatType:
                                                                         FormatType
                                                                             .compact,
                                                                   ),
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .bodyText1
+                                                                      .bodyMedium
                                                                       .override(
                                                                         fontFamily:
-                                                                            FlutterFlowTheme.of(context).bodyText1Family,
+                                                                            FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                         color: FlutterFlowTheme.of(context)
-                                                                            .primaryColor,
+                                                                            .primary,
                                                                         fontSize:
                                                                             10.0,
                                                                         fontWeight:
                                                                             FontWeight.bold,
                                                                         useGoogleFonts:
-                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                       ),
                                                                 ),
                                                             ],
@@ -499,6 +526,15 @@ class _PassionWindowWidgetState extends State<PassionWindowWidget> {
                                                                 .end,
                                                         children: [
                                                           InkWell(
+                                                            splashColor: Colors
+                                                                .transparent,
+                                                            focusColor: Colors
+                                                                .transparent,
+                                                            hoverColor: Colors
+                                                                .transparent,
+                                                            highlightColor:
+                                                                Colors
+                                                                    .transparent,
                                                             onTap: () async {
                                                               logFirebaseEvent(
                                                                   'PASSION_WINDOW_Column_av3lhrhp_ON_TAP');
@@ -601,21 +637,21 @@ class _PassionWindowWidgetState extends State<PassionWindowWidget> {
                                                                         Text(
                                                                           '@${rowUserRecord.displayName}',
                                                                           style: FlutterFlowTheme.of(context)
-                                                                              .bodyText1
+                                                                              .bodyMedium
                                                                               .override(
-                                                                                fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
-                                                                                color: FlutterFlowTheme.of(context).primaryColor,
+                                                                                fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                color: FlutterFlowTheme.of(context).primary,
                                                                                 fontSize: 15.0,
                                                                                 fontWeight: FontWeight.bold,
-                                                                                useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                               ),
                                                                         ),
-                                                                        if (rowUserRecord.verified ??
-                                                                            true)
+                                                                        if (rowUserRecord
+                                                                            .verified)
                                                                           Icon(
                                                                             Icons.verified,
                                                                             color:
-                                                                                FlutterFlowTheme.of(context).primaryColor,
+                                                                                FlutterFlowTheme.of(context).primary,
                                                                             size:
                                                                                 15.0,
                                                                           ),
@@ -651,11 +687,11 @@ class _PassionWindowWidgetState extends State<PassionWindowWidget> {
                                                                 ),
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyText1
+                                                                    .bodyMedium
                                                                     .override(
                                                                       fontFamily:
                                                                           FlutterFlowTheme.of(context)
-                                                                              .bodyText1Family,
+                                                                              .bodyMediumFamily,
                                                                       color: FlutterFlowTheme.of(
                                                                               context)
                                                                           .secondaryText,
@@ -667,7 +703,7 @@ class _PassionWindowWidgetState extends State<PassionWindowWidget> {
                                                                       useGoogleFonts: GoogleFonts
                                                                               .asMap()
                                                                           .containsKey(
-                                                                              FlutterFlowTheme.of(context).bodyText1Family),
+                                                                              FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                     ),
                                                               ),
                                                             ],
@@ -692,15 +728,15 @@ class _PassionWindowWidgetState extends State<PassionWindowWidget> {
                                               clipBehavior: Clip.none,
                                               children: [
                                                 Text(
-                                                  mainUserPassionRecord.text!,
+                                                  mainUserPassionRecord.text,
                                                   style: FlutterFlowTheme.of(
                                                           context)
-                                                      .bodyText1
+                                                      .bodyMedium
                                                       .override(
                                                         fontFamily:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .bodyText1Family,
+                                                                .bodyMediumFamily,
                                                         fontWeight:
                                                             FontWeight.w500,
                                                         useGoogleFonts: GoogleFonts
@@ -708,7 +744,7 @@ class _PassionWindowWidgetState extends State<PassionWindowWidget> {
                                                             .containsKey(
                                                                 FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyText1Family),
+                                                                    .bodyMediumFamily),
                                                       ),
                                                 ),
                                               ],
@@ -755,6 +791,10 @@ class _PassionWindowWidgetState extends State<PassionWindowWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         25.0, 25.0, 25.0, 25.0),
                                     child: InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
                                       onTap: () async {
                                         logFirebaseEvent(
                                             'PASSION_WINDOW_Container_t1en6rcz_ON_TAP');
@@ -791,7 +831,7 @@ class _PassionWindowWidgetState extends State<PassionWindowWidget> {
                                         child: Container(
                                           decoration: BoxDecoration(
                                             color: FlutterFlowTheme.of(context)
-                                                .primaryColor,
+                                                .primary,
                                             borderRadius:
                                                 BorderRadius.circular(15.0),
                                           ),
@@ -802,12 +842,12 @@ class _PassionWindowWidgetState extends State<PassionWindowWidget> {
                                               'Passion bearbeiten',
                                               style: FlutterFlowTheme.of(
                                                       context)
-                                                  .bodyText1
+                                                  .bodyMedium
                                                   .override(
                                                     fontFamily:
                                                         FlutterFlowTheme.of(
                                                                 context)
-                                                            .bodyText1Family,
+                                                            .bodyMediumFamily,
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .secondaryBackground,
@@ -818,7 +858,7 @@ class _PassionWindowWidgetState extends State<PassionWindowWidget> {
                                                         .containsKey(
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .bodyText1Family),
+                                                                .bodyMediumFamily),
                                                   ),
                                             ),
                                           ),
@@ -853,6 +893,10 @@ class _PassionWindowWidgetState extends State<PassionWindowWidget> {
                                   children: [
                                     Expanded(
                                       child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
                                         onTap: () async {
                                           logFirebaseEvent(
                                               'PASSION_WINDOW_PAGE_Row_rpdwck0x_ON_TAP');
@@ -868,7 +912,7 @@ class _PassionWindowWidgetState extends State<PassionWindowWidget> {
                                               Icons.chevron_left_sharp,
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primaryColor,
+                                                      .primary,
                                               size: 50.0,
                                             ),
                                             Expanded(
@@ -886,16 +930,15 @@ class _PassionWindowWidgetState extends State<PassionWindowWidget> {
                                                 clipBehavior: Clip.none,
                                                 children: [
                                                   Text(
-                                                    mainUserPassionRecord
-                                                        .title!,
+                                                    mainUserPassionRecord.title,
                                                     style: FlutterFlowTheme.of(
                                                             context)
-                                                        .bodyText1
+                                                        .bodyMedium
                                                         .override(
                                                           fontFamily:
                                                               FlutterFlowTheme.of(
                                                                       context)
-                                                                  .bodyText1Family,
+                                                                  .bodyMediumFamily,
                                                           fontSize: 18.0,
                                                           fontWeight:
                                                               FontWeight.w500,
@@ -904,7 +947,7 @@ class _PassionWindowWidgetState extends State<PassionWindowWidget> {
                                                               .containsKey(
                                                                   FlutterFlowTheme.of(
                                                                           context)
-                                                                      .bodyText1Family),
+                                                                      .bodyMediumFamily),
                                                         ),
                                                   ),
                                                 ],

@@ -1,4 +1,4 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -28,6 +28,11 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
+  int get pageViewCurrentIndex => _model.pageViewController != null &&
+          _model.pageViewController!.hasClients &&
+          _model.pageViewController!.page != null
+      ? _model.pageViewController!.page!.round()
+      : 0;
 
   final animationsMap = {
     'imageOnPageLoadAnimation1': AnimationInfo(
@@ -37,8 +42,8 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 750.ms,
-          begin: 0.75,
-          end: 1.0,
+          begin: Offset(0.75, 0.75),
+          end: Offset(1.0, 1.0),
         ),
       ],
     ),
@@ -87,8 +92,8 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 750.ms,
-          begin: 0.75,
-          end: 1.0,
+          begin: Offset(0.75, 0.75),
+          end: Offset(1.0, 1.0),
         ),
       ],
     ),
@@ -175,8 +180,8 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 750.ms,
-          begin: 0.75,
-          end: 1.0,
+          begin: Offset(0.75, 0.75),
+          end: Offset(1.0, 1.0),
         ),
       ],
     ),
@@ -225,8 +230,8 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 750.ms,
-          begin: 0.75,
-          end: 1.0,
+          begin: Offset(0.75, 0.75),
+          end: Offset(1.0, 1.0),
         ),
       ],
     ),
@@ -328,14 +333,17 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async => false,
-      child: Scaffold(
-        key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        body: SafeArea(
-          child: GestureDetector(
-            onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+    context.watch<FFAppState>();
+
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      child: WillPopScope(
+        onWillPop: () async => false,
+        child: Scaffold(
+          key: scaffoldKey,
+          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+          body: SafeArea(
+            top: true,
             child: Align(
               alignment: AlignmentDirectional(0.0, 0.0),
               child: Container(
@@ -365,10 +373,10 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                               Text(
                                 'ALPHA',
                                 style: FlutterFlowTheme.of(context)
-                                    .bodyText1
+                                    .bodyMedium
                                     .override(
                                       fontFamily: FlutterFlowTheme.of(context)
-                                          .bodyText1Family,
+                                          .bodyMediumFamily,
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryText,
                                       fontSize: 12.0,
@@ -376,23 +384,23 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                       useGoogleFonts: GoogleFonts.asMap()
                                           .containsKey(
                                               FlutterFlowTheme.of(context)
-                                                  .bodyText1Family),
+                                                  .bodyMediumFamily),
                                     ),
                               ),
                               Text(
                                 'v3.3',
                                 style: FlutterFlowTheme.of(context)
-                                    .bodyText1
+                                    .bodyMedium
                                     .override(
                                       fontFamily: 'Open Sans',
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryColor,
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
                                       fontSize: 15.0,
                                       fontWeight: FontWeight.w500,
                                       useGoogleFonts: GoogleFonts.asMap()
                                           .containsKey(
                                               FlutterFlowTheme.of(context)
-                                                  .bodyText1Family),
+                                                  .bodyMediumFamily),
                                     ),
                               ),
                             ],
@@ -413,20 +421,20 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                   Text(
                                     'Bereit zum Aufblühen?',
                                     style: FlutterFlowTheme.of(context)
-                                        .title2
+                                        .headlineMedium
                                         .override(
                                           fontFamily:
                                               FlutterFlowTheme.of(context)
-                                                  .title2Family,
+                                                  .headlineMediumFamily,
                                           color: FlutterFlowTheme.of(context)
-                                              .primaryColor,
+                                              .primary,
                                           fontSize: 30.0,
                                           letterSpacing: 1.25,
                                           fontWeight: FontWeight.w300,
                                           useGoogleFonts: GoogleFonts.asMap()
                                               .containsKey(
                                                   FlutterFlowTheme.of(context)
-                                                      .title2Family),
+                                                      .headlineMediumFamily),
                                         ),
                                   ),
                                   Padding(
@@ -516,18 +524,18 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                                                     'repassion\'s',
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .bodyText1
+                                                                        .bodyMedium
                                                                         .override(
                                                                           fontFamily:
-                                                                              FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).primaryColor,
+                                                                              FlutterFlowTheme.of(context).primary,
                                                                           fontSize:
                                                                               20.0,
                                                                           fontWeight:
                                                                               FontWeight.w500,
                                                                           useGoogleFonts:
-                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                         ),
                                                                   ).animateOnPageLoad(
                                                                       animationsMap[
@@ -536,10 +544,10 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                                                     'Swipe To Grow',
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .bodyText1
+                                                                        .bodyMedium
                                                                         .override(
                                                                           fontFamily:
-                                                                              FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                           color:
                                                                               FlutterFlowTheme.of(context).primaryText,
                                                                           fontSize:
@@ -547,7 +555,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                                                           fontWeight:
                                                                               FontWeight.bold,
                                                                           useGoogleFonts:
-                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                           lineHeight:
                                                                               1.0,
                                                                         ),
@@ -611,10 +619,10 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                                                     'Finde bequem',
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .bodyText1
+                                                                        .bodyMedium
                                                                         .override(
                                                                           fontFamily:
-                                                                              FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                           color:
                                                                               FlutterFlowTheme.of(context).alternate,
                                                                           fontSize:
@@ -622,7 +630,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                                                           fontWeight:
                                                                               FontWeight.w500,
                                                                           useGoogleFonts:
-                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                         ),
                                                                   ).animateOnPageLoad(
                                                                       animationsMap[
@@ -631,10 +639,10 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                                                     'Gleichgesinnte',
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .bodyText1
+                                                                        .bodyMedium
                                                                         .override(
                                                                           fontFamily:
-                                                                              FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                           color:
                                                                               FlutterFlowTheme.of(context).alternate,
                                                                           fontSize:
@@ -642,7 +650,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                                                           fontWeight:
                                                                               FontWeight.bold,
                                                                           useGoogleFonts:
-                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                           lineHeight:
                                                                               1.0,
                                                                         ),
@@ -653,10 +661,10 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                                                     'und beginne den',
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .bodyText1
+                                                                        .bodyMedium
                                                                         .override(
                                                                           fontFamily:
-                                                                              FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                           color:
                                                                               FlutterFlowTheme.of(context).alternate,
                                                                           fontSize:
@@ -664,7 +672,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                                                           fontWeight:
                                                                               FontWeight.w500,
                                                                           useGoogleFonts:
-                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                         ),
                                                                   ).animateOnPageLoad(
                                                                       animationsMap[
@@ -673,10 +681,10 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                                                     'Austausch',
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .bodyText1
+                                                                        .bodyMedium
                                                                         .override(
                                                                           fontFamily:
-                                                                              FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                           color:
                                                                               FlutterFlowTheme.of(context).alternate,
                                                                           fontSize:
@@ -684,7 +692,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                                                           fontWeight:
                                                                               FontWeight.bold,
                                                                           useGoogleFonts:
-                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                           lineHeight:
                                                                               1.0,
                                                                         ),
@@ -748,18 +756,18 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                                                     'repassion\'s',
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .bodyText1
+                                                                        .bodyMedium
                                                                         .override(
                                                                           fontFamily:
-                                                                              FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).primaryColor,
+                                                                              FlutterFlowTheme.of(context).primary,
                                                                           fontSize:
                                                                               20.0,
                                                                           fontWeight:
                                                                               FontWeight.w500,
                                                                           useGoogleFonts:
-                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                         ),
                                                                   ).animateOnPageLoad(
                                                                       animationsMap[
@@ -768,10 +776,10 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                                                     'Passions',
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .bodyText1
+                                                                        .bodyMedium
                                                                         .override(
                                                                           fontFamily:
-                                                                              FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                           color:
                                                                               FlutterFlowTheme.of(context).primaryText,
                                                                           fontSize:
@@ -779,7 +787,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                                                           fontWeight:
                                                                               FontWeight.bold,
                                                                           useGoogleFonts:
-                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                           lineHeight:
                                                                               1.0,
                                                                         ),
@@ -843,10 +851,10 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                                                     'Notiere blitzschnell',
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .bodyText1
+                                                                        .bodyMedium
                                                                         .override(
                                                                           fontFamily:
-                                                                              FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                           color:
                                                                               FlutterFlowTheme.of(context).alternate,
                                                                           fontSize:
@@ -854,7 +862,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                                                           fontWeight:
                                                                               FontWeight.w500,
                                                                           useGoogleFonts:
-                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                         ),
                                                                   ).animateOnPageLoad(
                                                                       animationsMap[
@@ -863,10 +871,10 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                                                     'Ideen',
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .bodyText1
+                                                                        .bodyMedium
                                                                         .override(
                                                                           fontFamily:
-                                                                              FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                           color:
                                                                               FlutterFlowTheme.of(context).alternate,
                                                                           fontSize:
@@ -874,7 +882,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                                                           fontWeight:
                                                                               FontWeight.bold,
                                                                           useGoogleFonts:
-                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                           lineHeight:
                                                                               1.0,
                                                                         ),
@@ -885,10 +893,10 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                                                     'oder veröffentliche dein',
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .bodyText1
+                                                                        .bodyMedium
                                                                         .override(
                                                                           fontFamily:
-                                                                              FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                           color:
                                                                               FlutterFlowTheme.of(context).alternate,
                                                                           fontSize:
@@ -896,7 +904,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                                                           fontWeight:
                                                                               FontWeight.w500,
                                                                           useGoogleFonts:
-                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                         ),
                                                                   ).animateOnPageLoad(
                                                                       animationsMap[
@@ -905,10 +913,10 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                                                     'Wissen',
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .bodyText1
+                                                                        .bodyMedium
                                                                         .override(
                                                                           fontFamily:
-                                                                              FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                           color:
                                                                               FlutterFlowTheme.of(context).alternate,
                                                                           fontSize:
@@ -916,7 +924,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                                                           fontWeight:
                                                                               FontWeight.bold,
                                                                           useGoogleFonts:
-                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                           lineHeight:
                                                                               1.0,
                                                                         ),
@@ -952,8 +960,9 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                                           count: 4,
                                                           axisDirection:
                                                               Axis.horizontal,
-                                                          onDotClicked: (i) {
-                                                            _model
+                                                          onDotClicked:
+                                                              (i) async {
+                                                            await _model
                                                                 .pageViewController!
                                                                 .animateToPage(
                                                               i,
@@ -977,7 +986,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                                             activeDotColor:
                                                                 FlutterFlowTheme.of(
                                                                         context)
-                                                                    .primaryColor,
+                                                                    .primary,
                                                             paintStyle:
                                                                 PaintingStyle
                                                                     .fill,
@@ -1028,15 +1037,15 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                                             0.0, 0.0, 0.0, 0.0),
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .primaryColor,
+                                                        .primary,
                                                 textStyle:
                                                     FlutterFlowTheme.of(context)
-                                                        .subtitle2
+                                                        .titleSmall
                                                         .override(
                                                           fontFamily:
                                                               FlutterFlowTheme.of(
                                                                       context)
-                                                                  .subtitle2Family,
+                                                                  .titleSmallFamily,
                                                           color: Colors.white,
                                                           fontSize: 20.0,
                                                           fontWeight:
@@ -1046,8 +1055,9 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                                               .containsKey(
                                                                   FlutterFlowTheme.of(
                                                                           context)
-                                                                      .subtitle2Family),
+                                                                      .titleSmallFamily),
                                                         ),
+                                                elevation: 2.0,
                                                 borderRadius:
                                                     BorderRadius.circular(15.0),
                                               ),
@@ -1066,6 +1076,10 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                           MainAxisAlignment.center,
                                       children: [
                                         InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
                                           onTap: () async {
                                             logFirebaseEvent(
                                                 'WELCOME_PAGE_Text_3l4052k6_ON_TAP');
@@ -1091,12 +1105,12 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                             'Du hast bereits einen Account? ',
                                             textAlign: TextAlign.start,
                                             style: FlutterFlowTheme.of(context)
-                                                .bodyText1
+                                                .bodyMedium
                                                 .override(
                                                   fontFamily:
                                                       FlutterFlowTheme.of(
                                                               context)
-                                                          .bodyText1Family,
+                                                          .bodyMediumFamily,
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .primaryText,
@@ -1107,12 +1121,16 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                                       .containsKey(
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .bodyText1Family),
+                                                              .bodyMediumFamily),
                                                   lineHeight: 1.5,
                                                 ),
                                           ),
                                         ),
                                         InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
                                           onTap: () async {
                                             logFirebaseEvent(
                                                 'WELCOME_PAGE_Text_f62fjrxz_ON_TAP');
@@ -1138,15 +1156,15 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                             'Anmelden',
                                             textAlign: TextAlign.start,
                                             style: FlutterFlowTheme.of(context)
-                                                .bodyText1
+                                                .bodyMedium
                                                 .override(
                                                   fontFamily:
                                                       FlutterFlowTheme.of(
                                                               context)
-                                                          .bodyText1Family,
+                                                          .bodyMediumFamily,
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .primaryColor,
+                                                      .primary,
                                                   fontSize: 15.0,
                                                   fontWeight: FontWeight.bold,
                                                   useGoogleFonts: GoogleFonts
@@ -1154,7 +1172,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                                       .containsKey(
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .bodyText1Family),
+                                                              .bodyMediumFamily),
                                                   lineHeight: 1.5,
                                                 ),
                                           ),
@@ -1174,6 +1192,10 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                             CrossAxisAlignment.center,
                                         children: [
                                           InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
                                             onTap: () async {
                                               logFirebaseEvent(
                                                   'WELCOME_PAGE_Container_fto4h917_ON_TAP');
@@ -1181,15 +1203,14 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                                   'Container_auth');
                                               GoRouter.of(context)
                                                   .prepareAuthEvent();
-                                              final user =
-                                                  await signInWithGoogle(
-                                                      context);
+                                              final user = await authManager
+                                                  .signInWithGoogle(context);
                                               if (user == null) {
                                                 return;
                                               }
 
                                               context.goNamedAuth(
-                                                  'startup', mounted);
+                                                  'startup', context.mounted);
                                             },
                                             child: Container(
                                               decoration: BoxDecoration(
@@ -1202,7 +1223,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                                 border: Border.all(
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .primaryColor,
+                                                      .primary,
                                                   width: 2.0,
                                                 ),
                                               ),
@@ -1229,7 +1250,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .primaryColor,
+                                                                .primary,
                                                         size: 25.0,
                                                       ),
                                                     ),
@@ -1238,14 +1259,14 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .bodyText1
+                                                              .bodyMedium
                                                               .override(
                                                                 fontFamily: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyText1Family,
+                                                                    .bodyMediumFamily,
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .primaryColor,
+                                                                    .primary,
                                                                 fontSize: 15.0,
                                                                 fontWeight:
                                                                     FontWeight
@@ -1254,7 +1275,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                                                                         .asMap()
                                                                     .containsKey(
                                                                         FlutterFlowTheme.of(context)
-                                                                            .bodyText1Family),
+                                                                            .bodyMediumFamily),
                                                               ),
                                                     ),
                                                   ],
@@ -1286,18 +1307,18 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                               Text(
                                 'repassion',
                                 style: FlutterFlowTheme.of(context)
-                                    .title2
+                                    .headlineMedium
                                     .override(
                                       fontFamily: FlutterFlowTheme.of(context)
-                                          .title2Family,
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryColor,
+                                          .headlineMediumFamily,
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
                                       fontSize: 25.0,
                                       fontWeight: FontWeight.w500,
                                       useGoogleFonts: GoogleFonts.asMap()
                                           .containsKey(
                                               FlutterFlowTheme.of(context)
-                                                  .title2Family),
+                                                  .headlineMediumFamily),
                                     ),
                               ),
                             ],

@@ -27,6 +27,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
+import '/flutter_flow/flutter_flow_util.dart' show routeObserver;
+
 const kYoutubeAspectRatio = 16 / 9;
 final _youtubeFullScreenControllerMap = <String, YoutubePlayerController>{};
 
@@ -40,6 +42,7 @@ class FlutterFlowYoutubePlayer extends StatefulWidget {
     this.looping = false,
     this.showControls = true,
     this.showFullScreen = false,
+    this.pauseOnNavigate = true,
   });
 
   final String url;
@@ -50,13 +53,15 @@ class FlutterFlowYoutubePlayer extends StatefulWidget {
   final bool looping;
   final bool showControls;
   final bool showFullScreen;
+  final bool pauseOnNavigate;
 
   @override
   State<FlutterFlowYoutubePlayer> createState() =>
       _FlutterFlowYoutubePlayerState();
 }
 
-class _FlutterFlowYoutubePlayerState extends State<FlutterFlowYoutubePlayer> {
+class _FlutterFlowYoutubePlayerState extends State<FlutterFlowYoutubePlayer>
+    with RouteAware {
   YoutubePlayerController? _controller;
   String? _videoId;
   _YoutubeFullScreenWrapperState? _youtubeWrapper;
@@ -78,6 +83,21 @@ class _FlutterFlowYoutubePlayerState extends State<FlutterFlowYoutubePlayer> {
       _youtubeFullScreenControllerMap.remove(_videoId);
     }
     super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (widget.pauseOnNavigate) {
+      routeObserver.subscribe(this, ModalRoute.of(context)!);
+    }
+  }
+
+  @override
+  void didPushNext() {
+    if (widget.pauseOnNavigate) {
+      _controller?.pauseVideo();
+    }
   }
 
   double get width => widget.width == null || widget.width! >= double.infinity
@@ -141,7 +161,7 @@ class _FlutterFlowYoutubePlayerState extends State<FlutterFlowYoutubePlayer> {
                       builder: (_, player) => player,
                       autoFullScreen: false,
                     )
-                  : YoutubePlayer(controller: _controller)
+                  : YoutubePlayer(controller: _controller!)
               : Container(color: Colors.transparent),
         ),
       );

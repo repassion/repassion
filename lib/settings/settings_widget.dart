@@ -1,4 +1,4 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -85,12 +85,15 @@ class _SettingsWidgetState extends State<SettingsWidget>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+    context.watch<FFAppState>();
+
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        body: SafeArea(
+          top: true,
           child: Align(
             alignment: AlignmentDirectional(0.0, 0.0),
             child: Container(
@@ -124,6 +127,10 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
                                       onTap: () async {
                                         logFirebaseEvent(
                                             'SETTINGS_PAGE_Image_rlw060d1_ON_TAP');
@@ -151,6 +158,10 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           5.0, 0.0, 0.0, 0.0),
                                       child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
                                         onTap: () async {
                                           logFirebaseEvent(
                                               'SETTINGS_PAGE_Icon_mwtnjj16_ON_TAP');
@@ -250,18 +261,17 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                               containerChatRecordList
                                                                   .map((e) => e
                                                                       .notifications)
-                                                                  .withoutNulls
                                                                   .toList(),
                                                               requestsCount)
                                                           .toString(),
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .bodyText1
+                                                              .bodyMedium
                                                               .override(
                                                                 fontFamily: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyText1Family,
+                                                                    .bodyMediumFamily,
                                                                 color: Colors
                                                                     .white,
                                                                 fontSize: 12.0,
@@ -272,7 +282,7 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                                         .asMap()
                                                                     .containsKey(
                                                                         FlutterFlowTheme.of(context)
-                                                                            .bodyText1Family),
+                                                                            .bodyMediumFamily),
                                                               ),
                                                     ),
                                                     showBadge: functions
@@ -280,7 +290,6 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                                 containerChatRecordList
                                                                     .map((e) =>
                                                                         e.notifications)
-                                                                    .withoutNulls
                                                                     .toList(),
                                                                 requestsCount)
                                                             .toString() !=
@@ -290,7 +299,7 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                     badgeColor:
                                                         FlutterFlowTheme.of(
                                                                 context)
-                                                            .primaryColor,
+                                                            .primary,
                                                     elevation: 1.0,
                                                     padding:
                                                         EdgeInsetsDirectional
@@ -311,6 +320,14 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                                   5.0,
                                                                   0.0),
                                                       child: InkWell(
+                                                        splashColor:
+                                                            Colors.transparent,
+                                                        focusColor:
+                                                            Colors.transparent,
+                                                        hoverColor:
+                                                            Colors.transparent,
+                                                        highlightColor:
+                                                            Colors.transparent,
                                                         onTap: () async {
                                                           logFirebaseEvent(
                                                               'SETTINGS_PAGE_Icon_vk4pty6g_ON_TAP');
@@ -351,6 +368,10 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                       },
                                     ),
                                     InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
                                       onTap: () async {
                                         logFirebaseEvent(
                                             'SETTINGS_PAGE_Icon_yztrkrll_ON_TAP');
@@ -370,7 +391,7 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                       child: Icon(
                                         Icons.settings_sharp,
                                         color: FlutterFlowTheme.of(context)
-                                            .primaryColor,
+                                            .primary,
                                         size: 35.0,
                                       ),
                                     ),
@@ -516,16 +537,16 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                                           2,
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
-                                                                          .title3
+                                                                          .headlineSmall
                                                                           .override(
                                                                             fontFamily:
-                                                                                FlutterFlowTheme.of(context).title3Family,
+                                                                                FlutterFlowTheme.of(context).headlineSmallFamily,
                                                                             fontSize:
                                                                                 20.0,
                                                                             fontWeight:
                                                                                 FontWeight.bold,
                                                                             useGoogleFonts:
-                                                                                GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).title3Family),
+                                                                                GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).headlineSmallFamily),
                                                                           ),
                                                                     ),
                                                                   ),
@@ -550,12 +571,12 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                                               Text(
                                                                         '@${currentUserDisplayName}',
                                                                         style: FlutterFlowTheme.of(context)
-                                                                            .bodyText1
+                                                                            .bodyMedium
                                                                             .override(
-                                                                              fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
-                                                                              color: FlutterFlowTheme.of(context).primaryColor,
+                                                                              fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                              color: FlutterFlowTheme.of(context).primary,
                                                                               fontWeight: FontWeight.bold,
-                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                             ),
                                                                       ),
                                                                     ),
@@ -571,7 +592,7 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                                           Icons
                                                                               .verified,
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).primaryColor,
+                                                                              FlutterFlowTheme.of(context).primary,
                                                                           size:
                                                                               15.0,
                                                                         ),
@@ -596,10 +617,10 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                                     'Information',
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .bodyText1
+                                                                        .bodyMedium
                                                                         .override(
                                                                           fontFamily:
-                                                                              FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                           color:
                                                                               FlutterFlowTheme.of(context).secondaryText,
                                                                           fontSize:
@@ -607,7 +628,7 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                                           fontWeight:
                                                                               FontWeight.w500,
                                                                           useGoogleFonts:
-                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                         ),
                                                                   ),
                                                                 ),
@@ -650,12 +671,12 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                                         maxLines:
                                                                             2,
                                                                         style: FlutterFlowTheme.of(context)
-                                                                            .title3
+                                                                            .headlineSmall
                                                                             .override(
-                                                                              fontFamily: FlutterFlowTheme.of(context).title3Family,
+                                                                              fontFamily: FlutterFlowTheme.of(context).headlineSmallFamily,
                                                                               fontSize: 15.0,
                                                                               fontWeight: FontWeight.w500,
-                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).title3Family),
+                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).headlineSmallFamily),
                                                                             ),
                                                                       ),
                                                                     ),
@@ -695,18 +716,18 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                                           2,
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
-                                                                          .title3
+                                                                          .headlineSmall
                                                                           .override(
                                                                             fontFamily:
-                                                                                FlutterFlowTheme.of(context).title3Family,
+                                                                                FlutterFlowTheme.of(context).headlineSmallFamily,
                                                                             color:
-                                                                                FlutterFlowTheme.of(context).primaryColor,
+                                                                                FlutterFlowTheme.of(context).primary,
                                                                             fontSize:
                                                                                 12.0,
                                                                             fontWeight:
                                                                                 FontWeight.bold,
                                                                             useGoogleFonts:
-                                                                                GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).title3Family),
+                                                                                GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).headlineSmallFamily),
                                                                           ),
                                                                     ),
                                                                   ),
@@ -724,6 +745,14 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                     .fromSTEB(
                                                         0.0, 0.0, 0.0, 10.0),
                                                 child: InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
                                                   onTap: () async {
                                                     logFirebaseEvent(
                                                         'SETTINGS_PAGE_Setting_ON_TAP');
@@ -776,7 +805,7 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                                       .brush_sharp,
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .secondaryColor,
+                                                                      .secondary,
                                                                   size: 25.0,
                                                                 ),
                                                               ),
@@ -799,18 +828,18 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                                     maxLines: 2,
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .bodyText1
+                                                                        .bodyMedium
                                                                         .override(
                                                                           fontFamily:
-                                                                              FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).primaryColor,
+                                                                              FlutterFlowTheme.of(context).primary,
                                                                           fontSize:
                                                                               16.0,
                                                                           fontWeight:
                                                                               FontWeight.w600,
                                                                           useGoogleFonts:
-                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                         ),
                                                                   ),
                                                                   Padding(
@@ -827,18 +856,18 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                                               .start,
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
-                                                                          .bodyText1
+                                                                          .bodyMedium
                                                                           .override(
                                                                             fontFamily:
-                                                                                FlutterFlowTheme.of(context).bodyText1Family,
+                                                                                FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                             color:
-                                                                                FlutterFlowTheme.of(context).secondaryColor,
+                                                                                FlutterFlowTheme.of(context).secondary,
                                                                             fontSize:
                                                                                 15.0,
                                                                             fontWeight:
                                                                                 FontWeight.w500,
                                                                             useGoogleFonts:
-                                                                                GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                           ),
                                                                     ),
                                                                   ),
@@ -854,7 +883,7 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .secondaryColor,
+                                                                .secondary,
                                                         size: 25.0,
                                                       ),
                                                     ],
@@ -866,6 +895,14 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                     .fromSTEB(
                                                         0.0, 0.0, 0.0, 10.0),
                                                 child: InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
                                                   onTap: () async {
                                                     logFirebaseEvent(
                                                         'SETTINGS_PAGE_Setting_ON_TAP');
@@ -917,7 +954,7 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                                   Icons.tag,
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .secondaryColor,
+                                                                      .secondary,
                                                                   size: 25.0,
                                                                 ),
                                                               ),
@@ -940,18 +977,18 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                                     maxLines: 2,
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .bodyText1
+                                                                        .bodyMedium
                                                                         .override(
                                                                           fontFamily:
-                                                                              FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).primaryColor,
+                                                                              FlutterFlowTheme.of(context).primary,
                                                                           fontSize:
                                                                               16.0,
                                                                           fontWeight:
                                                                               FontWeight.w600,
                                                                           useGoogleFonts:
-                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                         ),
                                                                   ),
                                                                   Padding(
@@ -968,18 +1005,18 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                                               .start,
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
-                                                                          .bodyText1
+                                                                          .bodyMedium
                                                                           .override(
                                                                             fontFamily:
-                                                                                FlutterFlowTheme.of(context).bodyText1Family,
+                                                                                FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                             color:
-                                                                                FlutterFlowTheme.of(context).secondaryColor,
+                                                                                FlutterFlowTheme.of(context).secondary,
                                                                             fontSize:
                                                                                 15.0,
                                                                             fontWeight:
                                                                                 FontWeight.w500,
                                                                             useGoogleFonts:
-                                                                                GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                           ),
                                                                     ),
                                                                   ),
@@ -995,7 +1032,7 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .secondaryColor,
+                                                                .secondary,
                                                         size: 25.0,
                                                       ),
                                                     ],
@@ -1003,6 +1040,11 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                 ),
                                               ),
                                               InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
                                                 onTap: () async {
                                                   logFirebaseEvent(
                                                       'SETTINGS_PAGE_Setting_ON_TAP');
@@ -1054,7 +1096,7 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                                     .text_snippet,
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .secondaryColor,
+                                                                    .secondary,
                                                                 size: 25.0,
                                                               ),
                                                             ),
@@ -1077,18 +1119,18 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                                   maxLines: 2,
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .bodyText1
+                                                                      .bodyMedium
                                                                       .override(
                                                                         fontFamily:
-                                                                            FlutterFlowTheme.of(context).bodyText1Family,
+                                                                            FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                         color: FlutterFlowTheme.of(context)
-                                                                            .primaryColor,
+                                                                            .primary,
                                                                         fontSize:
                                                                             16.0,
                                                                         fontWeight:
                                                                             FontWeight.w600,
                                                                         useGoogleFonts:
-                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                       ),
                                                                 ),
                                                                 Padding(
@@ -1105,18 +1147,18 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                                             .start,
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .bodyText1
+                                                                        .bodyMedium
                                                                         .override(
                                                                           fontFamily:
-                                                                              FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                           color:
-                                                                              FlutterFlowTheme.of(context).secondaryColor,
+                                                                              FlutterFlowTheme.of(context).secondary,
                                                                           fontSize:
                                                                               15.0,
                                                                           fontWeight:
                                                                               FontWeight.w500,
                                                                           useGoogleFonts:
-                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                         ),
                                                                   ),
                                                                 ),
@@ -1131,7 +1173,7 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .secondaryColor,
+                                                              .secondary,
                                                       size: 25.0,
                                                     ),
                                                   ],
@@ -1144,6 +1186,11 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 10.0, 0.0, 10.0),
                                             child: InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
                                               onTap: () async {
                                                 logFirebaseEvent(
                                                     'SETTINGS_PAGE_Row_1e1icn7s_ON_TAP');
@@ -1185,11 +1232,11 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .bodyText1
+                                                              .bodyMedium
                                                               .override(
                                                                 fontFamily: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyText1Family,
+                                                                    .bodyMediumFamily,
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .secondaryText,
@@ -1200,7 +1247,7 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                                         .asMap()
                                                                     .containsKey(
                                                                         FlutterFlowTheme.of(context)
-                                                                            .bodyText1Family),
+                                                                            .bodyMediumFamily),
                                                               ),
                                                     ),
                                                   ),
@@ -1255,12 +1302,12 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                   'Bei Start \"Passion erstellen\" öffnen',
                                                   style: FlutterFlowTheme.of(
                                                           context)
-                                                      .bodyText1
+                                                      .bodyMedium
                                                       .override(
                                                         fontFamily:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .bodyText1Family,
+                                                                .bodyMediumFamily,
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -1273,7 +1320,7 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                             .containsKey(
                                                                 FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyText1Family),
+                                                                    .bodyMediumFamily),
                                                       ),
                                                 ),
                                                 AuthUserStreamWidget(
@@ -1320,7 +1367,7 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                     activeColor:
                                                         FlutterFlowTheme.of(
                                                                 context)
-                                                            .primaryColor,
+                                                            .primary,
                                                     inactiveTrackColor:
                                                         FlutterFlowTheme.of(
                                                                 context)
@@ -1349,12 +1396,12 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                   'Dark Mode verwenden 🛠',
                                                   style: FlutterFlowTheme.of(
                                                           context)
-                                                      .bodyText1
+                                                      .bodyMedium
                                                       .override(
                                                         fontFamily:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .bodyText1Family,
+                                                                .bodyMediumFamily,
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -1367,7 +1414,7 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                             .containsKey(
                                                                 FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyText1Family),
+                                                                    .bodyMediumFamily),
                                                       ),
                                                 ),
                                                 AuthUserStreamWidget(
@@ -1425,7 +1472,7 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                     activeColor:
                                                         FlutterFlowTheme.of(
                                                                 context)
-                                                            .primaryColor,
+                                                            .primary,
                                                     inactiveTrackColor:
                                                         FlutterFlowTheme.of(
                                                                 context)
@@ -1470,6 +1517,14 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                     .fromSTEB(
                                                         0.0, 0.0, 0.0, 10.0),
                                                 child: InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
                                                   onTap: () async {
                                                     logFirebaseEvent(
                                                         'SETTINGS_PAGE_Setting_ON_TAP');
@@ -1545,16 +1600,16 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                                     maxLines: 2,
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .bodyText1
+                                                                        .bodyMedium
                                                                         .override(
                                                                           fontFamily:
-                                                                              FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                           fontSize:
                                                                               16.0,
                                                                           fontWeight:
                                                                               FontWeight.w600,
                                                                           useGoogleFonts:
-                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                         ),
                                                                   ),
                                                                   Padding(
@@ -1571,10 +1626,10 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                                               .start,
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
-                                                                          .bodyText1
+                                                                          .bodyMedium
                                                                           .override(
                                                                             fontFamily:
-                                                                                FlutterFlowTheme.of(context).bodyText1Family,
+                                                                                FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                             color:
                                                                                 FlutterFlowTheme.of(context).secondaryText,
                                                                             fontSize:
@@ -1582,7 +1637,7 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                                             fontWeight:
                                                                                 FontWeight.w500,
                                                                             useGoogleFonts:
-                                                                                GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                           ),
                                                                     ),
                                                                   ),
@@ -1610,6 +1665,14 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                     .fromSTEB(
                                                         0.0, 0.0, 0.0, 10.0),
                                                 child: InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
                                                   onTap: () async {
                                                     logFirebaseEvent(
                                                         'SETTINGS_PAGE_Setting_ON_TAP');
@@ -1654,7 +1717,8 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                           'Setting_auth');
                                                       GoRouter.of(context)
                                                           .prepareAuthEvent();
-                                                      await signOut();
+                                                      await authManager
+                                                          .signOut();
                                                       GoRouter.of(context)
                                                           .clearRedirectLocation();
 
@@ -1663,7 +1727,7 @@ class _SettingsWidgetState extends State<SettingsWidget>
 
                                                       context.goNamedAuth(
                                                         'Login',
-                                                        mounted,
+                                                        context.mounted,
                                                         extra: <String,
                                                             dynamic>{
                                                           kTransitionInfoKey:
@@ -1731,16 +1795,16 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                                     maxLines: 2,
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .bodyText1
+                                                                        .bodyMedium
                                                                         .override(
                                                                           fontFamily:
-                                                                              FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                           fontSize:
                                                                               16.0,
                                                                           fontWeight:
                                                                               FontWeight.w600,
                                                                           useGoogleFonts:
-                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                         ),
                                                                   ),
                                                                   Padding(
@@ -1757,10 +1821,10 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                                               .start,
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
-                                                                          .bodyText1
+                                                                          .bodyMedium
                                                                           .override(
                                                                             fontFamily:
-                                                                                FlutterFlowTheme.of(context).bodyText1Family,
+                                                                                FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                             color:
                                                                                 FlutterFlowTheme.of(context).secondaryText,
                                                                             fontSize:
@@ -1768,7 +1832,7 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                                             fontWeight:
                                                                                 FontWeight.w500,
                                                                             useGoogleFonts:
-                                                                                GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                           ),
                                                                     ),
                                                                   ),
@@ -1796,6 +1860,14 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                     .fromSTEB(
                                                         0.0, 0.0, 0.0, 10.0),
                                                 child: InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
                                                   onTap: () async {
                                                     logFirebaseEvent(
                                                         'SETTINGS_PAGE_Setting_ON_TAP');
@@ -1838,7 +1910,8 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                     if (confirmDialogResponse) {
                                                       logFirebaseEvent(
                                                           'Setting_auth');
-                                                      await deleteUser(context);
+                                                      await authManager
+                                                          .deleteUser(context);
                                                       logFirebaseEvent(
                                                           'Setting_navigate_to');
 
@@ -1902,16 +1975,16 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                                     maxLines: 2,
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .bodyText1
+                                                                        .bodyMedium
                                                                         .override(
                                                                           fontFamily:
-                                                                              FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                           fontSize:
                                                                               16.0,
                                                                           fontWeight:
                                                                               FontWeight.w600,
                                                                           useGoogleFonts:
-                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                         ),
                                                                   ),
                                                                   Padding(
@@ -1928,10 +2001,10 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                                               .start,
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
-                                                                          .bodyText1
+                                                                          .bodyMedium
                                                                           .override(
                                                                             fontFamily:
-                                                                                FlutterFlowTheme.of(context).bodyText1Family,
+                                                                                FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                             color:
                                                                                 FlutterFlowTheme.of(context).secondaryText,
                                                                             fontSize:
@@ -1939,7 +2012,7 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                                                             fontWeight:
                                                                                 FontWeight.w500,
                                                                             useGoogleFonts:
-                                                                                GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                           ),
                                                                     ),
                                                                   ),
@@ -2009,6 +2082,10 @@ class _SettingsWidgetState extends State<SettingsWidget>
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
                                   onTap: () async {
                                     logFirebaseEvent(
                                         'SETTINGS_PAGE_Row_r7hib9kt_ON_TAP');
@@ -2027,22 +2104,22 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                       Text(
                                         'repassion',
                                         style: FlutterFlowTheme.of(context)
-                                            .bodyText1
+                                            .bodyMedium
                                             .override(
                                               fontFamily:
                                                   FlutterFlowTheme.of(context)
-                                                      .bodyText1Family,
+                                                      .bodyMediumFamily,
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primaryColor,
+                                                      .primary,
                                               fontSize: 12.0,
                                               fontWeight: FontWeight.bold,
-                                              useGoogleFonts:
-                                                  GoogleFonts.asMap()
-                                                      .containsKey(
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText1Family),
+                                              useGoogleFonts: GoogleFonts
+                                                      .asMap()
+                                                  .containsKey(
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMediumFamily),
                                             ),
                                       ),
                                     ],
@@ -2052,6 +2129,10 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
                                       onTap: () async {
                                         logFirebaseEvent(
                                             'SETTINGS_PAGE_Text_el7ywtiu_ON_TAP');
@@ -2062,22 +2143,22 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                       child: Text(
                                         'Impressum',
                                         style: FlutterFlowTheme.of(context)
-                                            .bodyText1
+                                            .bodyMedium
                                             .override(
                                               fontFamily:
                                                   FlutterFlowTheme.of(context)
-                                                      .bodyText1Family,
+                                                      .bodyMediumFamily,
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .secondaryText,
                                               fontSize: 12.0,
                                               fontWeight: FontWeight.w500,
-                                              useGoogleFonts:
-                                                  GoogleFonts.asMap()
-                                                      .containsKey(
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText1Family),
+                                              useGoogleFonts: GoogleFonts
+                                                      .asMap()
+                                                  .containsKey(
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMediumFamily),
                                             ),
                                       ),
                                     ),
@@ -2087,26 +2168,30 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                       child: Text(
                                         '•',
                                         style: FlutterFlowTheme.of(context)
-                                            .bodyText1
+                                            .bodyMedium
                                             .override(
                                               fontFamily:
                                                   FlutterFlowTheme.of(context)
-                                                      .bodyText1Family,
+                                                      .bodyMediumFamily,
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .secondaryText,
                                               fontSize: 12.0,
                                               fontWeight: FontWeight.w500,
-                                              useGoogleFonts:
-                                                  GoogleFonts.asMap()
-                                                      .containsKey(
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText1Family),
+                                              useGoogleFonts: GoogleFonts
+                                                      .asMap()
+                                                  .containsKey(
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMediumFamily),
                                             ),
                                       ),
                                     ),
                                     InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
                                       onTap: () async {
                                         logFirebaseEvent(
                                             'SETTINGS_PAGE_Text_41zb14jf_ON_TAP');
@@ -2117,22 +2202,22 @@ class _SettingsWidgetState extends State<SettingsWidget>
                                       child: Text(
                                         'Datenschutz',
                                         style: FlutterFlowTheme.of(context)
-                                            .bodyText1
+                                            .bodyMedium
                                             .override(
                                               fontFamily:
                                                   FlutterFlowTheme.of(context)
-                                                      .bodyText1Family,
+                                                      .bodyMediumFamily,
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .secondaryText,
                                               fontSize: 12.0,
                                               fontWeight: FontWeight.w500,
-                                              useGoogleFonts:
-                                                  GoogleFonts.asMap()
-                                                      .containsKey(
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText1Family),
+                                              useGoogleFonts: GoogleFonts
+                                                      .asMap()
+                                                  .containsKey(
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMediumFamily),
                                             ),
                                       ),
                                     ),

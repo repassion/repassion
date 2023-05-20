@@ -1,4 +1,4 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/no_entries_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
@@ -83,7 +83,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'Chat'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      logFirebaseEvent('CHAT_PAGE_Chat_ON_PAGE_LOAD');
+      logFirebaseEvent('CHAT_PAGE_Chat_ON_INIT_STATE');
       if (!(await getPermissionStatus(notificationsPermission))) {
         logFirebaseEvent('Chat_request_permissions');
         await requestPermission(notificationsPermission);
@@ -103,12 +103,15 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+    context.watch<FFAppState>();
+
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        body: SafeArea(
+          top: true,
           child: Align(
             alignment: AlignmentDirectional(0.0, 0.0),
             child: Container(
@@ -139,6 +142,10 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
                                 onTap: () async {
                                   logFirebaseEvent(
                                       'CHAT_PAGE_Image_kdbo4qn4_ON_TAP');
@@ -165,6 +172,10 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     5.0, 0.0, 0.0, 0.0),
                                 child: InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
                                   onTap: () async {
                                     logFirebaseEvent(
                                         'CHAT_PAGE_Icon_8kj0wvqf_ON_TAP');
@@ -259,18 +270,17 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                         containerChatRecordList
                                                             .map((e) =>
                                                                 e.notifications)
-                                                            .withoutNulls
                                                             .toList(),
                                                         requestsCount)
                                                     .toString(),
                                                 style:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyText1
+                                                        .bodyMedium
                                                         .override(
                                                           fontFamily:
                                                               FlutterFlowTheme.of(
                                                                       context)
-                                                                  .bodyText1Family,
+                                                                  .bodyMediumFamily,
                                                           color: Colors.white,
                                                           fontSize: 12.0,
                                                           fontWeight:
@@ -280,7 +290,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                               .containsKey(
                                                                   FlutterFlowTheme.of(
                                                                           context)
-                                                                      .bodyText1Family),
+                                                                      .bodyMediumFamily),
                                                         ),
                                               ),
                                               showBadge: functions
@@ -288,7 +298,6 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                           containerChatRecordList
                                                               .map((e) => e
                                                                   .notifications)
-                                                              .withoutNulls
                                                               .toList(),
                                                           requestsCount)
                                                       .toString() !=
@@ -296,7 +305,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                               shape: badges.BadgeShape.circle,
                                               badgeColor:
                                                   FlutterFlowTheme.of(context)
-                                                      .primaryColor,
+                                                      .primary,
                                               elevation: 1.0,
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(5.0, 5.0, 5.0, 5.0),
@@ -310,6 +319,14 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                     .fromSTEB(
                                                         0.0, 0.0, 5.0, 0.0),
                                                 child: InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
                                                   onTap: () async {
                                                     logFirebaseEvent(
                                                         'CHAT_PAGE_Icon_hfw7aguu_ON_TAP');
@@ -333,7 +350,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                     Icons.chat_sharp,
                                                     color: FlutterFlowTheme.of(
                                                             context)
-                                                        .primaryColor,
+                                                        .primary,
                                                     size: 35.0,
                                                   ),
                                                 ),
@@ -347,6 +364,10 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                 },
                               ),
                               InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
                                 onTap: () async {
                                   logFirebaseEvent(
                                       'CHAT_PAGE_Icon_uloyzajg_ON_TAP');
@@ -410,39 +431,45 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                           initialIndex: 1,
                                           child: Column(
                                             children: [
-                                              TabBar(
-                                                labelColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryColor,
-                                                labelStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyText1Family,
-                                                          fontSize: 15.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyText1Family),
-                                                        ),
-                                                indicatorColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryColor,
-                                                tabs: [
-                                                  Tab(
-                                                    text: 'Anfragen',
-                                                  ),
-                                                  Tab(
-                                                    text: 'Chats',
-                                                  ),
-                                                ],
+                                              Align(
+                                                alignment: Alignment(0.0, 0),
+                                                child: TabBar(
+                                                  labelColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primary,
+                                                  labelStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily,
+                                                            fontSize: 15.0,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            useGoogleFonts: GoogleFonts
+                                                                    .asMap()
+                                                                .containsKey(
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMediumFamily),
+                                                          ),
+                                                  indicatorColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primary,
+                                                  tabs: [
+                                                    Tab(
+                                                      text: 'Anfragen',
+                                                    ),
+                                                    Tab(
+                                                      text: 'Chats',
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                               Expanded(
                                                 child: TabBarView(
@@ -544,6 +571,14 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                         final containerUserRecord =
                                                                             snapshot.data!;
                                                                         return InkWell(
+                                                                          splashColor:
+                                                                              Colors.transparent,
+                                                                          focusColor:
+                                                                              Colors.transparent,
+                                                                          hoverColor:
+                                                                              Colors.transparent,
+                                                                          highlightColor:
+                                                                              Colors.transparent,
                                                                           onTap:
                                                                               () async {
                                                                             logFirebaseEvent('CHAT_PAGE_Container_w93bd738_ON_TAP');
@@ -609,34 +644,34 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                                             crossAxisAlignment: CrossAxisAlignment.start,
                                                                                             children: [
                                                                                               Text(
-                                                                                                containerUserRecord.firstName!,
-                                                                                                style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                                      fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                                                containerUserRecord.firstName,
+                                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                      fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                                       fontSize: 16.0,
                                                                                                       fontWeight: FontWeight.w500,
-                                                                                                      useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                                      useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                                     ),
                                                                                               ),
                                                                                               Padding(
                                                                                                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
                                                                                                 child: Text(
-                                                                                                  containerUserRecord.lastName!,
-                                                                                                  style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                                        fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                                                  containerUserRecord.lastName,
+                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                        fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                                         fontSize: 16.0,
                                                                                                         fontWeight: FontWeight.bold,
-                                                                                                        useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                                        useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                                       ),
                                                                                                 ),
                                                                                               ),
                                                                                               Text(
                                                                                                 '@${containerUserRecord.displayName}',
-                                                                                                style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                                      fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                      fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                                       color: FlutterFlowTheme.of(context).secondaryText,
                                                                                                       fontSize: 14.0,
                                                                                                       fontWeight: FontWeight.w500,
-                                                                                                      useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                                      useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                                     ),
                                                                                               ),
                                                                                             ],
@@ -646,6 +681,10 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                                           mainAxisSize: MainAxisSize.max,
                                                                                           children: [
                                                                                             InkWell(
+                                                                                              splashColor: Colors.transparent,
+                                                                                              focusColor: Colors.transparent,
+                                                                                              hoverColor: Colors.transparent,
+                                                                                              highlightColor: Colors.transparent,
                                                                                               onTap: () async {
                                                                                                 logFirebaseEvent('CHAT_PAGE_Icon_wwzw4gz4_ON_TAP');
                                                                                                 logFirebaseEvent('Icon_haptic_feedback');
@@ -673,11 +712,15 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                                               },
                                                                                               child: Icon(
                                                                                                 Icons.close_sharp,
-                                                                                                color: FlutterFlowTheme.of(context).tertiaryColor,
+                                                                                                color: FlutterFlowTheme.of(context).tertiary,
                                                                                                 size: 50.0,
                                                                                               ),
                                                                                             ),
                                                                                             InkWell(
+                                                                                              splashColor: Colors.transparent,
+                                                                                              focusColor: Colors.transparent,
+                                                                                              hoverColor: Colors.transparent,
+                                                                                              highlightColor: Colors.transparent,
                                                                                               onTap: () async {
                                                                                                 logFirebaseEvent('CHAT_PAGE_Icon_sj8p1e54_ON_TAP');
                                                                                                 logFirebaseEvent('Icon_haptic_feedback');
@@ -713,7 +756,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                                               },
                                                                                               child: Icon(
                                                                                                 Icons.check_sharp,
-                                                                                                color: FlutterFlowTheme.of(context).primaryColor,
+                                                                                                color: FlutterFlowTheme.of(context).primary,
                                                                                                 size: 50.0,
                                                                                               ),
                                                                                             ),
@@ -834,6 +877,14 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                         final containerUserRecord =
                                                                             snapshot.data!;
                                                                         return InkWell(
+                                                                          splashColor:
+                                                                              Colors.transparent,
+                                                                          focusColor:
+                                                                              Colors.transparent,
+                                                                          hoverColor:
+                                                                              Colors.transparent,
+                                                                          highlightColor:
+                                                                              Colors.transparent,
                                                                           onTap:
                                                                               () async {
                                                                             logFirebaseEvent('CHAT_PAGE_Container_ekt9bti4_ON_TAP');
@@ -935,24 +986,24 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                                                       Padding(
                                                                                                         padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
                                                                                                         child: Text(
-                                                                                                          containerUserRecord.firstName!,
-                                                                                                          style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                                                fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                                                          containerUserRecord.firstName,
+                                                                                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                                fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                                                 fontSize: 16.0,
                                                                                                                 fontWeight: FontWeight.w500,
-                                                                                                                useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                                                useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                                               ),
                                                                                                         ),
                                                                                                       ),
                                                                                                       Padding(
                                                                                                         padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
                                                                                                         child: Text(
-                                                                                                          containerUserRecord.lastName!,
-                                                                                                          style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                                                fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                                                          containerUserRecord.lastName,
+                                                                                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                                fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                                                 fontSize: 16.0,
                                                                                                                 fontWeight: FontWeight.bold,
-                                                                                                                useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                                                useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                                               ),
                                                                                                         ),
                                                                                                       ),
@@ -960,14 +1011,14 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                                                   ),
                                                                                                 ),
                                                                                                 Text(
-                                                                                                  columnChatRecord.lastActivity!,
+                                                                                                  columnChatRecord.lastActivity,
                                                                                                   maxLines: 2,
-                                                                                                  style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                                        fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                        fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                                         color: FlutterFlowTheme.of(context).secondaryText,
                                                                                                         fontSize: 14.0,
                                                                                                         fontWeight: FontWeight.w500,
-                                                                                                        useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                                        useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                                       ),
                                                                                                 ),
                                                                                               ],
@@ -998,18 +1049,18 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                                                   padding: EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 5.0),
                                                                                                   child: badges.Badge(
                                                                                                     badgeContent: Text(
-                                                                                                      functions.notificationSum(containerChatRecordList.map((e) => e.notifications).withoutNulls.toList(), null).toString(),
-                                                                                                      style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                                            fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                                                      functions.notificationSum(containerChatRecordList.map((e) => e.notifications).toList(), null).toString(),
+                                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                            fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                                             color: Colors.white,
                                                                                                             fontSize: 12.0,
                                                                                                             fontWeight: FontWeight.w500,
-                                                                                                            useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                                            useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                                           ),
                                                                                                     ),
-                                                                                                    showBadge: functions.notificationSum(containerChatRecordList.map((e) => e.notifications).withoutNulls.toList(), null).toString() != 'null',
+                                                                                                    showBadge: functions.notificationSum(containerChatRecordList.map((e) => e.notifications).toList(), null).toString() != 'null',
                                                                                                     shape: badges.BadgeShape.circle,
-                                                                                                    badgeColor: FlutterFlowTheme.of(context).primaryColor,
+                                                                                                    badgeColor: FlutterFlowTheme.of(context).primary,
                                                                                                     elevation: 1.0,
                                                                                                     padding: EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 5.0),
                                                                                                     position: badges.BadgePosition.topEnd(),

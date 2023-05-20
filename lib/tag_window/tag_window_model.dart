@@ -1,4 +1,4 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/max_main_tags_warning_widget.dart';
 import '/components/no_entries_widget.dart';

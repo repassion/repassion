@@ -1,115 +1,189 @@
 import 'dart:async';
 
+import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
+
 import 'index.dart';
-import 'serializers.dart';
-import 'package:built_value/built_value.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
-part 'user_record.g.dart';
+class UserRecord extends FirestoreRecord {
+  UserRecord._(
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
+    _initializeFields();
+  }
 
-abstract class UserRecord implements Built<UserRecord, UserRecordBuilder> {
-  static Serializer<UserRecord> get serializer => _$userRecordSerializer;
+  // "email" field.
+  String? _email;
+  String get email => _email ?? '';
+  bool hasEmail() => _email != null;
 
-  String? get email;
+  // "display_name" field.
+  String? _displayName;
+  String get displayName => _displayName ?? '';
+  bool hasDisplayName() => _displayName != null;
 
-  @BuiltValueField(wireName: 'display_name')
-  String? get displayName;
+  // "photo_url" field.
+  String? _photoUrl;
+  String get photoUrl => _photoUrl ?? '';
+  bool hasPhotoUrl() => _photoUrl != null;
 
-  @BuiltValueField(wireName: 'photo_url')
-  String? get photoUrl;
+  // "uid" field.
+  String? _uid;
+  String get uid => _uid ?? '';
+  bool hasUid() => _uid != null;
 
-  String? get uid;
+  // "created_time" field.
+  DateTime? _createdTime;
+  DateTime? get createdTime => _createdTime;
+  bool hasCreatedTime() => _createdTime != null;
 
-  @BuiltValueField(wireName: 'created_time')
-  DateTime? get createdTime;
+  // "phone_number" field.
+  String? _phoneNumber;
+  String get phoneNumber => _phoneNumber ?? '';
+  bool hasPhoneNumber() => _phoneNumber != null;
 
-  @BuiltValueField(wireName: 'phone_number')
-  String? get phoneNumber;
+  // "first_name" field.
+  String? _firstName;
+  String get firstName => _firstName ?? '';
+  bool hasFirstName() => _firstName != null;
 
-  @BuiltValueField(wireName: 'first_name')
-  String? get firstName;
+  // "last_name" field.
+  String? _lastName;
+  String get lastName => _lastName ?? '';
+  bool hasLastName() => _lastName != null;
 
-  @BuiltValueField(wireName: 'last_name')
-  String? get lastName;
+  // "age" field.
+  int? _age;
+  int get age => _age ?? 0;
+  bool hasAge() => _age != null;
 
-  int? get age;
+  // "birthdate" field.
+  String? _birthdate;
+  String get birthdate => _birthdate ?? '';
+  bool hasBirthdate() => _birthdate != null;
 
-  String? get birthdate;
+  // "info" field.
+  String? _info;
+  String get info => _info ?? '';
+  bool hasInfo() => _info != null;
 
-  String? get info;
+  // "verified" field.
+  bool? _verified;
+  bool get verified => _verified ?? false;
+  bool hasVerified() => _verified != null;
 
-  bool? get verified;
+  // "location_address" field.
+  String? _locationAddress;
+  String get locationAddress => _locationAddress ?? '';
+  bool hasLocationAddress() => _locationAddress != null;
 
-  @BuiltValueField(wireName: 'location_address')
-  String? get locationAddress;
+  // "location_latlng" field.
+  LatLng? _locationLatlng;
+  LatLng? get locationLatlng => _locationLatlng;
+  bool hasLocationLatlng() => _locationLatlng != null;
 
-  @BuiltValueField(wireName: 'location_latlng')
-  LatLng? get locationLatlng;
+  // "tags" field.
+  List<DocumentReference>? _tags;
+  List<DocumentReference> get tags => _tags ?? const [];
+  bool hasTags() => _tags != null;
 
-  BuiltList<DocumentReference>? get tags;
+  // "main_tags" field.
+  List<DocumentReference>? _mainTags;
+  List<DocumentReference> get mainTags => _mainTags ?? const [];
+  bool hasMainTags() => _mainTags != null;
 
-  @BuiltValueField(wireName: 'main_tags')
-  BuiltList<DocumentReference>? get mainTags;
+  // "requests" field.
+  List<String>? _requests;
+  List<String> get requests => _requests ?? const [];
+  bool hasRequests() => _requests != null;
 
-  BuiltList<String>? get requests;
+  // "about" field.
+  String? _about;
+  String get about => _about ?? '';
+  bool hasAbout() => _about != null;
 
-  String? get about;
+  // "passion" field.
+  DocumentReference? _passion;
+  DocumentReference? get passion => _passion;
+  bool hasPassion() => _passion != null;
 
-  DocumentReference? get passion;
+  // "likes" field.
+  List<DocumentReference>? _likes;
+  List<DocumentReference> get likes => _likes ?? const [];
+  bool hasLikes() => _likes != null;
 
-  BuiltList<DocumentReference>? get likes;
+  // "startupPassion" field.
+  bool? _startupPassion;
+  bool get startupPassion => _startupPassion ?? false;
+  bool hasStartupPassion() => _startupPassion != null;
 
-  bool? get startupPassion;
+  // "privacy_version" field.
+  String? _privacyVersion;
+  String get privacyVersion => _privacyVersion ?? '';
+  bool hasPrivacyVersion() => _privacyVersion != null;
 
-  @BuiltValueField(wireName: 'privacy_version')
-  String? get privacyVersion;
+  // "dark_mode" field.
+  bool? _darkMode;
+  bool get darkMode => _darkMode ?? false;
+  bool hasDarkMode() => _darkMode != null;
 
-  @BuiltValueField(wireName: 'dark_mode')
-  bool? get darkMode;
+  // "cache_override" field.
+  List<String>? _cacheOverride;
+  List<String> get cacheOverride => _cacheOverride ?? const [];
+  bool hasCacheOverride() => _cacheOverride != null;
 
-  @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference? get ffRef;
-  DocumentReference get reference => ffRef!;
-
-  static void _initializeBuilder(UserRecordBuilder builder) => builder
-    ..email = ''
-    ..displayName = ''
-    ..photoUrl = ''
-    ..uid = ''
-    ..phoneNumber = ''
-    ..firstName = ''
-    ..lastName = ''
-    ..age = 0
-    ..birthdate = ''
-    ..info = ''
-    ..verified = false
-    ..locationAddress = ''
-    ..tags = ListBuilder()
-    ..mainTags = ListBuilder()
-    ..requests = ListBuilder()
-    ..about = ''
-    ..likes = ListBuilder()
-    ..startupPassion = false
-    ..privacyVersion = ''
-    ..darkMode = false;
+  void _initializeFields() {
+    _email = snapshotData['email'] as String?;
+    _displayName = snapshotData['display_name'] as String?;
+    _photoUrl = snapshotData['photo_url'] as String?;
+    _uid = snapshotData['uid'] as String?;
+    _createdTime = snapshotData['created_time'] as DateTime?;
+    _phoneNumber = snapshotData['phone_number'] as String?;
+    _firstName = snapshotData['first_name'] as String?;
+    _lastName = snapshotData['last_name'] as String?;
+    _age = snapshotData['age'] as int?;
+    _birthdate = snapshotData['birthdate'] as String?;
+    _info = snapshotData['info'] as String?;
+    _verified = snapshotData['verified'] as bool?;
+    _locationAddress = snapshotData['location_address'] as String?;
+    _locationLatlng = snapshotData['location_latlng'] as LatLng?;
+    _tags = getDataList(snapshotData['tags']);
+    _mainTags = getDataList(snapshotData['main_tags']);
+    _requests = getDataList(snapshotData['requests']);
+    _about = snapshotData['about'] as String?;
+    _passion = snapshotData['passion'] as DocumentReference?;
+    _likes = getDataList(snapshotData['likes']);
+    _startupPassion = snapshotData['startupPassion'] as bool?;
+    _privacyVersion = snapshotData['privacy_version'] as String?;
+    _darkMode = snapshotData['dark_mode'] as bool?;
+    _cacheOverride = getDataList(snapshotData['cache_override']);
+  }
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('user');
 
-  static Stream<UserRecord> getDocument(DocumentReference ref) => ref
-      .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Stream<UserRecord> getDocument(DocumentReference ref) =>
+      ref.snapshots().map((s) => UserRecord.fromSnapshot(s));
 
-  static Future<UserRecord> getDocumentOnce(DocumentReference ref) => ref
-      .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Future<UserRecord> getDocumentOnce(DocumentReference ref) =>
+      ref.get().then((s) => UserRecord.fromSnapshot(s));
 
-  UserRecord._();
-  factory UserRecord([void Function(UserRecordBuilder) updates]) = _$UserRecord;
+  static UserRecord fromSnapshot(DocumentSnapshot snapshot) => UserRecord._(
+        snapshot.reference,
+        mapFromFirestore(snapshot.data() as Map<String, dynamic>),
+      );
 
   static UserRecord getDocumentFromData(
-          Map<String, dynamic> data, DocumentReference reference) =>
-      serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
+    Map<String, dynamic> data,
+    DocumentReference reference,
+  ) =>
+      UserRecord._(reference, mapFromFirestore(data));
+
+  @override
+  String toString() =>
+      'UserRecord(reference: ${reference.path}, data: $snapshotData)';
 }
 
 Map<String, dynamic> createUserRecordData({
@@ -133,34 +207,28 @@ Map<String, dynamic> createUserRecordData({
   String? privacyVersion,
   bool? darkMode,
 }) {
-  final firestoreData = serializers.toFirestore(
-    UserRecord.serializer,
-    UserRecord(
-      (u) => u
-        ..email = email
-        ..displayName = displayName
-        ..photoUrl = photoUrl
-        ..uid = uid
-        ..createdTime = createdTime
-        ..phoneNumber = phoneNumber
-        ..firstName = firstName
-        ..lastName = lastName
-        ..age = age
-        ..birthdate = birthdate
-        ..info = info
-        ..verified = verified
-        ..locationAddress = locationAddress
-        ..locationLatlng = locationLatlng
-        ..tags = null
-        ..mainTags = null
-        ..requests = null
-        ..about = about
-        ..passion = passion
-        ..likes = null
-        ..startupPassion = startupPassion
-        ..privacyVersion = privacyVersion
-        ..darkMode = darkMode,
-    ),
+  final firestoreData = mapToFirestore(
+    <String, dynamic>{
+      'email': email,
+      'display_name': displayName,
+      'photo_url': photoUrl,
+      'uid': uid,
+      'created_time': createdTime,
+      'phone_number': phoneNumber,
+      'first_name': firstName,
+      'last_name': lastName,
+      'age': age,
+      'birthdate': birthdate,
+      'info': info,
+      'verified': verified,
+      'location_address': locationAddress,
+      'location_latlng': locationLatlng,
+      'about': about,
+      'passion': passion,
+      'startupPassion': startupPassion,
+      'privacy_version': privacyVersion,
+      'dark_mode': darkMode,
+    }.withoutNulls,
   );
 
   return firestoreData;

@@ -1,4 +1,4 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/current_passion_loading_widget.dart';
 import '/components/no_entries_widget.dart';
@@ -78,12 +78,15 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+    context.watch<FFAppState>();
+
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        body: SafeArea(
+          top: true,
           child: Align(
             alignment: AlignmentDirectional(0.0, 0.0),
             child: Container(
@@ -122,6 +125,10 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget>
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
                                       onTap: () async {
                                         logFirebaseEvent(
                                             'PASSION_OWN_PAGE_Image_up224s9t_ON_TAP');
@@ -142,7 +149,7 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget>
                                       child: Icon(
                                         Icons.library_books_sharp,
                                         color: FlutterFlowTheme.of(context)
-                                            .primaryColor,
+                                            .primary,
                                         size: 35.0,
                                       ),
                                     ),
@@ -220,18 +227,17 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget>
                                                               containerChatRecordList
                                                                   .map((e) => e
                                                                       .notifications)
-                                                                  .withoutNulls
                                                                   .toList(),
                                                               requestsCount)
                                                           .toString(),
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .bodyText1
+                                                              .bodyMedium
                                                               .override(
                                                                 fontFamily: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyText1Family,
+                                                                    .bodyMediumFamily,
                                                                 color: Colors
                                                                     .white,
                                                                 fontSize: 12.0,
@@ -242,7 +248,7 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget>
                                                                         .asMap()
                                                                     .containsKey(
                                                                         FlutterFlowTheme.of(context)
-                                                                            .bodyText1Family),
+                                                                            .bodyMediumFamily),
                                                               ),
                                                     ),
                                                     showBadge: functions
@@ -250,7 +256,6 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget>
                                                                 containerChatRecordList
                                                                     .map((e) =>
                                                                         e.notifications)
-                                                                    .withoutNulls
                                                                     .toList(),
                                                                 requestsCount)
                                                             .toString() !=
@@ -260,7 +265,7 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget>
                                                     badgeColor:
                                                         FlutterFlowTheme.of(
                                                                 context)
-                                                            .primaryColor,
+                                                            .primary,
                                                     elevation: 1.0,
                                                     padding:
                                                         EdgeInsetsDirectional
@@ -281,6 +286,14 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget>
                                                                   5.0,
                                                                   0.0),
                                                       child: InkWell(
+                                                        splashColor:
+                                                            Colors.transparent,
+                                                        focusColor:
+                                                            Colors.transparent,
+                                                        hoverColor:
+                                                            Colors.transparent,
+                                                        highlightColor:
+                                                            Colors.transparent,
                                                         onTap: () async {
                                                           logFirebaseEvent(
                                                               'PASSION_OWN_PAGE_Icon_q8drje1j_ON_TAP');
@@ -321,6 +334,10 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget>
                                       },
                                     ),
                                     InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
                                       onTap: () async {
                                         logFirebaseEvent(
                                             'PASSION_OWN_PAGE_Icon_5gz3qmec_ON_TAP');
@@ -406,6 +423,14 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget>
                                                             .first
                                                         : null;
                                                 return InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
                                                   onTap: () async {
                                                     logFirebaseEvent(
                                                         'PASSION_OWN_Container_7vrqsyrb_ON_TAP');
@@ -444,7 +469,7 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget>
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .primaryColor,
+                                                              .primary,
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               10.0),
@@ -481,11 +506,11 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget>
                                                             'Neue Passion erstellen',
                                                             style: FlutterFlowTheme
                                                                     .of(context)
-                                                                .bodyText1
+                                                                .bodyMedium
                                                                 .override(
                                                                   fontFamily: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .bodyText1Family,
+                                                                      .bodyMediumFamily,
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
                                                                       .secondaryBackground,
@@ -496,7 +521,7 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget>
                                                                           .asMap()
                                                                       .containsKey(
                                                                           FlutterFlowTheme.of(context)
-                                                                              .bodyText1Family),
+                                                                              .bodyMediumFamily),
                                                                 ),
                                                           ),
                                                         ],
@@ -510,12 +535,12 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget>
                                           Text(
                                             'Deine Passions',
                                             style: FlutterFlowTheme.of(context)
-                                                .bodyText1
+                                                .bodyMedium
                                                 .override(
                                                   fontFamily:
                                                       FlutterFlowTheme.of(
                                                               context)
-                                                          .bodyText1Family,
+                                                          .bodyMediumFamily,
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .secondaryText,
@@ -526,340 +551,387 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget>
                                                       .containsKey(
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .bodyText1Family),
+                                                              .bodyMediumFamily),
                                                 ),
                                           ),
                                           Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 10.0, 0.0, 0.0),
-                                            child: StreamBuilder<
-                                                List<PassionRecord>>(
-                                              stream: queryPassionRecord(
-                                                queryBuilder: (passionRecord) =>
-                                                    passionRecord
-                                                        .where('author',
-                                                            isEqualTo:
-                                                                currentUserReference)
-                                                        .orderBy('edited'),
-                                              ),
-                                              builder: (context, snapshot) {
-                                                // Customize what your widget looks like when it's loading.
-                                                if (!snapshot.hasData) {
-                                                  return Center(
-                                                    child: SizedBox(
-                                                      width: 25.0,
-                                                      height: 25.0,
-                                                      child: SpinKitRipple(
-                                                        color: FlutterFlowTheme
-                                                                .of(context)
-                                                            .primaryBackground,
-                                                        size: 25.0,
+                                            child: AuthUserStreamWidget(
+                                              builder: (context) =>
+                                                  StreamBuilder<
+                                                      List<PassionRecord>>(
+                                                stream: _model.passionOwn(
+                                                  uniqueQueryKey:
+                                                      'passion_own:${currentUserUid}',
+                                                  overrideCache: (currentUserDocument
+                                                                  ?.cacheOverride
+                                                                  ?.toList() ??
+                                                              [])
+                                                          .contains(
+                                                              'passion_own:${currentUserUid}') ||
+                                                      FFAppState()
+                                                          .cacheOverride
+                                                          .contains(
+                                                              'passion_own:${currentUserUid}'),
+                                                  requestFn: () =>
+                                                      queryPassionRecord(
+                                                    queryBuilder: (passionRecord) =>
+                                                        passionRecord
+                                                            .where('author',
+                                                                isEqualTo:
+                                                                    currentUserReference)
+                                                            .orderBy('edited'),
+                                                  ),
+                                                ),
+                                                builder: (context, snapshot) {
+                                                  // Customize what your widget looks like when it's loading.
+                                                  if (!snapshot.hasData) {
+                                                    return Center(
+                                                      child: SizedBox(
+                                                        width: 25.0,
+                                                        height: 25.0,
+                                                        child: SpinKitRipple(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryBackground,
+                                                          size: 25.0,
+                                                        ),
                                                       ),
-                                                    ),
-                                                  );
-                                                }
-                                                List<PassionRecord>
-                                                    passionsSearchPassionRecordList =
-                                                    snapshot.data!;
-                                                if (passionsSearchPassionRecordList
-                                                    .isEmpty) {
-                                                  return NoEntriesWidget(
-                                                    text:
-                                                        'Keine Passions erstellt.',
-                                                  );
-                                                }
-                                                return Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment
-                                                          .stretch,
-                                                  children: List.generate(
-                                                      passionsSearchPassionRecordList
-                                                          .length,
-                                                      (passionsSearchIndex) {
-                                                    final passionsSearchPassionRecord =
-                                                        passionsSearchPassionRecordList[
-                                                            passionsSearchIndex];
-                                                    return Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  10.0),
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(0.0),
-                                                        child: Container(
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        0.0),
-                                                          ),
-                                                          child: InkWell(
-                                                            onTap: () async {
-                                                              logFirebaseEvent(
-                                                                  'PASSION_OWN_PAGE_Tag_ON_TAP');
-                                                              logFirebaseEvent(
-                                                                  'Tag_navigate_to');
+                                                    );
+                                                  }
+                                                  List<PassionRecord>
+                                                      passionsSearchPassionRecordList =
+                                                      snapshot.data!;
+                                                  if (passionsSearchPassionRecordList
+                                                      .isEmpty) {
+                                                    return NoEntriesWidget(
+                                                      text:
+                                                          'Keine Passions erstellt.',
+                                                    );
+                                                  }
+                                                  return Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .stretch,
+                                                    children: List.generate(
+                                                        passionsSearchPassionRecordList
+                                                            .length,
+                                                        (passionsSearchIndex) {
+                                                      final passionsSearchPassionRecord =
+                                                          passionsSearchPassionRecordList[
+                                                              passionsSearchIndex];
+                                                      return Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    10.0),
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      0.0),
+                                                          child: Container(
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          0.0),
+                                                            ),
+                                                            child: InkWell(
+                                                              splashColor: Colors
+                                                                  .transparent,
+                                                              focusColor: Colors
+                                                                  .transparent,
+                                                              hoverColor: Colors
+                                                                  .transparent,
+                                                              highlightColor:
+                                                                  Colors
+                                                                      .transparent,
+                                                              onTap: () async {
+                                                                logFirebaseEvent(
+                                                                    'PASSION_OWN_PAGE_Tag_ON_TAP');
+                                                                logFirebaseEvent(
+                                                                    'Tag_navigate_to');
 
-                                                              context.pushNamed(
-                                                                'PassionWindow',
-                                                                params: {
-                                                                  'passion':
-                                                                      serializeParam(
-                                                                    passionsSearchPassionRecord
-                                                                        .reference,
-                                                                    ParamType
-                                                                        .DocumentReference,
-                                                                  ),
-                                                                }.withoutNulls,
-                                                                extra: <String,
-                                                                    dynamic>{
-                                                                  kTransitionInfoKey:
-                                                                      TransitionInfo(
-                                                                    hasTransition:
-                                                                        true,
-                                                                    transitionType:
-                                                                        PageTransitionType
-                                                                            .bottomToTop,
-                                                                    duration: Duration(
-                                                                        milliseconds:
-                                                                            250),
-                                                                  ),
-                                                                },
-                                                              );
+                                                                context
+                                                                    .pushNamed(
+                                                                  'PassionWindow',
+                                                                  params: {
+                                                                    'passion':
+                                                                        serializeParam(
+                                                                      passionsSearchPassionRecord
+                                                                          .reference,
+                                                                      ParamType
+                                                                          .DocumentReference,
+                                                                    ),
+                                                                  }.withoutNulls,
+                                                                  extra: <
+                                                                      String,
+                                                                      dynamic>{
+                                                                    kTransitionInfoKey:
+                                                                        TransitionInfo(
+                                                                      hasTransition:
+                                                                          true,
+                                                                      transitionType:
+                                                                          PageTransitionType
+                                                                              .bottomToTop,
+                                                                      duration: Duration(
+                                                                          milliseconds:
+                                                                              250),
+                                                                    ),
+                                                                  },
+                                                                );
 
-                                                              logFirebaseEvent(
-                                                                  'Tag_backend_call');
+                                                                logFirebaseEvent(
+                                                                    'Tag_backend_call');
 
-                                                              final userUpdateData =
-                                                                  createUserRecordData(
-                                                                passion:
-                                                                    passionsSearchPassionRecord
-                                                                        .reference,
-                                                              );
-                                                              await currentUserReference!
-                                                                  .update(
-                                                                      userUpdateData);
-                                                            },
-                                                            child: Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              children: [
-                                                                CachedNetworkImage(
-                                                                  imageUrl:
-                                                                      valueOrDefault<
-                                                                          String>(
-                                                                    passionsSearchPassionRecord
-                                                                        .image,
-                                                                    'https://firebasestorage.googleapis.com/v0/b/repassion-9ce5f.appspot.com/o/empty_article.jpg?alt=media&token=d8786d27-f588-4e24-8a60-2deb0358a439',
+                                                                final userUpdateData =
+                                                                    createUserRecordData(
+                                                                  passion:
+                                                                      passionsSearchPassionRecord
+                                                                          .reference,
+                                                                );
+                                                                await currentUserReference!
+                                                                    .update(
+                                                                        userUpdateData);
+                                                              },
+                                                              child: Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  CachedNetworkImage(
+                                                                    imageUrl:
+                                                                        valueOrDefault<
+                                                                            String>(
+                                                                      passionsSearchPassionRecord
+                                                                          .image,
+                                                                      'https://firebasestorage.googleapis.com/v0/b/repassion-9ce5f.appspot.com/o/empty_article.jpg?alt=media&token=d8786d27-f588-4e24-8a60-2deb0358a439',
+                                                                    ),
+                                                                    width: 50.0,
+                                                                    height:
+                                                                        50.0,
+                                                                    fit: BoxFit
+                                                                        .cover,
                                                                   ),
-                                                                  width: 50.0,
-                                                                  height: 50.0,
-                                                                  fit: BoxFit
-                                                                      .cover,
-                                                                ),
-                                                                Expanded(
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            10.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
+                                                                  Expanded(
                                                                     child:
-                                                                        Container(
-                                                                      decoration:
-                                                                          BoxDecoration(),
+                                                                        Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          10.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
                                                                       child:
-                                                                          Column(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.min,
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.center,
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.start,
-                                                                        children: [
-                                                                          Text(
-                                                                            passionsSearchPassionRecord.title!,
-                                                                            textAlign:
-                                                                                TextAlign.start,
-                                                                            maxLines:
-                                                                                2,
-                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                  fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
-                                                                                  fontSize: 15.0,
-                                                                                  fontWeight: FontWeight.w500,
-                                                                                  useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                          Container(
+                                                                        decoration:
+                                                                            BoxDecoration(),
+                                                                        child:
+                                                                            Column(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.min,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.start,
+                                                                          children: [
+                                                                            Text(
+                                                                              passionsSearchPassionRecord.title,
+                                                                              textAlign: TextAlign.start,
+                                                                              maxLines: 2,
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                    fontSize: 15.0,
+                                                                                    fontWeight: FontWeight.w500,
+                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                                  ),
+                                                                            ),
+                                                                            Wrap(
+                                                                              spacing: 0.0,
+                                                                              runSpacing: 0.0,
+                                                                              alignment: WrapAlignment.start,
+                                                                              crossAxisAlignment: WrapCrossAlignment.start,
+                                                                              direction: Axis.horizontal,
+                                                                              runAlignment: WrapAlignment.start,
+                                                                              verticalDirection: VerticalDirection.down,
+                                                                              clipBehavior: Clip.none,
+                                                                              children: [
+                                                                                Padding(
+                                                                                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+                                                                                  child: Text(
+                                                                                    passionsSearchPassionRecord.description,
+                                                                                    textAlign: TextAlign.start,
+                                                                                    maxLines: 1,
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                          color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                          fontSize: 12.0,
+                                                                                          fontWeight: FontWeight.w500,
+                                                                                          useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                                        ),
+                                                                                  ),
                                                                                 ),
-                                                                          ),
-                                                                          Wrap(
-                                                                            spacing:
-                                                                                0.0,
-                                                                            runSpacing:
-                                                                                0.0,
-                                                                            alignment:
-                                                                                WrapAlignment.start,
-                                                                            crossAxisAlignment:
-                                                                                WrapCrossAlignment.start,
-                                                                            direction:
-                                                                                Axis.horizontal,
-                                                                            runAlignment:
-                                                                                WrapAlignment.start,
-                                                                            verticalDirection:
-                                                                                VerticalDirection.down,
-                                                                            clipBehavior:
-                                                                                Clip.none,
-                                                                            children: [
-                                                                              Padding(
-                                                                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
-                                                                                child: Text(
-                                                                                  passionsSearchPassionRecord.description!,
-                                                                                  textAlign: TextAlign.start,
-                                                                                  maxLines: 1,
-                                                                                  style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                        fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
-                                                                                        color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                        fontSize: 12.0,
-                                                                                        fontWeight: FontWeight.w500,
-                                                                                        useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
-                                                                                      ),
-                                                                                ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        ],
+                                                                              ],
+                                                                            ),
+                                                                          ],
+                                                                        ),
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                ),
-                                                                InkWell(
-                                                                  onTap:
-                                                                      () async {
-                                                                    logFirebaseEvent(
-                                                                        'PASSION_OWN_PAGE_Icon_sikchdtz_ON_TAP');
-                                                                    logFirebaseEvent(
-                                                                        'Icon_navigate_to');
-
-                                                                    context
-                                                                        .pushNamed(
-                                                                      'PassionEdit',
-                                                                      params: {
-                                                                        'passion':
-                                                                            serializeParam(
-                                                                          passionsSearchPassionRecord
-                                                                              .reference,
-                                                                          ParamType
-                                                                              .DocumentReference,
-                                                                        ),
-                                                                      }.withoutNulls,
-                                                                      extra: <
-                                                                          String,
-                                                                          dynamic>{
-                                                                        kTransitionInfoKey:
-                                                                            TransitionInfo(
-                                                                          hasTransition:
-                                                                              true,
-                                                                          transitionType:
-                                                                              PageTransitionType.rightToLeft,
-                                                                        ),
-                                                                      },
-                                                                    );
-                                                                  },
-                                                                  child: Icon(
-                                                                    Icons
-                                                                        .edit_sharp,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryColor,
-                                                                    size: 25.0,
-                                                                  ),
-                                                                ),
-                                                                InkWell(
-                                                                  onTap:
-                                                                      () async {
-                                                                    logFirebaseEvent(
-                                                                        'PASSION_OWN_PAGE_Icon_cczrw3pt_ON_TAP');
-                                                                    logFirebaseEvent(
-                                                                        'Icon_haptic_feedback');
-                                                                    HapticFeedback
-                                                                        .mediumImpact();
-                                                                    logFirebaseEvent(
-                                                                        'Icon_alert_dialog');
-                                                                    var confirmDialogResponse =
-                                                                        await showDialog<bool>(
-                                                                              context: context,
-                                                                              builder: (alertDialogContext) {
-                                                                                return AlertDialog(
-                                                                                  title: Text('Artikel löschen'),
-                                                                                  content: Text('Möchtest du diesen Artikel wirklich entfernen?'),
-                                                                                  actions: [
-                                                                                    TextButton(
-                                                                                      onPressed: () => Navigator.pop(alertDialogContext, false),
-                                                                                      child: Text('Abbrechen'),
-                                                                                    ),
-                                                                                    TextButton(
-                                                                                      onPressed: () => Navigator.pop(alertDialogContext, true),
-                                                                                      child: Text('Löschen'),
-                                                                                    ),
-                                                                                  ],
-                                                                                );
-                                                                              },
-                                                                            ) ??
-                                                                            false;
-                                                                    if (confirmDialogResponse) {
+                                                                  InkWell(
+                                                                    splashColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    focusColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    hoverColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    highlightColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    onTap:
+                                                                        () async {
                                                                       logFirebaseEvent(
-                                                                          'Icon_backend_call');
-                                                                      await passionsSearchPassionRecord
-                                                                          .reference
-                                                                          .delete();
-                                                                      if (passionsSearchPassionRecord.image !=
-                                                                              null &&
-                                                                          passionsSearchPassionRecord.image !=
-                                                                              '') {
-                                                                        logFirebaseEvent(
-                                                                            'Icon_delete_media');
-                                                                        await FirebaseStorage
-                                                                            .instance
-                                                                            .refFromURL(passionsSearchPassionRecord.image!)
-                                                                            .delete();
-                                                                      }
-                                                                    }
-                                                                  },
-                                                                  child: Icon(
-                                                                    Icons
-                                                                        .delete_sharp,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondaryText,
-                                                                    size: 25.0,
+                                                                          'PASSION_OWN_PAGE_Icon_sikchdtz_ON_TAP');
+                                                                      logFirebaseEvent(
+                                                                          'Icon_navigate_to');
+
+                                                                      context
+                                                                          .pushNamed(
+                                                                        'PassionEdit',
+                                                                        params:
+                                                                            {
+                                                                          'passion':
+                                                                              serializeParam(
+                                                                            passionsSearchPassionRecord.reference,
+                                                                            ParamType.DocumentReference,
+                                                                          ),
+                                                                        }.withoutNulls,
+                                                                        extra: <
+                                                                            String,
+                                                                            dynamic>{
+                                                                          kTransitionInfoKey:
+                                                                              TransitionInfo(
+                                                                            hasTransition:
+                                                                                true,
+                                                                            transitionType:
+                                                                                PageTransitionType.rightToLeft,
+                                                                          ),
+                                                                        },
+                                                                      );
+                                                                    },
+                                                                    child: Icon(
+                                                                      Icons
+                                                                          .edit_sharp,
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primary,
+                                                                      size:
+                                                                          25.0,
+                                                                    ),
                                                                   ),
-                                                                ),
-                                                              ],
+                                                                  InkWell(
+                                                                    splashColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    focusColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    hoverColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    highlightColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    onTap:
+                                                                        () async {
+                                                                      logFirebaseEvent(
+                                                                          'PASSION_OWN_PAGE_Icon_cczrw3pt_ON_TAP');
+                                                                      logFirebaseEvent(
+                                                                          'Icon_haptic_feedback');
+                                                                      HapticFeedback
+                                                                          .mediumImpact();
+                                                                      logFirebaseEvent(
+                                                                          'Icon_alert_dialog');
+                                                                      var confirmDialogResponse = await showDialog<
+                                                                              bool>(
+                                                                            context:
+                                                                                context,
+                                                                            builder:
+                                                                                (alertDialogContext) {
+                                                                              return AlertDialog(
+                                                                                title: Text('Artikel löschen'),
+                                                                                content: Text('Möchtest du diesen Artikel wirklich entfernen?'),
+                                                                                actions: [
+                                                                                  TextButton(
+                                                                                    onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                    child: Text('Abbrechen'),
+                                                                                  ),
+                                                                                  TextButton(
+                                                                                    onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                    child: Text('Löschen'),
+                                                                                  ),
+                                                                                ],
+                                                                              );
+                                                                            },
+                                                                          ) ??
+                                                                          false;
+                                                                      if (confirmDialogResponse) {
+                                                                        logFirebaseEvent(
+                                                                            'Icon_backend_call');
+                                                                        await passionsSearchPassionRecord
+                                                                            .reference
+                                                                            .delete();
+                                                                        if (passionsSearchPassionRecord.image !=
+                                                                                null &&
+                                                                            passionsSearchPassionRecord.image !=
+                                                                                '') {
+                                                                          logFirebaseEvent(
+                                                                              'Icon_delete_data');
+                                                                          await FirebaseStorage
+                                                                              .instance
+                                                                              .refFromURL(passionsSearchPassionRecord.image)
+                                                                              .delete();
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    child: Icon(
+                                                                      Icons
+                                                                          .delete_sharp,
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondaryText,
+                                                                      size:
+                                                                          25.0,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
                                                             ),
                                                           ),
-                                                        ),
-                                                      ).animateOnPageLoad(
-                                                          animationsMap[
-                                                              'containerOnPageLoadAnimation']!),
-                                                    );
-                                                  }),
-                                                );
-                                              },
+                                                        ).animateOnPageLoad(
+                                                            animationsMap[
+                                                                'containerOnPageLoadAnimation']!),
+                                                      );
+                                                    }),
+                                                  );
+                                                },
+                                              ),
                                             ),
                                           ),
                                           Container(
@@ -922,6 +994,10 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget>
                                       final currentPassionPassionRecord =
                                           snapshot.data!;
                                       return InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
                                         onTap: () async {
                                           logFirebaseEvent(
                                               'PASSION_OWN_PAGE_CurrentPassion_ON_TAP');
@@ -1022,15 +1098,15 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget>
                                                           children: [
                                                             AutoSizeText(
                                                               currentPassionPassionRecord
-                                                                  .title!,
+                                                                  .title,
                                                               maxLines: 2,
                                                               style: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .bodyText1
+                                                                  .bodyMedium
                                                                   .override(
                                                                     fontFamily:
                                                                         FlutterFlowTheme.of(context)
-                                                                            .bodyText1Family,
+                                                                            .bodyMediumFamily,
                                                                     fontSize:
                                                                         15.0,
                                                                     fontWeight:
@@ -1039,7 +1115,7 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget>
                                                                     useGoogleFonts: GoogleFonts
                                                                             .asMap()
                                                                         .containsKey(
-                                                                            FlutterFlowTheme.of(context).bodyText1Family),
+                                                                            FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                   ),
                                                             ),
                                                           ],
@@ -1048,14 +1124,14 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget>
                                                           'Weiterlesen',
                                                           style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .bodyText1
+                                                              .bodyMedium
                                                               .override(
                                                                 fontFamily: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyText1Family,
+                                                                    .bodyMediumFamily,
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .primaryColor,
+                                                                    .primary,
                                                                 fontSize: 12.0,
                                                                 fontWeight:
                                                                     FontWeight
@@ -1064,7 +1140,7 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget>
                                                                         .asMap()
                                                                     .containsKey(
                                                                         FlutterFlowTheme.of(context)
-                                                                            .bodyText1Family),
+                                                                            .bodyMediumFamily),
                                                               ),
                                                         ),
                                                       ],
@@ -1079,6 +1155,14 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget>
                                                                   .reference) !=
                                                       true)
                                                     InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
                                                       onTap: () async {
                                                         logFirebaseEvent(
                                                             'PASSION_OWN_PAGE_Icon_rebdygpg_ON_TAP');
@@ -1114,7 +1198,7 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget>
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .primaryColor,
+                                                                .primary,
                                                         size: 25.0,
                                                       ),
                                                     ),
@@ -1127,6 +1211,14 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget>
                                                                   .reference) ==
                                                       true)
                                                     InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
                                                       onTap: () async {
                                                         logFirebaseEvent(
                                                             'PASSION_OWN_PAGE_Icon_98jph9us_ON_TAP');
@@ -1161,7 +1253,7 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget>
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .primaryColor,
+                                                                .primary,
                                                         size: 25.0,
                                                       ),
                                                     ),
@@ -1188,6 +1280,10 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget>
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
                                     onTap: () async {
                                       logFirebaseEvent(
                                           'PASSION_OWN_Container_6sms5p33_ON_TAP');
@@ -1219,6 +1315,10 @@ class _PassionOwnWidgetState extends State<PassionOwnWidget>
                                     ),
                                   ),
                                   InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
                                     onTap: () async {
                                       logFirebaseEvent(
                                           'PASSION_OWN_Container_k6ioq6vk_ON_TAP');

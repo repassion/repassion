@@ -1,4 +1,4 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/current_passion_loading_widget.dart';
 import '/components/no_entries_widget.dart';
@@ -6,6 +6,8 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/flutter_flow/request_manager.dart';
+
 import 'dart:async';
 import 'package:badges/badges.dart' as badges;
 import 'package:auto_size_text/auto_size_text.dart';
@@ -37,12 +39,34 @@ class PassionSearchModel extends FlutterFlowModel {
   Completer<List<PassionRecord>>? algoliaRequestCompleter2;
   Completer<List<CategoryRecord>>? algoliaRequestCompleter1;
 
+  /// Query cache managers for this widget.
+
+  final _passionCategoriesManager =
+      StreamRequestManager<List<CategoryRecord>>();
+  Stream<List<CategoryRecord>> passionCategories({
+    String? uniqueQueryKey,
+    bool? overrideCache,
+    required Stream<List<CategoryRecord>> Function() requestFn,
+  }) =>
+      _passionCategoriesManager.performRequest(
+        uniqueQueryKey: uniqueQueryKey,
+        overrideCache: overrideCache,
+        requestFn: requestFn,
+      );
+  void clearPassionCategoriesCache() => _passionCategoriesManager.clear();
+  void clearPassionCategoriesCacheKey(String? uniqueKey) =>
+      _passionCategoriesManager.clearRequest(uniqueKey);
+
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {}
 
   void dispose() {
     searchFieldController?.dispose();
+
+    /// Dispose query cache managers for this widget.
+
+    clearPassionCategoriesCache();
   }
 
   /// Additional helper methods are added here.

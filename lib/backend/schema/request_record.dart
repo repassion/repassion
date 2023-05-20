@@ -1,49 +1,70 @@
 import 'dart:async';
 
+import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
+
 import 'index.dart';
-import 'serializers.dart';
-import 'package:built_value/built_value.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
-part 'request_record.g.dart';
+class RequestRecord extends FirestoreRecord {
+  RequestRecord._(
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
+    _initializeFields();
+  }
 
-abstract class RequestRecord
-    implements Built<RequestRecord, RequestRecordBuilder> {
-  static Serializer<RequestRecord> get serializer => _$requestRecordSerializer;
+  // "uid1" field.
+  DocumentReference? _uid1;
+  DocumentReference? get uid1 => _uid1;
+  bool hasUid1() => _uid1 != null;
 
-  DocumentReference? get uid1;
+  // "uid2" field.
+  DocumentReference? _uid2;
+  DocumentReference? get uid2 => _uid2;
+  bool hasUid2() => _uid2 != null;
 
-  DocumentReference? get uid2;
+  // "datetime" field.
+  DateTime? _datetime;
+  DateTime? get datetime => _datetime;
+  bool hasDatetime() => _datetime != null;
 
-  DateTime? get datetime;
+  // "status" field.
+  String? _status;
+  String get status => _status ?? '';
+  bool hasStatus() => _status != null;
 
-  String? get status;
-
-  @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference? get ffRef;
-  DocumentReference get reference => ffRef!;
-
-  static void _initializeBuilder(RequestRecordBuilder builder) =>
-      builder..status = '';
+  void _initializeFields() {
+    _uid1 = snapshotData['uid1'] as DocumentReference?;
+    _uid2 = snapshotData['uid2'] as DocumentReference?;
+    _datetime = snapshotData['datetime'] as DateTime?;
+    _status = snapshotData['status'] as String?;
+  }
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('request');
 
-  static Stream<RequestRecord> getDocument(DocumentReference ref) => ref
-      .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Stream<RequestRecord> getDocument(DocumentReference ref) =>
+      ref.snapshots().map((s) => RequestRecord.fromSnapshot(s));
 
-  static Future<RequestRecord> getDocumentOnce(DocumentReference ref) => ref
-      .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Future<RequestRecord> getDocumentOnce(DocumentReference ref) =>
+      ref.get().then((s) => RequestRecord.fromSnapshot(s));
 
-  RequestRecord._();
-  factory RequestRecord([void Function(RequestRecordBuilder) updates]) =
-      _$RequestRecord;
+  static RequestRecord fromSnapshot(DocumentSnapshot snapshot) =>
+      RequestRecord._(
+        snapshot.reference,
+        mapFromFirestore(snapshot.data() as Map<String, dynamic>),
+      );
 
   static RequestRecord getDocumentFromData(
-          Map<String, dynamic> data, DocumentReference reference) =>
-      serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
+    Map<String, dynamic> data,
+    DocumentReference reference,
+  ) =>
+      RequestRecord._(reference, mapFromFirestore(data));
+
+  @override
+  String toString() =>
+      'RequestRecord(reference: ${reference.path}, data: $snapshotData)';
 }
 
 Map<String, dynamic> createRequestRecordData({
@@ -52,15 +73,13 @@ Map<String, dynamic> createRequestRecordData({
   DateTime? datetime,
   String? status,
 }) {
-  final firestoreData = serializers.toFirestore(
-    RequestRecord.serializer,
-    RequestRecord(
-      (r) => r
-        ..uid1 = uid1
-        ..uid2 = uid2
-        ..datetime = datetime
-        ..status = status,
-    ),
+  final firestoreData = mapToFirestore(
+    <String, dynamic>{
+      'uid1': uid1,
+      'uid2': uid2,
+      'datetime': datetime,
+      'status': status,
+    }.withoutNulls,
   );
 
   return firestoreData;

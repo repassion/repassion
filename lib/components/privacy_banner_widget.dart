@@ -1,4 +1,4 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -32,8 +32,8 @@ class _PrivacyBannerWidgetState extends State<PrivacyBannerWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 500.ms,
-          begin: 0.0,
-          end: 1.0,
+          begin: Offset(0.0, 0.0),
+          end: Offset(1.0, 1.0),
         ),
         FadeEffect(
           curve: Curves.easeInOut,
@@ -69,6 +69,8 @@ class _PrivacyBannerWidgetState extends State<PrivacyBannerWidget>
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Align(
       alignment: AlignmentDirectional(0.0, 0.0),
       child: Padding(
@@ -89,13 +91,13 @@ class _PrivacyBannerWidgetState extends State<PrivacyBannerWidget>
                 Text(
                   'Allgemeine Geschäftsbedingungen',
                   textAlign: TextAlign.start,
-                  style: FlutterFlowTheme.of(context).bodyText1.override(
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily:
-                            FlutterFlowTheme.of(context).bodyText1Family,
+                            FlutterFlowTheme.of(context).bodyMediumFamily,
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,
                         useGoogleFonts: GoogleFonts.asMap().containsKey(
-                            FlutterFlowTheme.of(context).bodyText1Family),
+                            FlutterFlowTheme.of(context).bodyMediumFamily),
                       ),
                 ),
                 Padding(
@@ -103,19 +105,23 @@ class _PrivacyBannerWidgetState extends State<PrivacyBannerWidget>
                   child: Text(
                     'Ich stimme den Geschäftsbedingungen der App \"repassion\" zu und willige damit der Verarbeitung meiner Daten nach \nhttps://repassion.de/datenschutz \nein.',
                     textAlign: TextAlign.start,
-                    style: FlutterFlowTheme.of(context).bodyText1.override(
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily:
-                              FlutterFlowTheme.of(context).bodyText1Family,
+                              FlutterFlowTheme.of(context).bodyMediumFamily,
                           color: FlutterFlowTheme.of(context).secondaryText,
                           fontWeight: FontWeight.w500,
                           useGoogleFonts: GoogleFonts.asMap().containsKey(
-                              FlutterFlowTheme.of(context).bodyText1Family),
+                              FlutterFlowTheme.of(context).bodyMediumFamily),
                         ),
                   ),
                 ),
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
                   child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
                     onTap: () async {
                       logFirebaseEvent(
                           'PRIVACY_BANNER_Container_vxpxf0i0_ON_TAP');
@@ -139,18 +145,17 @@ class _PrivacyBannerWidgetState extends State<PrivacyBannerWidget>
                               'Weitere Informationen',
                               textAlign: TextAlign.center,
                               style: FlutterFlowTheme.of(context)
-                                  .bodyText1
+                                  .bodyMedium
                                   .override(
                                     fontFamily: FlutterFlowTheme.of(context)
-                                        .bodyText1Family,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryColor,
+                                        .bodyMediumFamily,
+                                    color: FlutterFlowTheme.of(context).primary,
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.w500,
                                     useGoogleFonts: GoogleFonts.asMap()
                                         .containsKey(
                                             FlutterFlowTheme.of(context)
-                                                .bodyText1Family),
+                                                .bodyMediumFamily),
                                   ),
                             ),
                             Padding(
@@ -158,8 +163,7 @@ class _PrivacyBannerWidgetState extends State<PrivacyBannerWidget>
                                   5.0, 0.0, 0.0, 0.0),
                               child: Icon(
                                 Icons.open_in_new_sharp,
-                                color:
-                                    FlutterFlowTheme.of(context).primaryColor,
+                                color: FlutterFlowTheme.of(context).primary,
                                 size: 18.0,
                               ),
                             ),
@@ -175,6 +179,10 @@ class _PrivacyBannerWidgetState extends State<PrivacyBannerWidget>
                     width: MediaQuery.of(context).size.width * 1.0,
                     decoration: BoxDecoration(),
                     child: InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
                       onTap: () async {
                         logFirebaseEvent(
                             'PRIVACY_BANNER_Container_skb3nl6p_ON_TAP');
@@ -189,7 +197,7 @@ class _PrivacyBannerWidgetState extends State<PrivacyBannerWidget>
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).primaryColor,
+                          color: FlutterFlowTheme.of(context).primary,
                           borderRadius: BorderRadius.circular(15.0),
                         ),
                         child: Align(
@@ -200,10 +208,10 @@ class _PrivacyBannerWidgetState extends State<PrivacyBannerWidget>
                             child: Text(
                               'Zustimmen und fortfahren',
                               style: FlutterFlowTheme.of(context)
-                                  .bodyText1
+                                  .bodyMedium
                                   .override(
                                     fontFamily: FlutterFlowTheme.of(context)
-                                        .bodyText1Family,
+                                        .bodyMediumFamily,
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
                                     fontSize: 18.0,
@@ -211,7 +219,7 @@ class _PrivacyBannerWidgetState extends State<PrivacyBannerWidget>
                                     useGoogleFonts: GoogleFonts.asMap()
                                         .containsKey(
                                             FlutterFlowTheme.of(context)
-                                                .bodyText1Family),
+                                                .bodyMediumFamily),
                                   ),
                             ),
                           ),

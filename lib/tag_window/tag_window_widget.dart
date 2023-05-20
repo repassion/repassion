@@ -1,4 +1,4 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/max_main_tags_warning_widget.dart';
 import '/components/no_entries_widget.dart';
@@ -54,12 +54,15 @@ class _TagWindowWidgetState extends State<TagWindowWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+    context.watch<FFAppState>();
+
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        body: SafeArea(
+          top: true,
           child: Align(
             alignment: AlignmentDirectional(0.0, 0.0),
             child: Container(
@@ -93,6 +96,10 @@ class _TagWindowWidgetState extends State<TagWindowWidget> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
                                     onTap: () async {
                                       logFirebaseEvent(
                                           'TAG_WINDOW_PAGE_Row_i8wuk468_ON_TAP');
@@ -107,17 +114,17 @@ class _TagWindowWidgetState extends State<TagWindowWidget> {
                                         Icon(
                                           Icons.chevron_left_sharp,
                                           color: FlutterFlowTheme.of(context)
-                                              .primaryColor,
+                                              .primary,
                                           size: 50.0,
                                         ),
                                         Text(
                                           'Tags bearbeiten',
                                           style: FlutterFlowTheme.of(context)
-                                              .bodyText1
+                                              .bodyMedium
                                               .override(
                                                 fontFamily:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyText1Family,
+                                                        .bodyMediumFamily,
                                                 fontSize: 18.0,
                                                 fontWeight: FontWeight.w500,
                                                 useGoogleFonts: GoogleFonts
@@ -125,7 +132,7 @@ class _TagWindowWidgetState extends State<TagWindowWidget> {
                                                     .containsKey(
                                                         FlutterFlowTheme.of(
                                                                 context)
-                                                            .bodyText1Family),
+                                                            .bodyMediumFamily),
                                               ),
                                         ),
                                       ],
@@ -175,30 +182,30 @@ class _TagWindowWidgetState extends State<TagWindowWidget> {
                                       decoration: InputDecoration(
                                         labelText: 'Suche',
                                         labelStyle: FlutterFlowTheme.of(context)
-                                            .bodyText1
+                                            .bodyMedium
                                             .override(
                                               fontFamily:
                                                   FlutterFlowTheme.of(context)
-                                                      .bodyText1Family,
+                                                      .bodyMediumFamily,
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .secondaryText,
                                               fontSize: 15.0,
                                               fontWeight: FontWeight.w500,
-                                              useGoogleFonts:
-                                                  GoogleFonts.asMap()
-                                                      .containsKey(
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText1Family),
+                                              useGoogleFonts: GoogleFonts
+                                                      .asMap()
+                                                  .containsKey(
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMediumFamily),
                                             ),
                                         hintText: 'Tags durchsuchen',
                                         hintStyle: FlutterFlowTheme.of(context)
-                                            .bodyText2
+                                            .bodySmall
                                             .override(
                                               fontFamily:
                                                   FlutterFlowTheme.of(context)
-                                                      .bodyText2Family,
+                                                      .bodySmallFamily,
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .secondaryText,
@@ -207,7 +214,7 @@ class _TagWindowWidgetState extends State<TagWindowWidget> {
                                                       .containsKey(
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .bodyText2Family),
+                                                              .bodySmallFamily),
                                             ),
                                         enabledBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
@@ -223,7 +230,7 @@ class _TagWindowWidgetState extends State<TagWindowWidget> {
                                         focusedBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
                                             color: FlutterFlowTheme.of(context)
-                                                .primaryColor,
+                                                .primary,
                                             width: 1.0,
                                           ),
                                           borderRadius: const BorderRadius.only(
@@ -282,7 +289,7 @@ class _TagWindowWidgetState extends State<TagWindowWidget> {
                                             : null,
                                       ),
                                       style: FlutterFlowTheme.of(context)
-                                          .bodyText1,
+                                          .bodyMedium,
                                       validator: _model
                                           .searchFieldControllerValidator
                                           .asValidator(context),
@@ -318,6 +325,7 @@ class _TagWindowWidgetState extends State<TagWindowWidget> {
                                                                   .searchFieldController
                                                                   .text,
                                                               maxResults: 25,
+                                                              useCache: true,
                                                             )))
                                                       .future,
                                                   builder: (context, snapshot) {
@@ -373,6 +381,18 @@ class _TagWindowWidgetState extends State<TagWindowWidget> {
                                                                   builder:
                                                                       (context) =>
                                                                           InkWell(
+                                                                    splashColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    focusColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    hoverColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    highlightColor:
+                                                                        Colors
+                                                                            .transparent,
                                                                     onTap:
                                                                         () async {
                                                                       logFirebaseEvent(
@@ -422,16 +442,21 @@ class _TagWindowWidgetState extends State<TagWindowWidget> {
                                                                               true,
                                                                           backgroundColor:
                                                                               Colors.transparent,
+                                                                          barrierColor:
+                                                                              Color(0x00000000),
                                                                           enableDrag:
                                                                               false,
                                                                           context:
                                                                               context,
                                                                           builder:
-                                                                              (context) {
-                                                                            return Padding(
-                                                                              padding: MediaQuery.of(context).viewInsets,
-                                                                              child: MaxMainTagsWarningWidget(
-                                                                                text: 'Du kannst maximal 15 Tags auswählen.',
+                                                                              (bottomSheetContext) {
+                                                                            return GestureDetector(
+                                                                              onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+                                                                              child: Padding(
+                                                                                padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                child: MaxMainTagsWarningWidget(
+                                                                                  text: 'Du kannst maximal 15 Tags auswählen.',
+                                                                                ),
                                                                               ),
                                                                             );
                                                                           },
@@ -470,16 +495,20 @@ class _TagWindowWidgetState extends State<TagWindowWidget> {
                                                                           children: [
                                                                             Expanded(
                                                                               child: Text(
-                                                                                searchColumnTagRecord.text!,
-                                                                                style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                      fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                                searchColumnTagRecord.text,
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                       fontSize: 12.0,
                                                                                       fontWeight: FontWeight.bold,
-                                                                                      useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                      useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                     ),
                                                                               ),
                                                                             ),
                                                                             InkWell(
+                                                                              splashColor: Colors.transparent,
+                                                                              focusColor: Colors.transparent,
+                                                                              hoverColor: Colors.transparent,
+                                                                              highlightColor: Colors.transparent,
                                                                               onTap: () async {
                                                                                 logFirebaseEvent('TAG_WINDOW_PAGE_Icon_0s532k7j_ON_TAP');
                                                                                 if ((currentUserDocument?.mainTags?.toList() ?? []).length < 3) {
@@ -517,13 +546,17 @@ class _TagWindowWidgetState extends State<TagWindowWidget> {
                                                                                   await showModalBottomSheet(
                                                                                     isScrollControlled: true,
                                                                                     backgroundColor: Colors.transparent,
+                                                                                    barrierColor: Color(0x00000000),
                                                                                     enableDrag: false,
                                                                                     context: context,
-                                                                                    builder: (context) {
-                                                                                      return Padding(
-                                                                                        padding: MediaQuery.of(context).viewInsets,
-                                                                                        child: MaxMainTagsWarningWidget(
-                                                                                          text: 'Du kannst maximal 3 Tags hervorheben.',
+                                                                                    builder: (bottomSheetContext) {
+                                                                                      return GestureDetector(
+                                                                                        onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+                                                                                        child: Padding(
+                                                                                          padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                          child: MaxMainTagsWarningWidget(
+                                                                                            text: 'Du kannst maximal 3 Tags hervorheben.',
+                                                                                          ),
                                                                                         ),
                                                                                       );
                                                                                     },
@@ -538,7 +571,7 @@ class _TagWindowWidgetState extends State<TagWindowWidget> {
                                                                             ),
                                                                             Icon(
                                                                               Icons.add_sharp,
-                                                                              color: FlutterFlowTheme.of(context).primaryColor,
+                                                                              color: FlutterFlowTheme.of(context).primary,
                                                                               size: 25.0,
                                                                             ),
                                                                           ],
@@ -559,6 +592,18 @@ class _TagWindowWidgetState extends State<TagWindowWidget> {
                                                                   builder:
                                                                       (context) =>
                                                                           InkWell(
+                                                                    splashColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    focusColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    hoverColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    highlightColor:
+                                                                        Colors
+                                                                            .transparent,
                                                                     onTap:
                                                                         () async {
                                                                       logFirebaseEvent(
@@ -632,7 +677,7 @@ class _TagWindowWidgetState extends State<TagWindowWidget> {
                                                                       decoration:
                                                                           BoxDecoration(
                                                                         color: FlutterFlowTheme.of(context)
-                                                                            .primaryColor,
+                                                                            .primary,
                                                                         borderRadius:
                                                                             BorderRadius.circular(10.0),
                                                                       ),
@@ -654,19 +699,23 @@ class _TagWindowWidgetState extends State<TagWindowWidget> {
                                                                           children: [
                                                                             Expanded(
                                                                               child: Text(
-                                                                                searchColumnTagRecord.text!,
-                                                                                style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                      fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                                searchColumnTagRecord.text,
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                       color: FlutterFlowTheme.of(context).primaryBackground,
                                                                                       fontSize: 12.0,
                                                                                       fontWeight: FontWeight.bold,
-                                                                                      useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                      useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                     ),
                                                                               ),
                                                                             ),
                                                                             if ((currentUserDocument?.mainTags?.toList() ?? []).contains(searchColumnTagRecord.reference) ==
                                                                                 false)
                                                                               InkWell(
+                                                                                splashColor: Colors.transparent,
+                                                                                focusColor: Colors.transparent,
+                                                                                hoverColor: Colors.transparent,
+                                                                                highlightColor: Colors.transparent,
                                                                                 onTap: () async {
                                                                                   logFirebaseEvent('TAG_WINDOW_PAGE_Icon_sjfs1w7b_ON_TAP');
                                                                                   if ((currentUserDocument?.mainTags?.toList() ?? []).length < 3) {
@@ -696,13 +745,17 @@ class _TagWindowWidgetState extends State<TagWindowWidget> {
                                                                                     await showModalBottomSheet(
                                                                                       isScrollControlled: true,
                                                                                       backgroundColor: Colors.transparent,
+                                                                                      barrierColor: Color(0x00000000),
                                                                                       enableDrag: false,
                                                                                       context: context,
-                                                                                      builder: (context) {
-                                                                                        return Padding(
-                                                                                          padding: MediaQuery.of(context).viewInsets,
-                                                                                          child: MaxMainTagsWarningWidget(
-                                                                                            text: 'Du kannst maximal 3 Tags hervorheben.',
+                                                                                      builder: (bottomSheetContext) {
+                                                                                        return GestureDetector(
+                                                                                          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+                                                                                          child: Padding(
+                                                                                            padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                            child: MaxMainTagsWarningWidget(
+                                                                                              text: 'Du kannst maximal 3 Tags hervorheben.',
+                                                                                            ),
                                                                                           ),
                                                                                         );
                                                                                       },
@@ -718,6 +771,10 @@ class _TagWindowWidgetState extends State<TagWindowWidget> {
                                                                             if ((currentUserDocument?.mainTags?.toList() ?? []).contains(searchColumnTagRecord.reference) ==
                                                                                 true)
                                                                               InkWell(
+                                                                                splashColor: Colors.transparent,
+                                                                                focusColor: Colors.transparent,
+                                                                                hoverColor: Colors.transparent,
+                                                                                highlightColor: Colors.transparent,
                                                                                 onTap: () async {
                                                                                   logFirebaseEvent('TAG_WINDOW_PAGE_Icon_dk8ht5km_ON_TAP');
                                                                                   logFirebaseEvent('Icon_backend_call');
@@ -831,6 +888,16 @@ class _TagWindowWidgetState extends State<TagWindowWidget> {
                                                                 builder:
                                                                     (context) =>
                                                                         InkWell(
+                                                                  splashColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  focusColor: Colors
+                                                                      .transparent,
+                                                                  hoverColor: Colors
+                                                                      .transparent,
+                                                                  highlightColor:
+                                                                      Colors
+                                                                          .transparent,
                                                                   onTap:
                                                                       () async {
                                                                     logFirebaseEvent(
@@ -886,7 +953,7 @@ class _TagWindowWidgetState extends State<TagWindowWidget> {
                                                                         BoxDecoration(
                                                                       color: FlutterFlowTheme.of(
                                                                               context)
-                                                                          .primaryColor,
+                                                                          .primary,
                                                                       borderRadius:
                                                                           BorderRadius.circular(
                                                                               10.0),
@@ -910,19 +977,23 @@ class _TagWindowWidgetState extends State<TagWindowWidget> {
                                                                           Expanded(
                                                                             child:
                                                                                 Text(
-                                                                              tagColumnTagRecord.text!,
-                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                    fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              tagColumnTagRecord.text,
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                     color: FlutterFlowTheme.of(context).primaryBackground,
                                                                                     fontSize: 12.0,
                                                                                     fontWeight: FontWeight.bold,
-                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                   ),
                                                                             ),
                                                                           ),
                                                                           if ((currentUserDocument?.mainTags?.toList() ?? []).contains(tagColumnTagRecord.reference) ==
                                                                               true)
                                                                             InkWell(
+                                                                              splashColor: Colors.transparent,
+                                                                              focusColor: Colors.transparent,
+                                                                              hoverColor: Colors.transparent,
+                                                                              highlightColor: Colors.transparent,
                                                                               onTap: () async {
                                                                                 logFirebaseEvent('TAG_WINDOW_PAGE_Icon_m5qz23tu_ON_TAP');
                                                                                 logFirebaseEvent('Icon_backend_call');
@@ -1033,6 +1104,16 @@ class _TagWindowWidgetState extends State<TagWindowWidget> {
                                                                 builder:
                                                                     (context) =>
                                                                         InkWell(
+                                                                  splashColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  focusColor: Colors
+                                                                      .transparent,
+                                                                  hoverColor: Colors
+                                                                      .transparent,
+                                                                  highlightColor:
+                                                                      Colors
+                                                                          .transparent,
                                                                   onTap:
                                                                       () async {
                                                                     logFirebaseEvent(
@@ -1088,7 +1169,7 @@ class _TagWindowWidgetState extends State<TagWindowWidget> {
                                                                         BoxDecoration(
                                                                       color: FlutterFlowTheme.of(
                                                                               context)
-                                                                          .primaryColor,
+                                                                          .primary,
                                                                       borderRadius:
                                                                           BorderRadius.circular(
                                                                               10.0),
@@ -1112,19 +1193,23 @@ class _TagWindowWidgetState extends State<TagWindowWidget> {
                                                                           Expanded(
                                                                             child:
                                                                                 Text(
-                                                                              tagColumnTagRecord.text!,
-                                                                              style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                    fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              tagColumnTagRecord.text,
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                     color: FlutterFlowTheme.of(context).primaryBackground,
                                                                                     fontSize: 12.0,
                                                                                     fontWeight: FontWeight.bold,
-                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                   ),
                                                                             ),
                                                                           ),
                                                                           if ((currentUserDocument?.mainTags?.toList() ?? []).contains(tagColumnTagRecord.reference) !=
                                                                               true)
                                                                             InkWell(
+                                                                              splashColor: Colors.transparent,
+                                                                              focusColor: Colors.transparent,
+                                                                              hoverColor: Colors.transparent,
+                                                                              highlightColor: Colors.transparent,
                                                                               onTap: () async {
                                                                                 logFirebaseEvent('TAG_WINDOW_PAGE_Icon_lk1b9swh_ON_TAP');
                                                                                 if ((currentUserDocument?.mainTags?.toList() ?? []).length < 3) {
@@ -1147,13 +1232,17 @@ class _TagWindowWidgetState extends State<TagWindowWidget> {
                                                                                   await showModalBottomSheet(
                                                                                     isScrollControlled: true,
                                                                                     backgroundColor: Colors.transparent,
+                                                                                    barrierColor: Color(0x00000000),
                                                                                     enableDrag: false,
                                                                                     context: context,
-                                                                                    builder: (context) {
-                                                                                      return Padding(
-                                                                                        padding: MediaQuery.of(context).viewInsets,
-                                                                                        child: MaxMainTagsWarningWidget(
-                                                                                          text: 'Du kannst maximal 3 Tags hervorheben.',
+                                                                                    builder: (bottomSheetContext) {
+                                                                                      return GestureDetector(
+                                                                                        onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+                                                                                        child: Padding(
+                                                                                          padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                                                                                          child: MaxMainTagsWarningWidget(
+                                                                                            text: 'Du kannst maximal 3 Tags hervorheben.',
+                                                                                          ),
                                                                                         ),
                                                                                       );
                                                                                     },
@@ -1169,6 +1258,10 @@ class _TagWindowWidgetState extends State<TagWindowWidget> {
                                                                           if ((currentUserDocument?.mainTags?.toList() ?? []).contains(tagColumnTagRecord.reference) ==
                                                                               true)
                                                                             InkWell(
+                                                                              splashColor: Colors.transparent,
+                                                                              focusColor: Colors.transparent,
+                                                                              hoverColor: Colors.transparent,
+                                                                              highlightColor: Colors.transparent,
                                                                               onTap: () async {
                                                                                 logFirebaseEvent('TAG_WINDOW_PAGE_Icon_5xbdb5es_ON_TAP');
                                                                                 logFirebaseEvent('Icon_backend_call');
@@ -1253,6 +1346,10 @@ class _TagWindowWidgetState extends State<TagWindowWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(
                               25.0, 25.0, 25.0, 25.0),
                           child: InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
                             onTap: () async {
                               logFirebaseEvent(
                                   'TAG_WINDOW_Container_x91s91ax_ON_TAP');
@@ -1323,19 +1420,19 @@ class _TagWindowWidgetState extends State<TagWindowWidget> {
                                   child: Text(
                                     'Alle zurücksetzen',
                                     style: FlutterFlowTheme.of(context)
-                                        .bodyText1
+                                        .bodyMedium
                                         .override(
                                           fontFamily:
                                               FlutterFlowTheme.of(context)
-                                                  .bodyText1Family,
+                                                  .bodyMediumFamily,
                                           color: FlutterFlowTheme.of(context)
-                                              .primaryColor,
+                                              .primary,
                                           fontSize: 18.0,
                                           fontWeight: FontWeight.w500,
                                           useGoogleFonts: GoogleFonts.asMap()
                                               .containsKey(
                                                   FlutterFlowTheme.of(context)
-                                                      .bodyText1Family),
+                                                      .bodyMediumFamily),
                                         ),
                                   ),
                                 ),

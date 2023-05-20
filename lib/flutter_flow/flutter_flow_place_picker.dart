@@ -105,23 +105,23 @@ class _FFPlacePickerState extends State<FlutterFlowPlacePicker> {
         name: detail.result.name,
         address: detail.result.formattedAddress ?? '',
         city: detail.result.addressComponents
-                .firstWhereOrNull(
-                    (element) => element.types.contains('locality'))
+                .firstWhereOrNull((e) => e.types.contains('locality'))
+                ?.shortName ??
+            detail.result.addressComponents
+                .firstWhereOrNull((e) => e.types.contains('sublocality'))
                 ?.shortName ??
             '',
         state: detail.result.addressComponents
-                .firstWhereOrNull((element) =>
-                    element.types.contains('administrative_area_level_1'))
+                .firstWhereOrNull(
+                    (e) => e.types.contains('administrative_area_level_1'))
                 ?.shortName ??
             '',
         country: detail.result.addressComponents
-                .firstWhereOrNull(
-                    (element) => element.types.contains('country'))
+                .firstWhereOrNull((e) => e.types.contains('country'))
                 ?.shortName ??
             '',
         zipCode: detail.result.addressComponents
-                .firstWhereOrNull(
-                    (element) => element.types.contains('postal_code'))
+                .firstWhereOrNull((e) => e.types.contains('postal_code'))
                 ?.shortName ??
             '',
       ),

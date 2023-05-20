@@ -1,63 +1,90 @@
 import 'dart:async';
 
 import 'package:from_css_color/from_css_color.dart';
+import '/backend/algolia/algolia_manager.dart';
+
+import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
-import 'serializers.dart';
-import 'package:built_value/built_value.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
-part 'category_record.g.dart';
+class CategoryRecord extends FirestoreRecord {
+  CategoryRecord._(
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
+    _initializeFields();
+  }
 
-abstract class CategoryRecord
-    implements Built<CategoryRecord, CategoryRecordBuilder> {
-  static Serializer<CategoryRecord> get serializer =>
-      _$categoryRecordSerializer;
+  // "title" field.
+  String? _title;
+  String get title => _title ?? '';
+  bool hasTitle() => _title != null;
 
-  String? get title;
+  // "description" field.
+  String? _description;
+  String get description => _description ?? '';
+  bool hasDescription() => _description != null;
 
-  String? get description;
+  // "image" field.
+  String? _image;
+  String get image => _image ?? '';
+  bool hasImage() => _image != null;
 
-  String? get image;
+  // "passions" field.
+  List<DocumentReference>? _passions;
+  List<DocumentReference> get passions => _passions ?? const [];
+  bool hasPassions() => _passions != null;
 
-  BuiltList<DocumentReference>? get passions;
-
-  @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference? get ffRef;
-  DocumentReference get reference => ffRef!;
-
-  static void _initializeBuilder(CategoryRecordBuilder builder) => builder
-    ..title = ''
-    ..description = ''
-    ..image = ''
-    ..passions = ListBuilder();
+  void _initializeFields() {
+    _title = snapshotData['title'] as String?;
+    _description = snapshotData['description'] as String?;
+    _image = snapshotData['image'] as String?;
+    _passions = getDataList(snapshotData['passions']);
+  }
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('category');
 
-  static Stream<CategoryRecord> getDocument(DocumentReference ref) => ref
-      .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Stream<CategoryRecord> getDocument(DocumentReference ref) =>
+      ref.snapshots().map((s) => CategoryRecord.fromSnapshot(s));
 
-  static Future<CategoryRecord> getDocumentOnce(DocumentReference ref) => ref
-      .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Future<CategoryRecord> getDocumentOnce(DocumentReference ref) =>
+      ref.get().then((s) => CategoryRecord.fromSnapshot(s));
 
-  static CategoryRecord fromAlgolia(AlgoliaObjectSnapshot snapshot) =>
-      CategoryRecord(
-        (c) => c
-          ..title = snapshot.data['title']
-          ..description = snapshot.data['description']
-          ..image = snapshot.data['image']
-          ..passions = safeGet(
-              () => ListBuilder(snapshot.data['passions'].map((s) => toRef(s))))
-          ..ffRef = CategoryRecord.collection.doc(snapshot.objectID),
+  static CategoryRecord fromSnapshot(DocumentSnapshot snapshot) =>
+      CategoryRecord._(
+        snapshot.reference,
+        mapFromFirestore(snapshot.data() as Map<String, dynamic>),
       );
 
-  static Future<List<CategoryRecord>> search(
-          {String? term,
-          FutureOr<LatLng>? location,
-          int? maxResults,
-          double? searchRadiusMeters}) =>
+  static CategoryRecord getDocumentFromData(
+    Map<String, dynamic> data,
+    DocumentReference reference,
+  ) =>
+      CategoryRecord._(reference, mapFromFirestore(data));
+
+  static CategoryRecord fromAlgolia(AlgoliaObjectSnapshot snapshot) =>
+      CategoryRecord.getDocumentFromData(
+        {
+          'title': snapshot.data['title'],
+          'description': snapshot.data['description'],
+          'image': snapshot.data['image'],
+          'passions': safeGet(
+            () => snapshot.data['passions'].map((s) => toRef(s)).toList(),
+          ),
+        },
+        CategoryRecord.collection.doc(snapshot.objectID),
+      );
+
+  static Future<List<CategoryRecord>> search({
+    String? term,
+    FutureOr<LatLng>? location,
+    int? maxResults,
+    double? searchRadiusMeters,
+    bool useCache = false,
+  }) =>
       FFAlgoliaManager.instance
           .algoliaQuery(
             index: 'category',
@@ -65,17 +92,13 @@ abstract class CategoryRecord
             maxResults: maxResults,
             location: location,
             searchRadiusMeters: searchRadiusMeters,
+            useCache: useCache,
           )
           .then((r) => r.map(fromAlgolia).toList());
 
-  CategoryRecord._();
-  factory CategoryRecord([void Function(CategoryRecordBuilder) updates]) =
-      _$CategoryRecord;
-
-  static CategoryRecord getDocumentFromData(
-          Map<String, dynamic> data, DocumentReference reference) =>
-      serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
+  @override
+  String toString() =>
+      'CategoryRecord(reference: ${reference.path}, data: $snapshotData)';
 }
 
 Map<String, dynamic> createCategoryRecordData({
@@ -83,15 +106,12 @@ Map<String, dynamic> createCategoryRecordData({
   String? description,
   String? image,
 }) {
-  final firestoreData = serializers.toFirestore(
-    CategoryRecord.serializer,
-    CategoryRecord(
-      (c) => c
-        ..title = title
-        ..description = description
-        ..image = image
-        ..passions = null,
-    ),
+  final firestoreData = mapToFirestore(
+    <String, dynamic>{
+      'title': title,
+      'description': description,
+      'image': image,
+    }.withoutNulls,
   );
 
   return firestoreData;

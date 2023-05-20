@@ -72,14 +72,16 @@ class _NoEntriesWidgetState extends State<NoEntriesWidget>
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Text(
       widget.text,
-      style: FlutterFlowTheme.of(context).bodyText1.override(
-            fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+      style: FlutterFlowTheme.of(context).bodyMedium.override(
+            fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
             color: FlutterFlowTheme.of(context).secondaryText,
             fontWeight: FontWeight.w500,
             useGoogleFonts: GoogleFonts.asMap()
-                .containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                .containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
           ),
     ).animateOnPageLoad(animationsMap['textOnPageLoadAnimation']!);
   }

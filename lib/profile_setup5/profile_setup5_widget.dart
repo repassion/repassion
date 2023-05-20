@@ -1,4 +1,4 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -95,12 +95,15 @@ class _ProfileSetup5WidgetState extends State<ProfileSetup5Widget>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+    context.watch<FFAppState>();
+
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        body: SafeArea(
+          top: true,
           child: Align(
             alignment: AlignmentDirectional(0.0, 0.0),
             child: Container(
@@ -134,6 +137,10 @@ class _ProfileSetup5WidgetState extends State<ProfileSetup5Widget>
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
                                     onTap: () async {
                                       logFirebaseEvent(
                                           'PROFILE_SETUP5_PAGE_Row_1oi1rm73_ON_TAP');
@@ -148,17 +155,17 @@ class _ProfileSetup5WidgetState extends State<ProfileSetup5Widget>
                                         Icon(
                                           Icons.chevron_left_sharp,
                                           color: FlutterFlowTheme.of(context)
-                                              .primaryColor,
+                                              .primary,
                                           size: 50.0,
                                         ),
                                         Text(
                                           'Informationen hinzufügen',
                                           style: FlutterFlowTheme.of(context)
-                                              .bodyText1
+                                              .bodyMedium
                                               .override(
                                                 fontFamily:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyText1Family,
+                                                        .bodyMediumFamily,
                                                 fontSize: 18.0,
                                                 fontWeight: FontWeight.w500,
                                                 useGoogleFonts: GoogleFonts
@@ -166,7 +173,7 @@ class _ProfileSetup5WidgetState extends State<ProfileSetup5Widget>
                                                     .containsKey(
                                                         FlutterFlowTheme.of(
                                                                 context)
-                                                            .bodyText1Family),
+                                                            .bodyMediumFamily),
                                               ),
                                         ),
                                       ],
@@ -177,23 +184,23 @@ class _ProfileSetup5WidgetState extends State<ProfileSetup5Widget>
                                     radius: 25.0,
                                     lineWidth: 5.0,
                                     animation: true,
-                                    progressColor: FlutterFlowTheme.of(context)
-                                        .primaryColor,
+                                    progressColor:
+                                        FlutterFlowTheme.of(context).primary,
                                     backgroundColor: Color(0x8015402C),
                                     center: Text(
                                       '5/5',
                                       style: FlutterFlowTheme.of(context)
-                                          .bodyText1
+                                          .bodyMedium
                                           .override(
                                             fontFamily:
                                                 FlutterFlowTheme.of(context)
-                                                    .bodyText1Family,
+                                                    .bodyMediumFamily,
                                             color: FlutterFlowTheme.of(context)
-                                                .primaryColor,
+                                                .primary,
                                             useGoogleFonts: GoogleFonts.asMap()
                                                 .containsKey(
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyText1Family),
+                                                        .bodyMediumFamily),
                                           ),
                                     ),
                                   ),
@@ -234,11 +241,11 @@ class _ProfileSetup5WidgetState extends State<ProfileSetup5Widget>
                                           labelText: 'Profil-Slogan',
                                           labelStyle: FlutterFlowTheme.of(
                                                   context)
-                                              .bodyText1
+                                              .bodyMedium
                                               .override(
                                                 fontFamily:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyText1Family,
+                                                        .bodyMediumFamily,
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryText,
@@ -249,7 +256,7 @@ class _ProfileSetup5WidgetState extends State<ProfileSetup5Widget>
                                                     .containsKey(
                                                         FlutterFlowTheme.of(
                                                                 context)
-                                                            .bodyText1Family),
+                                                            .bodyMediumFamily),
                                               ),
                                           hintText: valueOrDefault<String>(
                                             valueOrDefault(
@@ -258,11 +265,11 @@ class _ProfileSetup5WidgetState extends State<ProfileSetup5Widget>
                                           ),
                                           hintStyle: FlutterFlowTheme.of(
                                                   context)
-                                              .bodyText2
+                                              .bodySmall
                                               .override(
                                                 fontFamily:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyText2Family,
+                                                        .bodySmallFamily,
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryText,
@@ -271,7 +278,7 @@ class _ProfileSetup5WidgetState extends State<ProfileSetup5Widget>
                                                     .containsKey(
                                                         FlutterFlowTheme.of(
                                                                 context)
-                                                            .bodyText2Family),
+                                                            .bodySmallFamily),
                                               ),
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
@@ -290,7 +297,7 @@ class _ProfileSetup5WidgetState extends State<ProfileSetup5Widget>
                                             borderSide: BorderSide(
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primaryColor,
+                                                      .primary,
                                               width: 1.0,
                                             ),
                                             borderRadius:
@@ -324,7 +331,7 @@ class _ProfileSetup5WidgetState extends State<ProfileSetup5Widget>
                                           ),
                                         ),
                                         style: FlutterFlowTheme.of(context)
-                                            .bodyText1,
+                                            .bodyMedium,
                                         validator: _model
                                             .informationControllerValidator
                                             .asValidator(context),
@@ -346,12 +353,12 @@ class _ProfileSetup5WidgetState extends State<ProfileSetup5Widget>
                                             labelText: 'Über mich',
                                             labelStyle: FlutterFlowTheme.of(
                                                     context)
-                                                .bodyText1
+                                                .bodyMedium
                                                 .override(
                                                   fontFamily:
                                                       FlutterFlowTheme.of(
                                                               context)
-                                                          .bodyText1Family,
+                                                          .bodyMediumFamily,
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .secondaryText,
@@ -362,7 +369,7 @@ class _ProfileSetup5WidgetState extends State<ProfileSetup5Widget>
                                                       .containsKey(
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .bodyText1Family),
+                                                              .bodyMediumFamily),
                                                 ),
                                             hintText: valueOrDefault<String>(
                                               valueOrDefault(
@@ -372,12 +379,12 @@ class _ProfileSetup5WidgetState extends State<ProfileSetup5Widget>
                                             ),
                                             hintStyle:
                                                 FlutterFlowTheme.of(context)
-                                                    .bodyText2
+                                                    .bodySmall
                                                     .override(
                                                       fontFamily:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .bodyText2Family,
+                                                              .bodySmallFamily,
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -387,7 +394,7 @@ class _ProfileSetup5WidgetState extends State<ProfileSetup5Widget>
                                                           .containsKey(
                                                               FlutterFlowTheme.of(
                                                                       context)
-                                                                  .bodyText2Family),
+                                                                  .bodySmallFamily),
                                                     ),
                                             enabledBorder: UnderlineInputBorder(
                                               borderSide: BorderSide(
@@ -406,7 +413,7 @@ class _ProfileSetup5WidgetState extends State<ProfileSetup5Widget>
                                               borderSide: BorderSide(
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .primaryColor,
+                                                        .primary,
                                                 width: 1.0,
                                               ),
                                               borderRadius:
@@ -440,7 +447,7 @@ class _ProfileSetup5WidgetState extends State<ProfileSetup5Widget>
                                             ),
                                           ),
                                           style: FlutterFlowTheme.of(context)
-                                              .bodyText1,
+                                              .bodyMedium,
                                           maxLines: 25,
                                           minLines: 1,
                                           keyboardType: TextInputType.multiline,
@@ -496,11 +503,11 @@ class _ProfileSetup5WidgetState extends State<ProfileSetup5Widget>
                                     'Alle Informationen können später in den Einstellungen überarbeitet werden.',
                                     textAlign: TextAlign.start,
                                     style: FlutterFlowTheme.of(context)
-                                        .bodyText1
+                                        .bodyMedium
                                         .override(
                                           fontFamily:
                                               FlutterFlowTheme.of(context)
-                                                  .bodyText1Family,
+                                                  .bodyMediumFamily,
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryText,
                                           fontSize: 15.0,
@@ -508,7 +515,7 @@ class _ProfileSetup5WidgetState extends State<ProfileSetup5Widget>
                                           useGoogleFonts: GoogleFonts.asMap()
                                               .containsKey(
                                                   FlutterFlowTheme.of(context)
-                                                      .bodyText1Family),
+                                                      .bodyMediumFamily),
                                         ),
                                   ),
                                 ],
@@ -519,6 +526,10 @@ class _ProfileSetup5WidgetState extends State<ProfileSetup5Widget>
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     25.0, 15.0, 25.0, 25.0),
                                 child: InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
                                   onTap: () async {
                                     logFirebaseEvent(
                                         'PROFILE_SETUP5_Container_8akvfxzs_ON_TAP');
@@ -573,7 +584,7 @@ class _ProfileSetup5WidgetState extends State<ProfileSetup5Widget>
                                     child: Container(
                                       decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)
-                                            .primaryColor,
+                                            .primary,
                                         borderRadius:
                                             BorderRadius.circular(15.0),
                                       ),
@@ -583,11 +594,11 @@ class _ProfileSetup5WidgetState extends State<ProfileSetup5Widget>
                                         child: Text(
                                           'Weiter zur App',
                                           style: FlutterFlowTheme.of(context)
-                                              .bodyText1
+                                              .bodyMedium
                                               .override(
                                                 fontFamily:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyText1Family,
+                                                        .bodyMediumFamily,
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryBackground,
@@ -598,7 +609,7 @@ class _ProfileSetup5WidgetState extends State<ProfileSetup5Widget>
                                                     .containsKey(
                                                         FlutterFlowTheme.of(
                                                                 context)
-                                                            .bodyText1Family),
+                                                            .bodyMediumFamily),
                                               ),
                                         ),
                                       ),

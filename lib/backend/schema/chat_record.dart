@@ -1,52 +1,75 @@
 import 'dart:async';
 
+import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
+
 import 'index.dart';
-import 'serializers.dart';
-import 'package:built_value/built_value.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
-part 'chat_record.g.dart';
+class ChatRecord extends FirestoreRecord {
+  ChatRecord._(
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
+    _initializeFields();
+  }
 
-abstract class ChatRecord implements Built<ChatRecord, ChatRecordBuilder> {
-  static Serializer<ChatRecord> get serializer => _$chatRecordSerializer;
+  // "sender" field.
+  DocumentReference? _sender;
+  DocumentReference? get sender => _sender;
+  bool hasSender() => _sender != null;
 
-  DocumentReference? get sender;
+  // "receiver" field.
+  DocumentReference? _receiver;
+  DocumentReference? get receiver => _receiver;
+  bool hasReceiver() => _receiver != null;
 
-  DocumentReference? get receiver;
+  // "last_activity" field.
+  String? _lastActivity;
+  String get lastActivity => _lastActivity ?? '';
+  bool hasLastActivity() => _lastActivity != null;
 
-  @BuiltValueField(wireName: 'last_activity')
-  String? get lastActivity;
+  // "order_date" field.
+  DateTime? _orderDate;
+  DateTime? get orderDate => _orderDate;
+  bool hasOrderDate() => _orderDate != null;
 
-  @BuiltValueField(wireName: 'order_date')
-  DateTime? get orderDate;
+  // "notifications" field.
+  int? _notifications;
+  int get notifications => _notifications ?? 0;
+  bool hasNotifications() => _notifications != null;
 
-  int? get notifications;
-
-  @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference? get ffRef;
-  DocumentReference get reference => ffRef!;
-
-  static void _initializeBuilder(ChatRecordBuilder builder) => builder
-    ..lastActivity = ''
-    ..notifications = 0;
+  void _initializeFields() {
+    _sender = snapshotData['sender'] as DocumentReference?;
+    _receiver = snapshotData['receiver'] as DocumentReference?;
+    _lastActivity = snapshotData['last_activity'] as String?;
+    _orderDate = snapshotData['order_date'] as DateTime?;
+    _notifications = snapshotData['notifications'] as int?;
+  }
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('chat');
 
-  static Stream<ChatRecord> getDocument(DocumentReference ref) => ref
-      .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Stream<ChatRecord> getDocument(DocumentReference ref) =>
+      ref.snapshots().map((s) => ChatRecord.fromSnapshot(s));
 
-  static Future<ChatRecord> getDocumentOnce(DocumentReference ref) => ref
-      .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Future<ChatRecord> getDocumentOnce(DocumentReference ref) =>
+      ref.get().then((s) => ChatRecord.fromSnapshot(s));
 
-  ChatRecord._();
-  factory ChatRecord([void Function(ChatRecordBuilder) updates]) = _$ChatRecord;
+  static ChatRecord fromSnapshot(DocumentSnapshot snapshot) => ChatRecord._(
+        snapshot.reference,
+        mapFromFirestore(snapshot.data() as Map<String, dynamic>),
+      );
 
   static ChatRecord getDocumentFromData(
-          Map<String, dynamic> data, DocumentReference reference) =>
-      serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
+    Map<String, dynamic> data,
+    DocumentReference reference,
+  ) =>
+      ChatRecord._(reference, mapFromFirestore(data));
+
+  @override
+  String toString() =>
+      'ChatRecord(reference: ${reference.path}, data: $snapshotData)';
 }
 
 Map<String, dynamic> createChatRecordData({
@@ -56,16 +79,14 @@ Map<String, dynamic> createChatRecordData({
   DateTime? orderDate,
   int? notifications,
 }) {
-  final firestoreData = serializers.toFirestore(
-    ChatRecord.serializer,
-    ChatRecord(
-      (c) => c
-        ..sender = sender
-        ..receiver = receiver
-        ..lastActivity = lastActivity
-        ..orderDate = orderDate
-        ..notifications = notifications,
-    ),
+  final firestoreData = mapToFirestore(
+    <String, dynamic>{
+      'sender': sender,
+      'receiver': receiver,
+      'last_activity': lastActivity,
+      'order_date': orderDate,
+      'notifications': notifications,
+    }.withoutNulls,
   );
 
   return firestoreData;

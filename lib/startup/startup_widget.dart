@@ -1,4 +1,4 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/components/privacy_banner_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -35,8 +35,8 @@ class _StartupWidgetState extends State<StartupWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 500.ms,
-          begin: 1.0,
-          end: 0.75,
+          begin: Offset(1.0, 1.0),
+          end: Offset(0.75, 0.75),
         ),
         FadeEffect(
           curve: Curves.easeInOut,
@@ -49,8 +49,8 @@ class _StartupWidgetState extends State<StartupWidget>
           curve: Curves.easeInOut,
           delay: 500.ms,
           duration: 1000.ms,
-          begin: 1.0,
-          end: 500.0,
+          begin: Offset(1.0, 1.0),
+          end: Offset(500.0, 500.0),
         ),
         FadeEffect(
           curve: Curves.easeInOut,
@@ -85,7 +85,7 @@ class _StartupWidgetState extends State<StartupWidget>
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'startup'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      logFirebaseEvent('STARTUP_PAGE_startup_ON_PAGE_LOAD');
+      logFirebaseEvent('STARTUP_PAGE_startup_ON_INIT_STATE');
       logFirebaseEvent('startup_custom_action');
       await actions.lockOrientation();
       if (valueOrDefault<bool>(currentUserDocument?.darkMode, false) == true) {
@@ -101,15 +101,19 @@ class _StartupWidgetState extends State<StartupWidget>
         await showModalBottomSheet(
           isScrollControlled: true,
           backgroundColor: Color(0x80F5F5F5),
+          barrierColor: Color(0x00000000),
           isDismissible: false,
           enableDrag: false,
           context: context,
-          builder: (context) {
-            return Padding(
-              padding: MediaQuery.of(context).viewInsets,
-              child: Container(
-                height: MediaQuery.of(context).size.height * 1.0,
-                child: PrivacyBannerWidget(),
+          builder: (bottomSheetContext) {
+            return GestureDetector(
+              onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+              child: Padding(
+                padding: MediaQuery.of(bottomSheetContext).viewInsets,
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 1.0,
+                  child: PrivacyBannerWidget(),
+                ),
               ),
             );
           },
@@ -180,12 +184,15 @@ class _StartupWidgetState extends State<StartupWidget>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+    context.watch<FFAppState>();
+
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        body: SafeArea(
+          top: true,
           child: Align(
             alignment: AlignmentDirectional(0.0, 0.0),
             child: Container(

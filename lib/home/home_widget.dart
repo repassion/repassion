@@ -1,4 +1,4 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/push_notifications/push_notifications_util.dart';
 import '/components/no_entries_widget.dart';
@@ -98,12 +98,15 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+    context.watch<FFAppState>();
+
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        body: SafeArea(
+          top: true,
           child: Align(
             alignment: AlignmentDirectional(0.0, 0.0),
             child: Container(
@@ -151,6 +154,10 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           5.0, 0.0, 0.0, 0.0),
                                       child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
                                         onTap: () async {
                                           logFirebaseEvent(
                                               'HOME_PAGE_Icon_hzhhby5b_ON_TAP');
@@ -250,18 +257,17 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                               containerChatRecordList
                                                                   .map((e) => e
                                                                       .notifications)
-                                                                  .withoutNulls
                                                                   .toList(),
                                                               requestsCount)
                                                           .toString(),
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .bodyText1
+                                                              .bodyMedium
                                                               .override(
                                                                 fontFamily: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyText1Family,
+                                                                    .bodyMediumFamily,
                                                                 color: Colors
                                                                     .white,
                                                                 fontSize: 12.0,
@@ -272,7 +278,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                         .asMap()
                                                                     .containsKey(
                                                                         FlutterFlowTheme.of(context)
-                                                                            .bodyText1Family),
+                                                                            .bodyMediumFamily),
                                                               ),
                                                     ),
                                                     showBadge: functions
@@ -280,7 +286,6 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                 containerChatRecordList
                                                                     .map((e) =>
                                                                         e.notifications)
-                                                                    .withoutNulls
                                                                     .toList(),
                                                                 requestsCount)
                                                             .toString() !=
@@ -290,7 +295,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                     badgeColor:
                                                         FlutterFlowTheme.of(
                                                                 context)
-                                                            .primaryColor,
+                                                            .primary,
                                                     elevation: 1.0,
                                                     padding:
                                                         EdgeInsetsDirectional
@@ -311,6 +316,14 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                   5.0,
                                                                   0.0),
                                                       child: InkWell(
+                                                        splashColor:
+                                                            Colors.transparent,
+                                                        focusColor:
+                                                            Colors.transparent,
+                                                        hoverColor:
+                                                            Colors.transparent,
+                                                        highlightColor:
+                                                            Colors.transparent,
                                                         onTap: () async {
                                                           logFirebaseEvent(
                                                               'HOME_PAGE_Icon_fjikmp29_ON_TAP');
@@ -351,6 +364,10 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                       },
                                     ),
                                     InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
                                       onTap: () async {
                                         logFirebaseEvent(
                                             'HOME_PAGE_Icon_qla792zg_ON_TAP');
@@ -476,8 +493,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                         await currentUserReference!
                                             .update(userUpdateData1);
                                         if (swipeableStackUserRecordList[index]!
-                                                .requests!
-                                                .toList()
+                                                .requests
                                                 .contains(currentUserUid) !=
                                             true) {
                                           logFirebaseEvent(
@@ -642,12 +658,12 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                         maxLines:
                                                                             2,
                                                                         style: FlutterFlowTheme.of(context)
-                                                                            .title3
+                                                                            .headlineSmall
                                                                             .override(
-                                                                              fontFamily: FlutterFlowTheme.of(context).title3Family,
+                                                                              fontFamily: FlutterFlowTheme.of(context).headlineSmallFamily,
                                                                               fontSize: 20.0,
                                                                               fontWeight: FontWeight.bold,
-                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).title3Family),
+                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).headlineSmallFamily),
                                                                             ),
                                                                       ),
                                                                     ],
@@ -667,20 +683,20 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                         Text(
                                                                           '@${swipeableStackUserRecord.displayName}',
                                                                           style: FlutterFlowTheme.of(context)
-                                                                              .bodyText1
+                                                                              .bodyMedium
                                                                               .override(
-                                                                                fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
-                                                                                color: FlutterFlowTheme.of(context).primaryColor,
+                                                                                fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                color: FlutterFlowTheme.of(context).primary,
                                                                                 fontWeight: FontWeight.bold,
-                                                                                useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                               ),
                                                                         ),
-                                                                        if (swipeableStackUserRecord.verified ??
-                                                                            true)
+                                                                        if (swipeableStackUserRecord
+                                                                            .verified)
                                                                           Icon(
                                                                             Icons.verified,
                                                                             color:
-                                                                                FlutterFlowTheme.of(context).primaryColor,
+                                                                                FlutterFlowTheme.of(context).primary,
                                                                             size:
                                                                                 15.0,
                                                                           ),
@@ -697,10 +713,10 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                       'Information',
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
-                                                                          .bodyText1
+                                                                          .bodyMedium
                                                                           .override(
                                                                             fontFamily:
-                                                                                FlutterFlowTheme.of(context).bodyText1Family,
+                                                                                FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                             color:
                                                                                 FlutterFlowTheme.of(context).secondaryText,
                                                                             fontSize:
@@ -708,7 +724,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                             fontWeight:
                                                                                 FontWeight.w500,
                                                                             useGoogleFonts:
-                                                                                GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                           ),
                                                                     ),
                                                                   Padding(
@@ -742,16 +758,16 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                       children: [
                                                                         Text(
                                                                           swipeableStackUserRecord
-                                                                              .info!,
+                                                                              .info,
                                                                           maxLines:
                                                                               2,
                                                                           style: FlutterFlowTheme.of(context)
-                                                                              .title3
+                                                                              .headlineSmall
                                                                               .override(
-                                                                                fontFamily: FlutterFlowTheme.of(context).title3Family,
+                                                                                fontFamily: FlutterFlowTheme.of(context).headlineSmallFamily,
                                                                                 fontSize: 15.0,
                                                                                 fontWeight: FontWeight.w500,
-                                                                                useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).title3Family),
+                                                                                useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).headlineSmallFamily),
                                                                               ),
                                                                         ),
                                                                       ],
@@ -780,13 +796,13 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                         maxLines:
                                                                             2,
                                                                         style: FlutterFlowTheme.of(context)
-                                                                            .title3
+                                                                            .headlineSmall
                                                                             .override(
-                                                                              fontFamily: FlutterFlowTheme.of(context).title3Family,
-                                                                              color: FlutterFlowTheme.of(context).primaryColor,
+                                                                              fontFamily: FlutterFlowTheme.of(context).headlineSmallFamily,
+                                                                              color: FlutterFlowTheme.of(context).primary,
                                                                               fontSize: 12.0,
                                                                               fontWeight: FontWeight.bold,
-                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).title3Family),
+                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).headlineSmallFamily),
                                                                             ),
                                                                       ),
                                                                     ),
@@ -867,8 +883,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                         wrapIndex];
                                                                 return Visibility(
                                                                   visible: swipeableStackUserRecord
-                                                                          .mainTags!
-                                                                          .toList()
+                                                                          .mainTags
                                                                           .contains(
                                                                               wrapTagRecord.reference) ==
                                                                       true,
@@ -885,7 +900,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                       decoration:
                                                                           BoxDecoration(
                                                                         color: FlutterFlowTheme.of(context)
-                                                                            .primaryColor,
+                                                                            .primary,
                                                                         borderRadius:
                                                                             BorderRadius.circular(15.0),
                                                                       ),
@@ -899,14 +914,14 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                         child:
                                                                             Text(
                                                                           wrapTagRecord
-                                                                              .text!,
+                                                                              .text,
                                                                           style: FlutterFlowTheme.of(context)
-                                                                              .bodyText1
+                                                                              .bodyMedium
                                                                               .override(
-                                                                                fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                                fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                 color: FlutterFlowTheme.of(context).secondaryBackground,
                                                                                 fontSize: 12.0,
-                                                                                useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                               ),
                                                                         ),
                                                                       ),
@@ -981,14 +996,12 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                       wrapIndex];
                                                               return Visibility(
                                                                 visible: (swipeableStackUserRecord
-                                                                            .mainTags!
-                                                                            .toList()
+                                                                            .mainTags
                                                                             .contains(wrapTagRecord
                                                                                 .reference) ==
                                                                         false) &&
                                                                     (swipeableStackUserRecord
-                                                                            .tags!
-                                                                            .toList()
+                                                                            .tags
                                                                             .contains(wrapTagRecord.reference) ==
                                                                         true),
                                                                 child: Padding(
@@ -1019,13 +1032,13 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                       child:
                                                                           Text(
                                                                         wrapTagRecord
-                                                                            .text!,
+                                                                            .text,
                                                                         style: FlutterFlowTheme.of(context)
-                                                                            .bodyText1
+                                                                            .bodyMedium
                                                                             .override(
-                                                                              fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                               fontSize: 12.0,
-                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                             ),
                                                                       ),
                                                                     ),
@@ -1062,11 +1075,11 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                               'Über mich',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .bodyText1
+                                                                  .bodyMedium
                                                                   .override(
                                                                     fontFamily:
                                                                         FlutterFlowTheme.of(context)
-                                                                            .bodyText1Family,
+                                                                            .bodyMediumFamily,
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
                                                                         .secondaryText,
@@ -1078,7 +1091,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                     useGoogleFonts: GoogleFonts
                                                                             .asMap()
                                                                         .containsKey(
-                                                                            FlutterFlowTheme.of(context).bodyText1Family),
+                                                                            FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                   ),
                                                             ),
                                                             Padding(
@@ -1111,17 +1124,17 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                 children: [
                                                                   Text(
                                                                     swipeableStackUserRecord
-                                                                        .about!,
+                                                                        .about,
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .bodyText1
+                                                                        .bodyMedium
                                                                         .override(
                                                                           fontFamily:
-                                                                              FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                           fontWeight:
                                                                               FontWeight.w500,
                                                                           useGoogleFonts:
-                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                         ),
                                                                   ),
                                                                 ],
@@ -1149,11 +1162,11 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                             'Veröffentlichte Passions',
                                                             style: FlutterFlowTheme
                                                                     .of(context)
-                                                                .bodyText1
+                                                                .bodyMedium
                                                                 .override(
                                                                   fontFamily: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .bodyText1Family,
+                                                                      .bodyMediumFamily,
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
                                                                       .secondaryText,
@@ -1166,7 +1179,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                           .asMap()
                                                                       .containsKey(
                                                                           FlutterFlowTheme.of(context)
-                                                                              .bodyText1Family),
+                                                                              .bodyMediumFamily),
                                                                 ),
                                                           ),
                                                           Padding(
@@ -1264,6 +1277,14 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                           ),
                                                                           child:
                                                                               InkWell(
+                                                                            splashColor:
+                                                                                Colors.transparent,
+                                                                            focusColor:
+                                                                                Colors.transparent,
+                                                                            hoverColor:
+                                                                                Colors.transparent,
+                                                                            highlightColor:
+                                                                                Colors.transparent,
                                                                             onTap:
                                                                                 () async {
                                                                               logFirebaseEvent('HOME_PAGE_Tag_ON_TAP');
@@ -1318,14 +1339,14 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                                                         children: [
                                                                                           Text(
-                                                                                            passionsSearchPassionRecord.title!,
+                                                                                            passionsSearchPassionRecord.title,
                                                                                             textAlign: TextAlign.start,
                                                                                             maxLines: 2,
-                                                                                            style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                                  fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                  fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                                   fontSize: 15.0,
                                                                                                   fontWeight: FontWeight.w500,
-                                                                                                  useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                                  useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                                 ),
                                                                                           ),
                                                                                           Wrap(
@@ -1341,15 +1362,15 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                                               Padding(
                                                                                                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
                                                                                                 child: Text(
-                                                                                                  passionsSearchPassionRecord.description!,
+                                                                                                  passionsSearchPassionRecord.description,
                                                                                                   textAlign: TextAlign.start,
                                                                                                   maxLines: 1,
-                                                                                                  style: FlutterFlowTheme.of(context).bodyText1.override(
-                                                                                                        fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                        fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                                         color: FlutterFlowTheme.of(context).secondaryText,
                                                                                                         fontSize: 12.0,
                                                                                                         fontWeight: FontWeight.w500,
-                                                                                                        useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                                        useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                                       ),
                                                                                                 ),
                                                                                               ),
@@ -1362,6 +1383,10 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                                 ),
                                                                                 if ((currentUserDocument?.likes?.toList() ?? []).contains(passionsSearchPassionRecord.reference) != true)
                                                                                   InkWell(
+                                                                                    splashColor: Colors.transparent,
+                                                                                    focusColor: Colors.transparent,
+                                                                                    hoverColor: Colors.transparent,
+                                                                                    highlightColor: Colors.transparent,
                                                                                     onTap: () async {
                                                                                       logFirebaseEvent('HOME_PAGE_Icon_vnch59t5_ON_TAP');
                                                                                       logFirebaseEvent('Icon_backend_call');
@@ -1381,12 +1406,16 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                                     },
                                                                                     child: Icon(
                                                                                       Icons.favorite_border_sharp,
-                                                                                      color: FlutterFlowTheme.of(context).primaryColor,
+                                                                                      color: FlutterFlowTheme.of(context).primary,
                                                                                       size: 25.0,
                                                                                     ),
                                                                                   ),
                                                                                 if ((currentUserDocument?.likes?.toList() ?? []).contains(passionsSearchPassionRecord.reference) == true)
                                                                                   InkWell(
+                                                                                    splashColor: Colors.transparent,
+                                                                                    focusColor: Colors.transparent,
+                                                                                    hoverColor: Colors.transparent,
+                                                                                    highlightColor: Colors.transparent,
                                                                                     onTap: () async {
                                                                                       logFirebaseEvent('HOME_PAGE_Icon_y7b1uqnm_ON_TAP');
                                                                                       logFirebaseEvent('Icon_backend_call');
@@ -1406,7 +1435,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                                     },
                                                                                     child: Icon(
                                                                                       Icons.favorite_sharp,
-                                                                                      color: FlutterFlowTheme.of(context).primaryColor,
+                                                                                      color: FlutterFlowTheme.of(context).primary,
                                                                                       size: 25.0,
                                                                                     ),
                                                                                   ),
@@ -1487,6 +1516,10 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
                                   onTap: () async {
                                     logFirebaseEvent(
                                         'HOME_PAGE_Icon_jk9n88m1_ON_TAP');
@@ -1527,6 +1560,10 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                               ],
                             ),
                             InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
                               onTap: () async {
                                 logFirebaseEvent(
                                     'HOME_PAGE_Icon_kfgzjbtc_ON_TAP');
@@ -1560,8 +1597,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                               },
                               child: Icon(
                                 Icons.check_sharp,
-                                color:
-                                    FlutterFlowTheme.of(context).primaryColor,
+                                color: FlutterFlowTheme.of(context).primary,
                                 size: 50.0,
                               ),
                             ),

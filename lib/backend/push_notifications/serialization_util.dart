@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:built_value/built_value.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:from_css_color/from_css_color.dart';
 
-import '../../backend/backend.dart';
+import '/backend/backend.dart';
+
 import '../../flutter_flow/lat_lng.dart';
 import '../../flutter_flow/place.dart';
 import '../../flutter_flow/uploaded_file.dart';
@@ -52,7 +52,7 @@ dynamic serializeParameter(dynamic value) {
     return value.path;
   }
 
-  if (value is Built) {
+  if (value is FirestoreRecord) {
     return (value as dynamic).reference.path;
   }
 
@@ -156,14 +156,17 @@ T? getParameter<T>(Map<String, dynamic> data, String paramName) {
 }
 
 Future<T?> getDocumentParameter<T>(
-    Map<String, dynamic> data, String paramName, Serializer<T> serializer) {
+  Map<String, dynamic> data,
+  String paramName,
+  RecordBuilder<T> recordBuilder,
+) {
   if (!data.containsKey(paramName)) {
     return Future.value(null);
   }
   return FirebaseFirestore.instance
       .doc(data[paramName])
       .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .then((s) => recordBuilder(s));
 }
 
 /// END DESERIALIZATION HELPERS

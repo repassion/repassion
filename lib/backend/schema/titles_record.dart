@@ -1,59 +1,68 @@
 import 'dart:async';
 
+import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
+
 import 'index.dart';
-import 'serializers.dart';
-import 'package:built_value/built_value.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
-part 'titles_record.g.dart';
+class TitlesRecord extends FirestoreRecord {
+  TitlesRecord._(
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
+    _initializeFields();
+  }
 
-abstract class TitlesRecord
-    implements Built<TitlesRecord, TitlesRecordBuilder> {
-  static Serializer<TitlesRecord> get serializer => _$titlesRecordSerializer;
+  // "name" field.
+  String? _name;
+  String get name => _name ?? '';
+  bool hasName() => _name != null;
 
-  String? get name;
+  // "abbreviation" field.
+  String? _abbreviation;
+  String get abbreviation => _abbreviation ?? '';
+  bool hasAbbreviation() => _abbreviation != null;
 
-  String? get abbreviation;
-
-  @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference? get ffRef;
-  DocumentReference get reference => ffRef!;
-
-  static void _initializeBuilder(TitlesRecordBuilder builder) => builder
-    ..name = ''
-    ..abbreviation = '';
+  void _initializeFields() {
+    _name = snapshotData['name'] as String?;
+    _abbreviation = snapshotData['abbreviation'] as String?;
+  }
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('titles');
 
-  static Stream<TitlesRecord> getDocument(DocumentReference ref) => ref
-      .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Stream<TitlesRecord> getDocument(DocumentReference ref) =>
+      ref.snapshots().map((s) => TitlesRecord.fromSnapshot(s));
 
-  static Future<TitlesRecord> getDocumentOnce(DocumentReference ref) => ref
-      .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Future<TitlesRecord> getDocumentOnce(DocumentReference ref) =>
+      ref.get().then((s) => TitlesRecord.fromSnapshot(s));
 
-  TitlesRecord._();
-  factory TitlesRecord([void Function(TitlesRecordBuilder) updates]) =
-      _$TitlesRecord;
+  static TitlesRecord fromSnapshot(DocumentSnapshot snapshot) => TitlesRecord._(
+        snapshot.reference,
+        mapFromFirestore(snapshot.data() as Map<String, dynamic>),
+      );
 
   static TitlesRecord getDocumentFromData(
-          Map<String, dynamic> data, DocumentReference reference) =>
-      serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
+    Map<String, dynamic> data,
+    DocumentReference reference,
+  ) =>
+      TitlesRecord._(reference, mapFromFirestore(data));
+
+  @override
+  String toString() =>
+      'TitlesRecord(reference: ${reference.path}, data: $snapshotData)';
 }
 
 Map<String, dynamic> createTitlesRecordData({
   String? name,
   String? abbreviation,
 }) {
-  final firestoreData = serializers.toFirestore(
-    TitlesRecord.serializer,
-    TitlesRecord(
-      (t) => t
-        ..name = name
-        ..abbreviation = abbreviation,
-    ),
+  final firestoreData = mapToFirestore(
+    <String, dynamic>{
+      'name': name,
+      'abbreviation': abbreviation,
+    }.withoutNulls,
   );
 
   return firestoreData;

@@ -1,4 +1,4 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/push_notifications/push_notifications_util.dart';
 import '/components/no_entries_widget.dart';
@@ -45,7 +45,7 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'ChatWindow'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      logFirebaseEvent('CHAT_WINDOW_PAGE_ChatWindow_ON_PAGE_LOAD');
+      logFirebaseEvent('CHAT_WINDOW_ChatWindow_ON_INIT_STATE');
       logFirebaseEvent('ChatWindow_wait__delay');
       await Future.delayed(const Duration(milliseconds: 500));
       logFirebaseEvent('ChatWindow_scroll_to');
@@ -70,12 +70,15 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+    context.watch<FFAppState>();
+
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        body: SafeArea(
+          top: true,
           child: Align(
             alignment: AlignmentDirectional(0.0, 0.0),
             child: StreamBuilder<ChatRecord>(
@@ -272,7 +275,7 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                                   BoxDecoration(
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .primaryColor,
+                                                                    .primary,
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .only(
@@ -322,15 +325,15 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                                         child:
                                                                             Text(
                                                                       columnMessageRecord
-                                                                          .message!,
+                                                                          .message,
                                                                       maxLines:
                                                                           25,
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
-                                                                          .bodyText1
+                                                                          .bodyMedium
                                                                           .override(
                                                                             fontFamily:
-                                                                                FlutterFlowTheme.of(context).bodyText1Family,
+                                                                                FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                             color:
                                                                                 FlutterFlowTheme.of(context).secondaryBackground,
                                                                             fontSize:
@@ -338,7 +341,7 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                                             fontWeight:
                                                                                 FontWeight.w500,
                                                                             useGoogleFonts:
-                                                                                GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                           ),
                                                                     )),
                                                                     Padding(
@@ -357,13 +360,13 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                                               FFLocalizations.of(context).languageShortCode ?? FFLocalizations.of(context).languageCode,
                                                                         ),
                                                                         style: FlutterFlowTheme.of(context)
-                                                                            .bodyText1
+                                                                            .bodyMedium
                                                                             .override(
-                                                                              fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                               color: FlutterFlowTheme.of(context).secondaryText,
                                                                               fontSize: 12.0,
                                                                               fontWeight: FontWeight.w600,
-                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                             ),
                                                                       ),
                                                                     ),
@@ -390,7 +393,7 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                                         Icons
                                                                             .done_all_sharp,
                                                                         color: FlutterFlowTheme.of(context)
-                                                                            .secondaryColor,
+                                                                            .secondary,
                                                                         size:
                                                                             15.0,
                                                                       ),
@@ -478,13 +481,13 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                                         child:
                                                                             Text(
                                                                       columnMessageRecord
-                                                                          .message!,
+                                                                          .message,
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
-                                                                          .bodyText1
+                                                                          .bodyMedium
                                                                           .override(
                                                                             fontFamily:
-                                                                                FlutterFlowTheme.of(context).bodyText1Family,
+                                                                                FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                             color:
                                                                                 FlutterFlowTheme.of(context).primaryText,
                                                                             fontSize:
@@ -492,7 +495,7 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                                             fontWeight:
                                                                                 FontWeight.w500,
                                                                             useGoogleFonts:
-                                                                                GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                                GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                           ),
                                                                     )),
                                                                     Padding(
@@ -511,12 +514,12 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                                               FFLocalizations.of(context).languageShortCode ?? FFLocalizations.of(context).languageCode,
                                                                         ),
                                                                         style: FlutterFlowTheme.of(context)
-                                                                            .bodyText1
+                                                                            .bodyMedium
                                                                             .override(
-                                                                              fontFamily: FlutterFlowTheme.of(context).bodyText1Family,
+                                                                              fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                               color: FlutterFlowTheme.of(context).secondaryText,
                                                                               fontSize: 12.0,
-                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyText1Family),
+                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                             ),
                                                                       ),
                                                                     ),
@@ -538,7 +541,7 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                                         Icons
                                                                             .done_all_sharp,
                                                                         color: FlutterFlowTheme.of(context)
-                                                                            .secondaryColor,
+                                                                            .secondary,
                                                                         size:
                                                                             15.0,
                                                                       ),
@@ -596,6 +599,10 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                       CrossAxisAlignment.stretch,
                                   children: [
                                     InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
                                       onTap: () async {
                                         logFirebaseEvent(
                                             'CHAT_WINDOW_PAGE_Row_g470pb8q_ON_TAP');
@@ -683,17 +690,16 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                                     notificationsChatRecordList
                                                                         .map((e) =>
                                                                             e.notifications)
-                                                                        .withoutNulls
                                                                         .toList(),
                                                                     requestsCount)
                                                                 .toString(),
                                                             style: FlutterFlowTheme
                                                                     .of(context)
-                                                                .bodyText1
+                                                                .bodyMedium
                                                                 .override(
                                                                   fontFamily: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .bodyText1Family,
+                                                                      .bodyMediumFamily,
                                                                   color: Colors
                                                                       .white,
                                                                   fontSize:
@@ -705,7 +711,7 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                                           .asMap()
                                                                       .containsKey(
                                                                           FlutterFlowTheme.of(context)
-                                                                              .bodyText1Family),
+                                                                              .bodyMediumFamily),
                                                                 ),
                                                           ),
                                                           showBadge: functions
@@ -713,7 +719,6 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                                       notificationsChatRecordList
                                                                           .map((e) =>
                                                                               e.notifications)
-                                                                          .withoutNulls
                                                                           .toList(),
                                                                       requestsCount)
                                                                   .toString() !=
@@ -724,7 +729,7 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                           badgeColor:
                                                               FlutterFlowTheme.of(
                                                                       context)
-                                                                  .primaryColor,
+                                                                  .primary,
                                                           elevation: 1.0,
                                                           padding:
                                                               EdgeInsetsDirectional
@@ -745,7 +750,7 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                                 .chevron_left_sharp,
                                                             color: FlutterFlowTheme
                                                                     .of(context)
-                                                                .primaryColor,
+                                                                .primary,
                                                             size: 50.0,
                                                           ),
                                                         ),
@@ -782,6 +787,10 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                     ),
                                     Expanded(
                                       child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
                                         onTap: () async {
                                           logFirebaseEvent(
                                               'CHAT_WINDOW_Container_g96zaypv_ON_TAP');
@@ -857,11 +866,11 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .title3
+                                                                .headlineSmall
                                                                 .override(
                                                                   fontFamily: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .title3Family,
+                                                                      .headlineSmallFamily,
                                                                   fontSize:
                                                                       15.0,
                                                                   fontWeight:
@@ -871,7 +880,7 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                                           .asMap()
                                                                       .containsKey(
                                                                           FlutterFlowTheme.of(context)
-                                                                              .title3Family),
+                                                                              .headlineSmallFamily),
                                                                 ),
                                                       ),
                                                     ],
@@ -886,14 +895,14 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .bodyText1
+                                                              .bodyMedium
                                                               .override(
                                                                 fontFamily: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyText1Family,
+                                                                    .bodyMediumFamily,
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .primaryColor,
+                                                                    .primary,
                                                                 fontSize: 12.0,
                                                                 fontWeight:
                                                                     FontWeight
@@ -902,18 +911,17 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                                         .asMap()
                                                                     .containsKey(
                                                                         FlutterFlowTheme.of(context)
-                                                                            .bodyText1Family),
+                                                                            .bodyMediumFamily),
                                                               ),
                                                     ),
                                                     if (mainUserUserRecord
-                                                            .verified ??
-                                                        true)
+                                                        .verified)
                                                       Icon(
                                                         Icons.verified,
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .primaryColor,
+                                                                .primary,
                                                         size: 12.0,
                                                       ),
                                                   ],
@@ -1172,11 +1180,11 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                                     'Nachricht schreiben...',
                                                                 hintStyle: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyText2
+                                                                    .bodySmall
                                                                     .override(
                                                                       fontFamily:
                                                                           FlutterFlowTheme.of(context)
-                                                                              .bodyText2Family,
+                                                                              .bodySmallFamily,
                                                                       color: FlutterFlowTheme.of(
                                                                               context)
                                                                           .secondaryText,
@@ -1188,7 +1196,7 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                                       useGoogleFonts: GoogleFonts
                                                                               .asMap()
                                                                           .containsKey(
-                                                                              FlutterFlowTheme.of(context).bodyText2Family),
+                                                                              FlutterFlowTheme.of(context).bodySmallFamily),
                                                                     ),
                                                                 enabledBorder:
                                                                     UnderlineInputBorder(
@@ -1280,11 +1288,11 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                               ),
                                                               style: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .bodyText1
+                                                                  .bodyMedium
                                                                   .override(
                                                                     fontFamily:
                                                                         FlutterFlowTheme.of(context)
-                                                                            .bodyText1Family,
+                                                                            .bodyMediumFamily,
                                                                     fontSize:
                                                                         15.0,
                                                                     fontWeight:
@@ -1293,7 +1301,7 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                                     useGoogleFonts: GoogleFonts
                                                                             .asMap()
                                                                         .containsKey(
-                                                                            FlutterFlowTheme.of(context).bodyText1Family),
+                                                                            FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                   ),
                                                               maxLines: 15,
                                                               minLines: 1,
@@ -1306,6 +1314,14 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                         ),
                                                       ),
                                                       InkWell(
+                                                        splashColor:
+                                                            Colors.transparent,
+                                                        focusColor:
+                                                            Colors.transparent,
+                                                        hoverColor:
+                                                            Colors.transparent,
+                                                        highlightColor:
+                                                            Colors.transparent,
                                                         onTap: () async {
                                                           logFirebaseEvent(
                                                               'CHAT_WINDOW_Container_xbsbbilf_ON_TAP');
@@ -1437,7 +1453,7 @@ class _ChatWindowWidgetState extends State<ChatWindowWidget> {
                                                               BoxDecoration(
                                                             color: FlutterFlowTheme
                                                                     .of(context)
-                                                                .primaryColor,
+                                                                .primary,
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(

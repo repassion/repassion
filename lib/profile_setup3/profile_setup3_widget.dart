@@ -1,10 +1,10 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/upload_media.dart';
+import '/flutter_flow/upload_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -94,12 +94,15 @@ class _ProfileSetup3WidgetState extends State<ProfileSetup3Widget>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+    context.watch<FFAppState>();
+
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        body: SafeArea(
+          top: true,
           child: Align(
             alignment: AlignmentDirectional(0.0, 0.0),
             child: Container(
@@ -133,6 +136,10 @@ class _ProfileSetup3WidgetState extends State<ProfileSetup3Widget>
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
                                     onTap: () async {
                                       logFirebaseEvent(
                                           'PROFILE_SETUP3_PAGE_Row_fphfopsc_ON_TAP');
@@ -147,17 +154,17 @@ class _ProfileSetup3WidgetState extends State<ProfileSetup3Widget>
                                         Icon(
                                           Icons.chevron_left_sharp,
                                           color: FlutterFlowTheme.of(context)
-                                              .primaryColor,
+                                              .primary,
                                           size: 50.0,
                                         ),
                                         Text(
                                           'Profil erstellen',
                                           style: FlutterFlowTheme.of(context)
-                                              .bodyText1
+                                              .bodyMedium
                                               .override(
                                                 fontFamily:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyText1Family,
+                                                        .bodyMediumFamily,
                                                 fontSize: 18.0,
                                                 fontWeight: FontWeight.w500,
                                                 useGoogleFonts: GoogleFonts
@@ -165,7 +172,7 @@ class _ProfileSetup3WidgetState extends State<ProfileSetup3Widget>
                                                     .containsKey(
                                                         FlutterFlowTheme.of(
                                                                 context)
-                                                            .bodyText1Family),
+                                                            .bodyMediumFamily),
                                               ),
                                         ),
                                       ],
@@ -176,23 +183,23 @@ class _ProfileSetup3WidgetState extends State<ProfileSetup3Widget>
                                     radius: 25.0,
                                     lineWidth: 5.0,
                                     animation: true,
-                                    progressColor: FlutterFlowTheme.of(context)
-                                        .primaryColor,
+                                    progressColor:
+                                        FlutterFlowTheme.of(context).primary,
                                     backgroundColor: Color(0x8015402C),
                                     center: Text(
                                       '3/5',
                                       style: FlutterFlowTheme.of(context)
-                                          .bodyText1
+                                          .bodyMedium
                                           .override(
                                             fontFamily:
                                                 FlutterFlowTheme.of(context)
-                                                    .bodyText1Family,
+                                                    .bodyMediumFamily,
                                             color: FlutterFlowTheme.of(context)
-                                                .primaryColor,
+                                                .primary,
                                             useGoogleFonts: GoogleFonts.asMap()
                                                 .containsKey(
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyText1Family),
+                                                        .bodyMediumFamily),
                                           ),
                                     ),
                                   ),
@@ -219,16 +226,16 @@ class _ProfileSetup3WidgetState extends State<ProfileSetup3Widget>
                                   Text(
                                     'Möchtest Du ein Profilbild hochladen?',
                                     style: FlutterFlowTheme.of(context)
-                                        .bodyText1
+                                        .bodyMedium
                                         .override(
                                           fontFamily:
                                               FlutterFlowTheme.of(context)
-                                                  .bodyText1Family,
+                                                  .bodyMediumFamily,
                                           fontSize: 18.0,
                                           useGoogleFonts: GoogleFonts.asMap()
                                               .containsKey(
                                                   FlutterFlowTheme.of(context)
-                                                      .bodyText1Family),
+                                                      .bodyMediumFamily),
                                         ),
                                   ),
                                   Column(
@@ -294,6 +301,14 @@ class _ProfileSetup3WidgetState extends State<ProfileSetup3Widget>
                                                             .center,
                                                     children: [
                                                       InkWell(
+                                                        splashColor:
+                                                            Colors.transparent,
+                                                        focusColor:
+                                                            Colors.transparent,
+                                                        hoverColor:
+                                                            Colors.transparent,
+                                                        highlightColor:
+                                                            Colors.transparent,
                                                         onTap: () async {
                                                           logFirebaseEvent(
                                                               'PROFILE_SETUP3_Container_0zn6rb52_ON_TAP');
@@ -306,7 +321,7 @@ class _ProfileSetup3WidgetState extends State<ProfileSetup3Widget>
                                                               _model.uploadedFileUrl !=
                                                                   '') {
                                                             logFirebaseEvent(
-                                                                'Container_delete_media');
+                                                                'Container_delete_data');
                                                             await FirebaseStorage
                                                                 .instance
                                                                 .refFromURL(_model
@@ -329,7 +344,7 @@ class _ProfileSetup3WidgetState extends State<ProfileSetup3Widget>
                                                                       m.storagePath,
                                                                       context))) {
                                                             setState(() => _model
-                                                                    .isMediaUploading =
+                                                                    .isDataUploading =
                                                                 true);
                                                             var selectedUploadedFiles =
                                                                 <FFUploadedFile>[];
@@ -354,6 +369,8 @@ class _ProfileSetup3WidgetState extends State<ProfileSetup3Widget>
                                                                                 m.dimensions?.height,
                                                                             width:
                                                                                 m.dimensions?.width,
+                                                                            blurHash:
+                                                                                m.blurHash,
                                                                           ))
                                                                       .toList();
 
@@ -378,7 +395,7 @@ class _ProfileSetup3WidgetState extends State<ProfileSetup3Widget>
                                                               ScaffoldMessenger
                                                                       .of(context)
                                                                   .hideCurrentSnackBar();
-                                                              _model.isMediaUploading =
+                                                              _model.isDataUploading =
                                                                   false;
                                                             }
                                                             if (selectedUploadedFiles
@@ -419,7 +436,7 @@ class _ProfileSetup3WidgetState extends State<ProfileSetup3Widget>
                                                               BoxDecoration(
                                                             color: FlutterFlowTheme
                                                                     .of(context)
-                                                                .primaryColor,
+                                                                .primary,
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .only(
@@ -453,18 +470,18 @@ class _ProfileSetup3WidgetState extends State<ProfileSetup3Widget>
                                                                       .center,
                                                               style: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .bodyText1
+                                                                  .bodyMedium
                                                                   .override(
                                                                     fontFamily:
                                                                         FlutterFlowTheme.of(context)
-                                                                            .bodyText1Family,
+                                                                            .bodyMediumFamily,
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
                                                                         .secondaryBackground,
                                                                     useGoogleFonts: GoogleFonts
                                                                             .asMap()
                                                                         .containsKey(
-                                                                            FlutterFlowTheme.of(context).bodyText1Family),
+                                                                            FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                   ),
                                                             ),
                                                           ),
@@ -507,6 +524,10 @@ class _ProfileSetup3WidgetState extends State<ProfileSetup3Widget>
                           padding: EdgeInsetsDirectional.fromSTEB(
                               25.0, 25.0, 25.0, 25.0),
                           child: InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
                             onTap: () async {
                               logFirebaseEvent(
                                   'PROFILE_SETUP3_Container_ajyhl9lu_ON_TAP');
@@ -540,8 +561,7 @@ class _ProfileSetup3WidgetState extends State<ProfileSetup3Widget>
                               ),
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryColor,
+                                  color: FlutterFlowTheme.of(context).primary,
                                   borderRadius: BorderRadius.circular(15.0),
                                 ),
                                 child: Align(
@@ -549,11 +569,11 @@ class _ProfileSetup3WidgetState extends State<ProfileSetup3Widget>
                                   child: Text(
                                     'Nächster Schritt',
                                     style: FlutterFlowTheme.of(context)
-                                        .bodyText1
+                                        .bodyMedium
                                         .override(
                                           fontFamily:
                                               FlutterFlowTheme.of(context)
-                                                  .bodyText1Family,
+                                                  .bodyMediumFamily,
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryBackground,
                                           fontSize: 18.0,
@@ -561,7 +581,7 @@ class _ProfileSetup3WidgetState extends State<ProfileSetup3Widget>
                                           useGoogleFonts: GoogleFonts.asMap()
                                               .containsKey(
                                                   FlutterFlowTheme.of(context)
-                                                      .bodyText1Family),
+                                                      .bodyMediumFamily),
                                         ),
                                   ),
                                 ),
